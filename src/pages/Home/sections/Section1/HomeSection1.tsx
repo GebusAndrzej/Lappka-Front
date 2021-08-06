@@ -1,5 +1,5 @@
 import React from 'react'
-import { Section } from "./components/HomeSection.styled"
+import { Section } from "../../components/HomeSection.styled"
 
 function HomeSection1(): JSX.Element {
     return (

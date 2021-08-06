@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from "./components/HomeSection.styled"
-import HomeSection1 from './HomeSection1';
+import HomeSection1 from './sections/Section1/HomeSection1';
 
 function Home(): JSX.Element {
     return (
