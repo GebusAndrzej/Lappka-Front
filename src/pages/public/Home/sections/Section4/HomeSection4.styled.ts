@@ -20,6 +20,7 @@ export const Wrapper = styled.div`
     width:558px;
     display:flex;
     flex-direction: column;
+    padding-top:60px;
     padding-bottom: 40px;
 
     @media (max-width: ${tablet}) {

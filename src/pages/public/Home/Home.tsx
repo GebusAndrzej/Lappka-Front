@@ -7,7 +7,6 @@ import HomeSection3 from './sections/Section3/HomeSection3';
 import HomeSection4 from './sections/Section4/HomeSection4';
 import HomeSection5 from './sections/Section5/HomeSection5';
 
-
 function Home(): JSX.Element {
     return (
         <>
