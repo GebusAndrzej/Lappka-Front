@@ -13,6 +13,11 @@ export const Grid = styled.div`
     }
 `;
 
+export const Container = styled.div`
+    padding-left: 20%;
+    padding-top: 10%;
+`;
+
 export const Wrapper = styled.div<{ direction?: string }>`
     position: relative;
     display:flex;
@@ -29,18 +34,34 @@ export const Center = styled.div`
 `;
 
 export const P = styled.p`
+    margin-top: 20px;
     color: ${CSS.gray};
 `;
 
-export const H2 = styled.span<{ color?: string }>`
-    font-family: Ubuntu;
+export const H2 = styled.span<{ color?: string, fontWeight?: string, fontSize?: string }>`
+    font-family: "Ubuntu";
+    font-weight: 500;
     margin: 0;
     display: inline-block;
     color: ${CSS.black};
-    word-break: break-all;
+    /* word-break: break-all; */
     word-wrap: break-word;
     ${(props) => props.color == "green" && css`
         color: ${CSS.green};
+    `}
+    ${(props) => props.fontWeight && css`
+        font-weight: ${props.fontWeight};
+        & * {
+            font-weight: ${props.fontWeight};
+
+        }
+    `}
+    ${(props) => props.fontSize && css`
+        font-size: ${props.fontSize};
+        & * {
+            font-size: ${props.fontSize};
+
+        }
     `}
 `;
 
@@ -48,17 +69,20 @@ export const H2 = styled.span<{ color?: string }>`
 export const Img1 = styled.img`
     position: absolute;
     max-width: 272px;
+    /* width:50%; */
 `;
 export const Img2 = styled.img`
-    left:275px;
+    left:300px;
     position: absolute;
     max-width: 272px;
+    /* width: 50%; */
 `;
 export const Img3 = styled.img`
-    left:275px;
+    left:300px;
     top:170px;
     position:absolute;
     max-width: 272px;
+    /* width:50%; */
 `;
 
 export const BGBox = styled.div`
