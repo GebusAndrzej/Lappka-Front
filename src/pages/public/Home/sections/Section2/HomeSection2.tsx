@@ -1,5 +1,6 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
+
 import { SectionTitle, GridContainer, GridItem, GridItemParagraph, GridItemTitle } from './HomeSection2.styled';
 
 function HomeSection2(): JSX.Element {

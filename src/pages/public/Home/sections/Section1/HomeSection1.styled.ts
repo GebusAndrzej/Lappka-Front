@@ -1,24 +1,36 @@
 import styled, { css } from "styled-components";
-// import { CSS } from '../../../../../static/cssStatic'
 import { CSS } from '../../../../../static/cssStatic'
+const tablet = "1000px";
+const mobile = "648px";
 
+//grid to divide page
 export const Grid = styled.div`
     box-sizing: border-box;
     max-width: 100%;
     height: 90vh;
     display:grid;
     grid-template-columns: 1fr 1fr;
+    margin-top:inherit;
+    transition-duration: inherit.5s;
+    margin-bottom: 50px;
 
-    @media (max-width: 768px) {
+    @media (max-height: 570px){
+        margin-bottom: 300px;
+    }
+
+    @media (max-width: ${tablet}) {
         grid-template-columns: 1fr;
+        margin-top: -20px;
+        margin-bottom:620px;
+    }
+    
+    @media (max-width: ${mobile}) {
+        margin-top: 50px;
+        margin-bottom: 150px;
     }
 `;
 
-export const Container = styled.div`
-    padding-left: 20%;
-    padding-top: 10%;
-`;
-
+// wrapper for left side
 export const Wrapper = styled.div<{ direction?: string }>`
     position: relative;
     display:flex;
@@ -28,25 +40,48 @@ export const Wrapper = styled.div<{ direction?: string }>`
     `}
 `;
 
+// left side container inside wrapper
+export const Container = styled.div`
+    padding-left: 20%;
+    padding-top: 10%;
+
+    @media (max-width: ${tablet}) {
+        padding-left:0;
+        padding-top:0;
+
+        padding:10%;
+    }
+`;
+
+//container for logo + name
 export const Center = styled.div`
     align-items: center;
     font-size: 38px;
     vertical-align: baseline;
 `;
 
-export const P = styled.p`
+//text under title
+export const Sub = styled.p`
     margin-top: 20px;
     color: ${CSS.gray};
 `;
 
-export const H2 = styled.span<{ color?: string, fontWeight?: string, fontSize?: string }>`
+//header
+export const H2 = styled.span<{
+    color?: string,
+    fontWeight?: string,
+    fontSize?: string,
+    marginTop?: string
+}>`
     font-family: "Ubuntu";
     font-weight: 500;
     margin: 0;
     display: inline-block;
     color: ${CSS.black};
-    /* word-break: break-all; */
+    letter-spacing: 1.425px;
     word-wrap: break-word;
+    font-size: 2.5rem;
+
     ${(props) => props.color == "green" && css`
         color: ${CSS.green};
     `}
@@ -54,38 +89,55 @@ export const H2 = styled.span<{ color?: string, fontWeight?: string, fontSize?: 
         font-weight: ${props.fontWeight};
         & * {
             font-weight: ${props.fontWeight};
-
         }
     `}
-    ${(props) => props.fontSize && css`
+    /* ${(props) => props.fontSize && css`
         font-size: ${props.fontSize};
         & * {
             font-size: ${props.fontSize};
-
         }
+    `} */
+    ${(props) => props.marginTop && css`
+        margin-top: ${props.marginTop};
     `}
 `;
 
-
+//left image
 export const Img1 = styled.img`
     position: absolute;
     max-width: 272px;
-    /* width:50%; */
+
+    @media (max-width:${tablet}) {
+        left:10%;
+    }
+    
 `;
+
+//right top image
 export const Img2 = styled.img`
-    left:300px;
+    left:50%;
     position: absolute;
     max-width: 272px;
-    /* width: 50%; */
+
+    @media (max-width:${tablet}) {
+        display:none;
+    }
 `;
+
+//right bottom image
 export const Img3 = styled.img`
-    left:300px;
+    left:50%;
     top:170px;
     position:absolute;
     max-width: 272px;
-    /* width:50%; */
+
+    @media (max-width:${tablet}) {
+        top:0;
+        left:50%
+    }
 `;
 
+//green box on the right side
 export const BGBox = styled.div`
     width:90%;
     height:90%;
@@ -94,6 +146,82 @@ export const BGBox = styled.div`
     top:0;
     background: linear-gradient(135deg, #57D382 0.51%, #44A386 100%);
     border-radius: 0px 0px 0px 40px;
-    z-index: -9;
+    z-index: -900;
+
+    @media (max-width: ${tablet}) {
+        display: none;
+    }
+`;
+
+//container for whole right side 
+export const RightSide = styled.div`
+    position:absolute;
+    width:50%;
+    height:100%;
+
+    top:0;
+    left:50%;
+    transition-duration: .5s;
+
+    @media (max-width: ${tablet}) {
+        top:470px;
+        left:0%;
+        width:100%;
+    }
+    @media (max-width: ${mobile}) {
+        display:none;
+    }
+`;
+
+//button style
+export const Button = styled.a`
+    cursor: pointer;
+    text-decoration: none;
+    min-width:170px;
+    background-color:${CSS.green};
+    border:none;
+    border-radius: 27px;
+    height:54px;
+    display:flex;
+    color:white;
+    justify-content: center;
+    align-items: center;
+    margin-right: 20px;
+`;
+
+//logo in button
+export const Logo = styled.img`
+    line-height: 54px;
+    margin-right:10px;
+    margin-left:10px;
+`;
+
+//container fot text in buttons
+export const ButtonContainer = styled.div`
+    display:flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width:70%;
+    margin-top:50px;
+
+    @media (max-width: ${tablet}) {
+        width:100%;
+        margin-top: 30px;
+
+    }
+`;
+
+//text in buttons
+export const P = styled.p<{ weight?: string }>`
+    color:white;
+    margin:2px;
+    font-size: 12px;
+    font-family: "Nunito";
+    margin-right: 10px;
+
+    ${(props) => props.weight == "bold" && css`
+        font-weight: bold;
+        font-size: 16px;
+    `}
 `;
 
