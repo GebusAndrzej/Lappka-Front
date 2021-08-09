@@ -1,7 +1,7 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
 import styled from 'styled-components';
-import { CSS } from '../../../../static/cssStatic';
+import { CSS } from '../../../../../static/cssStatic';
 
 const SectionTitle = styled.h1`
     padding:30px;
@@ -26,7 +26,7 @@ const GridContainer = styled.div`
     }
 `;
 
-const GridItem = styled.div<{itemHeight?: string}>`
+const GridItem = styled.div<{ itemHeight?: string }>`
     display: flex;
     flex-direction: row;
     justify-content: baseline;
@@ -77,37 +77,37 @@ function HomeSection2(): JSX.Element {
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Zaadoptuj idealnego zwierzaka</GridItemTitle>
-                        <GridItemParagraph>Dzięki Łappce dużo łatwiej zaadaptujesz samotne zwierzaki. <br/>
-                        Znalezienie i wybranie Twojego nowego pupila są teraz jeszcze <br/>
-                        łatwiejsze – możesz to zrobić nie wychodząc z domu!</GridItemParagraph>
+                        <GridItemParagraph>Dzięki Łappce dużo łatwiej zaadaptujesz samotne zwierzaki. <br />
+                            Znalezienie i wybranie Twojego nowego pupila są teraz jeszcze <br />
+                            łatwiejsze – możesz to zrobić nie wychodząc z domu!</GridItemParagraph>
                     </div>
                 </GridItem>
                 <GridItem>
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Wybierz idealny wolontariat</GridItemTitle>
-                        <GridItemParagraph>Korzystając z Łappki wejdziesz do społeczności osób, <br/>
-                        którym nie jest obojętny los zwierzaków. Razem możemy <br/>
-                        pomóc jeszcze większej ilości opuszczonych zwierzaków.</GridItemParagraph>
+                        <GridItemParagraph>Korzystając z Łappki wejdziesz do społeczności osób, <br />
+                            którym nie jest obojętny los zwierzaków. Razem możemy <br />
+                            pomóc jeszcze większej ilości opuszczonych zwierzaków.</GridItemParagraph>
                     </div>
                 </GridItem>
                 <GridItem itemHeight="180px">
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Zadbaj o swojego pupila</GridItemTitle>
-                        <GridItemParagraph>Oprócz adoptowania samotnych zwierząt, możesz również <br/>
-                        w niej prowadzić dokumentację medyczną swojego pupila i <br/>
-                        kontaktować się z innymi użytkownikami.</GridItemParagraph>
+                        <GridItemParagraph>Oprócz adoptowania samotnych zwierząt, możesz również <br />
+                            w niej prowadzić dokumentację medyczną swojego pupila i <br />
+                            kontaktować się z innymi użytkownikami.</GridItemParagraph>
                     </div>
                 </GridItem>
                 <GridItem itemHeight="180px">
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Odnajdź ukochaną zgubę</GridItemTitle>
-                        <GridItemParagraph>Czy zdarzyło ci się kiedyś, że Twój ukochany pies albo kot <br/>
-                        uciekł lub zniknął? Niestety zdarza się to dość często. Dlatego <br/>
-                        postanowiliśmy wykorzystać działanie Łappki oraz życzliwość <br/>
-                        społeczności, do wspólnego rozwiązywania takich problemów!</GridItemParagraph>
+                        <GridItemParagraph>Czy zdarzyło ci się kiedyś, że Twój ukochany pies albo kot <br />
+                            uciekł lub zniknął? Niestety zdarza się to dość często. Dlatego <br />
+                            postanowiliśmy wykorzystać działanie Łappki oraz życzliwość <br />
+                            społeczności, do wspólnego rozwiązywania takich problemów!</GridItemParagraph>
                     </div>
                 </GridItem>
             </GridContainer>

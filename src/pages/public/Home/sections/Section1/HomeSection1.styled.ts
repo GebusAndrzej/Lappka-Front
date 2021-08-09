@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
-import { CSS } from '../../../../static/cssStatic'
+// import { CSS } from '../../../../../static/cssStatic'
+import { CSS } from '../../../../../static/cssStatic'
 
 export const Grid = styled.div`
     box-sizing: border-box;
