@@ -22,7 +22,7 @@ const GridContainer = styled.div`
 
     @media(max-width:1209px){
         grid-template-columns: 1fr;
-        width: 110%;
+        width: 100%;
     }
 `;
 
