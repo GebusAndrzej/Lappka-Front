@@ -48,7 +48,6 @@ export const Container = styled.div`
     @media (max-width: ${tablet}) {
         padding-left:0;
         padding-top:0;
-
         padding:10%;
     }
 `;
