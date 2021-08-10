@@ -1,17 +1,7 @@
 import { CSS } from '../../../../../static/cssStatic';
 import styled from 'styled-components';
 
-export const BG = styled.div`
-    position: absolute;
-    left:0;
-    width:100%;
-    height:200px;
-    background-color: ${CSS.bg2};
-    clip-path: polygon(0 0, 100% 0, 100% 10%, 50% 100%,0% 10%);
-    z-index: -9;
-`;
-
-export const Box = styled.h1`
+export const Box = styled.div`
     box-sizing: border-box;
     display: flex;
     margin: 0px auto;

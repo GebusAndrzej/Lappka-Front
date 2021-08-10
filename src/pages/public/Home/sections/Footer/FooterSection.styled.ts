@@ -4,16 +4,22 @@ import styled from 'styled-components';
 export const GridContainer = styled.div`
     display: grid;
     margin: 0 auto;
-    height: 177px;
     width: 1149px;
+    line-height: 200px;
     grid-template-columns: 1fr 1fr 1fr;
     @media(max-width:1280px){
-        grid-template-columns: 1fr 2fr;
+        grid-template-columns: 1fr 1fr 1fr;
         width: 90%;
     }
-    @media(max-width:922px){
+    @media(max-width:1160px){
+        width: 700px;
+        height: auto;
+        flex-direction: column;
+    }
+    @media(max-width:683px){
         grid-template-columns: 1fr;
-        width: 80%;
+        width: 90%;
+        line-height: 50px;
     }
 `;
 export const GridItem = styled.div<{ marginSet?: string; }>`
@@ -22,49 +28,54 @@ export const GridItem = styled.div<{ marginSet?: string; }>`
     flex-direction: row;
     justify-content: space-between;
     margin: ${props => props.marginSet || "0 auto"};
-    /*
-    @media(max-width:1280px){
-        width: 100%;
-        height: auto;
-        padding: 0px 15px 30px 0px;
-    }
-    @media(max-width:922px){
-        width: 558px;
-        height: auto;
-        margin: 0 auto;
-        padding: 0px 15px 30px 0px;   
-    }
     @media(max-width:683px){
-        width: 100%;
-        height: auto;
-        padding: 0px 15px 30px 0px;
-    }*/
+        margin: 0 auto;
+    }
 `;
 
 
 export const LogoContainer = styled.div`
+    display: flex;
+    justify-content: center;
     align-items: center;
     font-size: 38px;
-    vertical-align: baseline;
+    vertical-align: text-bottom;
 `;
 export const Logo = styled.img`
-    line-height: 54px;
-    margin-right:10px;
-    margin-left:10px;
+    width: 71px;
+    height: 71px;
+    float: left;
 `;
 
-export const H2 = styled.span<{
-    color?: string,
-    fontWeight?: string,
-    fontSize?: string,
-    marginTop?: string
-}>`
-    font-family: "Ubuntu";
+export const LogoText = styled.h2`
+    font-family: 'Ubuntu';
     font-weight: 500;
-    margin: 0;
-    display: inline-block;
-    color: ${CSS.black};
+    font-size: 24px;
+    line-height: 48px;
+    margin-top: 24px;
     letter-spacing: 1.425px;
-    word-wrap: break-word;
-    font-size: 2.5rem;
-`
+    color: ${CSS.black};
+    float: left;
+
+`;
+
+export const FooterText = styled.span`
+    font-family: Ubuntu;
+    font-weight: normal;
+    font-size: 14px;
+    color: ${CSS.gray};
+`;
+export const Spacer = styled.span`
+    padding: 0px 15px;
+`;
+
+export const Link = styled.a`
+    cursor: pointer;
+    text-decoration: none;
+    border: none;
+    color: ${CSS.gray};
+`;
+
+export const ColorChange = styled.span<{colorValue?: string;}>`
+    color: ${props => props.colorValue || "${CSS.green}"};
+`;

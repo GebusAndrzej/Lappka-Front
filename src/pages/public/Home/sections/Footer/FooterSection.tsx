@@ -1,21 +1,25 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
-import { GridContainer, GridItem, Logo, LogoContainer } from './FooterSection.styled'
+import { ColorChange } from '../Section3/HomeSection3.styled'
+import { FooterText, GridContainer, GridItem, Link, Logo, LogoContainer, LogoText, Spacer } from './FooterSection.styled'
 
 function FooterSection(): JSX.Element {
     return (
     <Section itemBackground="white">
         <GridContainer>
             <GridItem marginSet="0px">
-                1123
+            <FooterText>© 2021 All rights reserved.</FooterText>
             </GridItem>
             <GridItem>
                 <LogoContainer>
-                    <Logo><img src="/assets/svg/logo.svg" alt="Logo" aria-label="Logo" /></Logo>
+                    <Logo src="/assets/svg/logo.svg" alt="Logo" />
+                    <LogoText>Ł<ColorChange>app</ColorChange>ka</LogoText>
                 </LogoContainer>
             </GridItem>
-            <GridItem marginSet="0 0 0 auto">3123
-
+            <GridItem marginSet="0 0 0 auto">
+                <FooterText><Link href="#">Regulamin</Link></FooterText>
+                <Spacer></Spacer>
+                <FooterText><Link href="#">Polityka Prywatności</Link></FooterText>
             </GridItem>
         </GridContainer>
     </Section>
