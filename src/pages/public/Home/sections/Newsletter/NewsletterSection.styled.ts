@@ -115,6 +115,9 @@ export const Button = styled.button`
     height: 56px;
     border: 0px;
     font-weight: 500;
+    @media(max-width:683px){
+        width: 100px;
+    }
 `;
 
 export const TotalInput = styled.div`
