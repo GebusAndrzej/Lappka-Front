@@ -16,11 +16,12 @@ export const GridContainer = styled.div`
         width: 80%;
     }
 `;
-export const GridItem = styled.div<{ itemHeight?: string }>`
+export const GridItem = styled.div<{ marginSet?: string; }>`
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    margin: ${props => props.marginSet || "0 auto"};
     /*
     @media(max-width:1280px){
         width: 100%;
@@ -41,7 +42,7 @@ export const GridItem = styled.div<{ itemHeight?: string }>`
 `;
 
 
-export const Center = styled.div`
+export const LogoContainer = styled.div`
     align-items: center;
     font-size: 38px;
     vertical-align: baseline;
@@ -51,7 +52,6 @@ export const Logo = styled.img`
     margin-right:10px;
     margin-left:10px;
 `;
-
 
 export const H2 = styled.span<{
     color?: string,
