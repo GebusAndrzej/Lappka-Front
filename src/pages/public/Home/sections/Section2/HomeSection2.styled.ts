@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const SectionTitle = styled.h1`
     padding:60px;
-    margin-top: 40px;
-    margin-bottom: 0px;
+    padding-top: 100px;
+    margin: 0px;
     font-family: 'Ubuntu';
     font-size: 38px;
     line-height: 48px;
@@ -18,48 +18,31 @@ export const GridContainer = styled.div`
     width: 1149px;
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
-    @media(max-width:1280px){
+    @media(max-width: ${props => props.theme.break.tablet} ){    //1280
         grid-template-columns: 1fr 1fr;
-        width: 90%;
+        width: 95%;
     }
-    @media(max-width:922px){
+    @media(max-width: ${props => props.theme.break.between} ){    //922
         grid-template-columns: 1fr;
-        width: 80%;
+        width: 90%;
     }
 `;
 
-export const GridItem = styled.div<{ itemHeight?: string }>`
+export const GridItem = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: baseline;
-    height: ${props => props.itemHeight || "160px;"};
-    width: 558px;
     text-align: left;
     background-color: white;
     box-shadow:0px 1px 10px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+    padding: 0px 15px 30px 0px;
     img{
         width:20px;
         height: 20px;
         line-height: 20px;
         margin: 30px 0px 0px 20px;
-    }
-    @media(max-width:1280px){
-        width: 100%;
-        height: auto;
-        padding: 0px 15px 30px 0px;
-    }
-    @media(max-width:922px){
-        width: 558px;
-        height: auto;
-        margin: 0 auto;
-        padding: 0px 15px 30px 0px;   
-    }
-    @media(max-width:683px){
-        width: 100%;
-        height: auto;
-        padding: 0px 15px 30px 0px;
     }
 `;
 

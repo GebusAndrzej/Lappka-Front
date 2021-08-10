@@ -26,7 +26,7 @@ function HomeSection2(): JSX.Element {
                             pomóc jeszcze większej ilości opuszczonych zwierzaków.</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="180px">
+                <GridItem>
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Zadbaj o swojego pupila</GridItemTitle>
@@ -35,7 +35,7 @@ function HomeSection2(): JSX.Element {
                             kontaktować się z innymi użytkownikami.</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="180px">
+                <GridItem>
                     <div><img src="/assets/svg/checkIcon.svg" ></img></div>
                     <div>
                         <GridItemTitle>Odnajdź ukochaną zgubę</GridItemTitle>

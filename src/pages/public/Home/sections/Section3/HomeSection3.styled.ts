@@ -2,8 +2,8 @@ import styled from 'styled-components';
 
 export const SectionTitle = styled.h1`
     padding:60px;
-    margin-top: 40px;
-    margin-bottom: 0px;
+    padding-top: 100px;
+    margin: 0px;
     font-family: 'Ubuntu';
     font-size: 38px;
     line-height: 48px;
@@ -21,28 +21,22 @@ export const GridContainer = styled.div`
     width: 1149px;
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
-    padding-bottom: 5%;
-    @media(max-width:1280px){
+    padding-bottom: 100px;
+    @media(max-width: ${props => props.theme.break.tablet} ){    //1280
         grid-template-columns: 1fr 1fr;
-        width: 90%;
-        padding-bottom: 5%;
-        margin: 0 auto;
-        
+        width: 95%;
     }
-    @media(max-width:922px){
+    @media(max-width: ${props => props.theme.break.between} ){    //922
         grid-template-columns: 1fr;
-        width: 80%;
-        padding-bottom: 10%;
+        width: 90%;
     }
 `;
 
-export const GridItem = styled.div<{ itemHeight?: string }>`
+export const GridItem = styled.div`
     box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: baseline;
-    height: ${props => props.itemHeight || "100px;"};
-    width: 558px;
     background-color: ${props => props.theme.colors.bg2};
     text-align: left;
     img{
@@ -50,19 +44,6 @@ export const GridItem = styled.div<{ itemHeight?: string }>`
         height: 36px;
         line-height: 20px;
         margin: 0px 19px 0px 0px;
-    }
-    @media(max-width:1280px){
-        width: 100%;
-        height: auto;
-    }
-    @media(max-width:922px){
-        width: 558px;
-        height: auto;
-        margin: 0 auto; 
-    }
-    @media(max-width:683px){
-        width: 100%;
-        height: auto;
     }
 `;
 

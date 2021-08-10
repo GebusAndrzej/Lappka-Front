@@ -1,6 +1,6 @@
 import React from 'react'
 import EmailInput from '../../components/EmailInput';
-import { Box, FontBold, FormBox, TextBox, Text, Button, TotalInput, BG } from './NewsletterSection.styled';
+import { Box, FontBold, FormBox, TextBox, Text, Button, TotalInput, BG} from './NewsletterSection.styled';
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 
