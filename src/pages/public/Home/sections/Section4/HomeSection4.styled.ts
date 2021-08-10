@@ -3,6 +3,7 @@ import { CSS } from '../../../../../static/cssStatic'
 const tablet = "1200px"
 
 export const Grid = styled.div`
+    box-sizing: border-box;
     display:grid;
     grid-template-columns: 1fr 1fr;
     font-family: "Ubuntu";
@@ -11,8 +12,9 @@ export const Grid = styled.div`
     margin: auto;
 
     @media (max-width: ${tablet}) {
-        width: 95%;
+        width: 100%;
         grid-template-columns: 1fr;
+        margin:0;
     }
 `;
 

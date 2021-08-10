@@ -30,6 +30,7 @@ function HomeSection1(): JSX.Element {
                                 – pomóż zwierzakom za pomocą jednego kliknięcia!
                             </H2>
                         </section>
+
                         <Sub>
                             Odpowiadamy na potrzeby bezbronnych zwierząt, ułatwiając ich adopcje oraz opiekowanie się nimi.
                         </Sub>
