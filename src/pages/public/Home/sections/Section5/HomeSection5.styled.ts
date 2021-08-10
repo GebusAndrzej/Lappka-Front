@@ -70,5 +70,13 @@ export const Age = styled.h5`
     font-weight: 500;
 `;
 
-
-
+export const SectionTitle = styled.h1`
+    padding-top: 100px;
+    margin: 0px;
+    font-family: 'Ubuntu';
+    font-size: 38px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 1.425px;
+    color: ${props => props.theme.colors.black};
+`;
