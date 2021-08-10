@@ -32,25 +32,25 @@ function HomeSection3(): JSX.Element {
                         <GridItemParagraph>Cyfrowa książeczka zdrowia pupila, w której możesz aktywnie śledzić stan szczepień, wizyt u weterynarza, przepisywanych lekarstw, odbytych operacji oraz innych kwestii związanych ze zdrowiem pupila</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="81px">
+                <GridItem>
                     <div><img src="/assets/svg/section3icons/img5.svg" ></img></div>
                     <div>
                         <GridItemParagraph>Możliwość wyboru różnych wariantów wolontariatu, związanego z pomocą dla schronisk i zwierzaków</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="81px">
+                <GridItem>
                     <div><img src="/assets/svg/section3icons/img6.svg" ></img></div>
                     <div>
                         <GridItemParagraph>Zgłaszanie zaginionych pupili, z możliwością korespondowania między członkami społeczności oraz możliwością udostępniania lokalizacji</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="81px">
+                <GridItem>
                     <div><img src="/assets/svg/section3icons/img7.svg" ></img></div>
                     <div>
                         <GridItemParagraph>Raportowanie błąkających się zwierząt wraz z możliwością udostępniania ich lokalizacji w aplikacji (informowanie schronisk i służb zajmujących się opuszczonymi zwierzętami)</GridItemParagraph>
                     </div>
                 </GridItem>
-                <GridItem itemHeight="81px">
+                <GridItem>
                     <div><img src="/assets/svg/section3icons/img8.svg" ></img></div>
                     <div>
                         <GridItemParagraph>Możliwość zapisywania przeglądanych profili w kategorii „Ulubione”, tak aby w wygodny sposób przeglądać je później</GridItemParagraph>
