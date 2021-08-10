@@ -1,4 +1,3 @@
-import { CSS } from '../../../../../static/cssStatic';
 import styled from 'styled-components';
 
 export const BG = styled.div`
@@ -6,7 +5,7 @@ export const BG = styled.div`
     left:0;
     width:100%;
     height:200px;
-    background-color: ${CSS.colors.bg2};
+    background-color: ${props => props.theme.colors.bg2};
     clip-path: polygon(0 0, 100% 0, 100% 10%, 50% 100%,0% 10%);
     z-index: -9;
 `;
@@ -15,7 +14,7 @@ export const Box = styled.div`
     box-sizing: border-box;
     display: flex;
     margin: 0px auto;
-    background: ${CSS.colors.green};
+    background: ${props => props.theme.colors.green};
     width: 1146px;
     height: 246px;
     border-radius: 10px;
@@ -109,7 +108,7 @@ export const Button = styled.button`
     right: 8px;
     top: 23px;
     background: white ;
-    color: ${CSS.colors.green};
+    color: ${props => props.theme.colors.green};
     border-radius: 4px;
     width:186px;
     height: 56px;

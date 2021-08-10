@@ -1,4 +1,3 @@
-import { CSS } from '../../../../../static/cssStatic';
 import styled from 'styled-components';
 
 export const GridContainer = styled.div`
@@ -54,7 +53,7 @@ export const LogoText = styled.h2`
     line-height: 48px;
     margin-top: 24px;
     letter-spacing: 1.425px;
-    color: ${CSS.black};
+    color: ${props => props.theme.black};
     float: left;
 
 `;
@@ -63,7 +62,7 @@ export const FooterText = styled.span`
     font-family: Ubuntu;
     font-weight: normal;
     font-size: 14px;
-    color: ${CSS.gray};
+    color: ${props => props.theme.gray};
 `;
 export const Spacer = styled.span`
     padding: 0px 15px;
@@ -73,9 +72,9 @@ export const Link = styled.a`
     cursor: pointer;
     text-decoration: none;
     border: none;
-    color: ${CSS.gray};
+    color: ${props => props.theme.gray};
 `;
 
-export const ColorChange = styled.span<{colorValue?: string;}>`
-    color: ${props => props.colorValue || "${CSS.green}"};
+export const ColorChange = styled.span<{ colorValue?: string; }>`
+    color: ${props => props.colorValue || "${props => props.theme.green}"};
 `;

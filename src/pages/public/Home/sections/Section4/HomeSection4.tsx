@@ -19,7 +19,7 @@ function HomeSection4(): JSX.Element {
                 </Wrapper>
 
                 <Wrapper>
-                    <IMG src="/assets/png/Homepage/phones.png" />
+                    <IMG src="/assets/Homepage/phones.png" />
                 </Wrapper>
 
             </Grid>

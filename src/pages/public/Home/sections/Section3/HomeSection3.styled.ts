@@ -12,7 +12,7 @@ export const SectionTitle = styled.h1`
     color: ${props => props.theme.colors.black};
 `;
 export const ColorChange = styled.span`
-    color: $${props => props.theme.colors.green};
+    color: ${props => props.theme.colors.green};
 `;
 
 export const GridContainer = styled.div`

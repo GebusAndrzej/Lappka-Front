@@ -1,14 +1,17 @@
 import styled, { css } from "styled-components";
-import { CSS } from '../../../../../static/cssStatic'
 
 export const ThemeTest = styled.div`
-    color: ${props => props.theme.colors.green};
+    ${props => {
+        return `
+          color: ${props.theme.colors.green};
+        `;
+    }}
 `;
 
 export const MainLogo = styled.img`
     max-width: 321px;
 
-    @media (max-width: ${CSS.break.mobile}) {
+    @media (max-width: ${props => props.theme.break.mobile}) {
         max-width: 90%;
     }
 `;
@@ -25,13 +28,13 @@ export const Grid = styled.div`
     margin-bottom: 50px;
     min-height: 650px;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         grid-template-columns: 1fr;
         margin-top: -20px;
         margin-bottom:500px;
     }
     
-    @media (max-width: ${CSS.break.mobile}) {
+    @media (max-width: ${props => props.theme.break.mobile}) {
         margin-top: 50px;
         margin-bottom: 150px;
     }
@@ -54,7 +57,7 @@ export const Container = styled.div`
     padding-left: 20%;
     padding-top: 10%;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         padding-left:0;
         padding-top:0;
         padding:10%;
@@ -71,7 +74,7 @@ export const Center = styled.div`
 //text under title
 export const Sub = styled.p`
     margin-top: 20px;
-    color: ${CSS.colors.gray};
+    color: ${props => props.theme.colors.gray};
 `;
 
 //header
@@ -85,13 +88,13 @@ export const H2 = styled.span<{
     font-weight: 500;
     margin: 0;
     display: inline-block;
-    color: ${CSS.colors.black};
+    color: ${props => props.theme.colors.black};
     letter-spacing: 1.425px;
     word-wrap: break-word;
     font-size: 2.5rem;
 
     ${(props) => props.color == "green" && css`
-        color: ${CSS.colors.green};
+        color: ${props => props.theme.colors.green};
     `}
     ${(props) => props.fontWeight && css`
         font-weight: ${props.fontWeight};
@@ -115,7 +118,7 @@ export const Img1 = styled.img`
     position: absolute;
     max-width: 272px;
 
-    @media (max-width:${CSS.break.tablet}) {
+    @media (max-width:${props => props.theme.break.tablet}) {
         left:25%;
         transform: translateX(-50%);
     }
@@ -128,7 +131,7 @@ export const Img2 = styled.img`
     position: absolute;
     max-width: 272px;
 
-    @media (max-width:${CSS.break.tablet}) {
+    @media (max-width:${props => props.theme.break.tablet}) {
         display:none;
     }
 `;
@@ -140,7 +143,7 @@ export const Img3 = styled.img`
     position:absolute;
     max-width: 272px;
 
-    @media (max-width:${CSS.break.tablet}) {
+    @media (max-width:${props => props.theme.break.tablet}) {
         top:0;
         left:75%;
         transform: translateX(-50%);
@@ -158,7 +161,7 @@ export const BGBox = styled.div`
     border-radius: 0px 0px 0px 40px;
     z-index: -900;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         display: none;
     }
 `;
@@ -173,12 +176,12 @@ export const RightSide = styled.div`
     left:50%;
     transition-duration: .5s;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         top:470px;
         left:0%;
         width:100%;
     }
-    @media (max-width: ${CSS.break.mobile}) {
+    @media (max-width: ${props => props.theme.break.mobile}) {
         display:none;
     }
 `;
@@ -188,7 +191,7 @@ export const Button = styled.a`
     cursor: pointer;
     text-decoration: none;
     min-width:170px;
-    background-color:${CSS.colors.green};
+    background-color:${props => props.theme.colors.green};
     border:none;
     border-radius: 27px;
     height:54px;
@@ -215,12 +218,12 @@ export const ButtonContainer = styled.div`
     width:70%;
     margin-top:30px;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         width:100%;
         margin-top: 30px;
     }
 
-    @media (max-width: ${CSS.break.mobile}) {
+    @media (max-width: ${props => props.theme.break.mobile}) {
         flex-direction: column;
         justify-content: center;
         align-items: center;

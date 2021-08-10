@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { CSS } from '../../../../../static/cssStatic'
 
 export const Grid = styled.div`
     box-sizing: border-box;
@@ -10,7 +9,7 @@ export const Grid = styled.div`
     width:1149px;
     margin: auto;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         width: 100%;
         grid-template-columns: 1fr;
         margin:0;
@@ -24,7 +23,7 @@ export const Wrapper = styled.div`
     padding-top:60px;
     padding-bottom: 40px;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         margin:auto;
         width:70%;
         justify-content: center;
@@ -34,7 +33,7 @@ export const Wrapper = styled.div`
 `;
 
 export const H2 = styled.h2`
-    color: ${CSS.colors.black};
+    color: ${props => props.theme.colors.black};
     font-weight: 700;
     font-weight: bold;
     font-family: "Ubuntu";
@@ -42,13 +41,13 @@ export const H2 = styled.h2`
     letter-spacing: 1.425px;    
     padding-bottom: 10px;
 
-    @media (max-width: ${CSS.break.tablet}) {
+    @media (max-width: ${props => props.theme.break.tablet}) {
         text-align: center;
     }
 `;
 
 export const Text = styled.p`
-    color: ${CSS.colors.gray};
+    color: ${props => props.theme.colors.gray};
     font-style: normal;
     font-weight: normal;
     font-size: 17px;
@@ -59,7 +58,7 @@ export const Text = styled.p`
 `;
 
 export const BottomText = styled.p`
-    color: ${CSS.colors.gray};
+    color: ${props => props.theme.colors.gray};
     font-size: 1.3rem;
     font-weight: bold;
 `;
