@@ -20,13 +20,14 @@ export const MainLogo = styled.img`
 export const Grid = styled.div`
     box-sizing: border-box;
     max-width: 100%;
-    height: 90vh;
+    /* height: 90vh; */
     display:grid;
     grid-template-columns: 1fr 1fr;
     margin-top:inherit;
     transition-duration: inherit.5s;
     margin-bottom: 50px;
     min-height: 650px;
+    max-width: 1440px;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         grid-template-columns: 1fr;
@@ -153,13 +154,15 @@ export const Img3 = styled.img`
 //green box on the right side
 export const BGBox = styled.div`
     width:90%;
-    height:90%;
+    height:80%;
     position: absolute;
     right: 0;
     top:0;
     background: linear-gradient(135deg, #57D382 0.51%, #44A386 100%);
     border-radius: 0px 0px 0px 40px;
     z-index: -900;
+    min-height:400px;
+    max-height: 650px;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         display: none;
