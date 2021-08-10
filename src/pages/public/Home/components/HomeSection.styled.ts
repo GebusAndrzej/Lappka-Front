@@ -5,7 +5,7 @@ export const Section = styled.section<{ itemBackground?: string }>`
     margin:0px;
     min-height:180px;
     box-sizing: border-box;
-    background: ${props => props.itemBackground || props.theme.colors.bg1};
+    background: ${props => props.itemBackground || "white"};
     display:flex;
     justify-content: center;
     align-items: center;
