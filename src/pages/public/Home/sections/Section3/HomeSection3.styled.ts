@@ -10,10 +10,10 @@ export const SectionTitle = styled.h1`
     line-height: 48px;
     text-align: center;
     letter-spacing: 1.425px;
-    color: ${CSS.black};
+    color: ${CSS.colors.black};
 `;
 export const ColorChange = styled.span`
-    color: ${CSS.green};
+    color: ${CSS.colors.green};
 `;
 
 export const GridContainer = styled.div`
@@ -44,7 +44,7 @@ export const GridItem = styled.div<{ itemHeight?: string }>`
     justify-content: baseline;
     height: ${props => props.itemHeight || "100px;"};
     width: 558px;
-    background-color: ${CSS.bg2};
+    background-color: ${CSS.colors.bg2};
     text-align: left;
     img{
         width:36px;
@@ -77,5 +77,5 @@ export const GridItemParagraph = styled.p`
     font-size: 17px;
     line-height: 27px;
     letter-spacing: 0.6px;
-    color: ${CSS.gray};
+    color: ${CSS.colors.gray};
 `;

@@ -6,16 +6,16 @@ export const BG = styled.div`
     left:0;
     width:100%;
     height:200px;
-    background-color: ${CSS.bg2};
+    background-color: ${CSS.colors.bg2};
     clip-path: polygon(0 0, 100% 0, 100% 10%, 50% 100%,0% 10%);
     z-index: -9;
 `;
 
-export const Box = styled.h1`
+export const Box = styled.div`
     box-sizing: border-box;
     display: flex;
     margin: 0px auto;
-    background: ${CSS.green};
+    background: ${CSS.colors.green};
     width: 1146px;
     height: 246px;
     border-radius: 10px;
@@ -109,7 +109,7 @@ export const Button = styled.button`
     right: 8px;
     top: 23px;
     background: white ;
-    color: ${CSS.green};
+    color: ${CSS.colors.green};
     border-radius: 4px;
     width:186px;
     height: 56px;
