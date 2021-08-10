@@ -1,6 +1,6 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
-import { Grid, H2, Wrapper, Center, Img1, Img2, Img3, BGBox, Container, Sub, RightSide, Button, Logo, ButtonContainer, P, MainLogo, ThemeTest } from './HomeSection1.styled'
+import { Grid, H2, Wrapper, Center, Img1, Img2, Img3, BGBox, Container, Sub, RightSide, Button, Logo, ButtonContainer, P, MainLogo } from './HomeSection1.styled'
 
 function HomeSection1(): JSX.Element {
     return (
@@ -17,7 +17,6 @@ function HomeSection1(): JSX.Element {
                     <Container>
 
                         <Center>
-                            <ThemeTest>asdasdasd</ThemeTest>
                             <MainLogo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo" />
                         </Center>
 
