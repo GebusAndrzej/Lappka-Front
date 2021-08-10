@@ -1,6 +1,7 @@
 import styled, { css } from "styled-components";
 import { CSS } from '../../../../../static/cssStatic'
-const tablet = "1000px";
+
+const tablet = "1200px";
 const mobile = "648px";
 
 //grid to divide page
@@ -14,14 +15,10 @@ export const Grid = styled.div`
     transition-duration: inherit.5s;
     margin-bottom: 50px;
 
-    @media (max-height: 570px){
-        margin-bottom: 300px;
-    }
-
     @media (max-width: ${tablet}) {
         grid-template-columns: 1fr;
         margin-top: -20px;
-        margin-bottom:620px;
+        margin-bottom:500px;
     }
     
     @media (max-width: ${mobile}) {
@@ -34,6 +31,7 @@ export const Grid = styled.div`
 export const Wrapper = styled.div<{ direction?: string }>`
     position: relative;
     display:flex;
+    box-sizing:border-box;
     flex-direction: column;
     ${(props) => props.direction == "row" && css`
         flex-direction: row;
@@ -42,6 +40,7 @@ export const Wrapper = styled.div<{ direction?: string }>`
 
 // left side container inside wrapper
 export const Container = styled.div`
+    box-sizing: border-box;
     padding-left: 20%;
     padding-top: 10%;
 
@@ -107,7 +106,8 @@ export const Img1 = styled.img`
     max-width: 272px;
 
     @media (max-width:${tablet}) {
-        left:10%;
+        left:25%;
+        transform: translateX(-50%);
     }
     
 `;
@@ -132,7 +132,8 @@ export const Img3 = styled.img`
 
     @media (max-width:${tablet}) {
         top:0;
-        left:50%
+        left:75%;
+        transform: translateX(-50%);
     }
 `;
 
@@ -186,6 +187,7 @@ export const Button = styled.a`
     justify-content: center;
     align-items: center;
     margin-right: 20px;
+    margin-top: 20px;
 `;
 
 //logo in button
@@ -195,18 +197,24 @@ export const Logo = styled.img`
     margin-left:10px;
 `;
 
-//container fot text in buttons
+//container for buttons
 export const ButtonContainer = styled.div`
     display:flex;
     flex-direction: row;
     justify-content: space-evenly;
     width:70%;
-    margin-top:50px;
+    margin-top:30px;
 
     @media (max-width: ${tablet}) {
         width:100%;
         margin-top: 30px;
+    }
 
+    @media (max-width: ${mobile}) {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        
     }
 `;
 
