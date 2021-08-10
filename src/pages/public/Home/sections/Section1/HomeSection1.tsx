@@ -1,11 +1,10 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
-import { Grid, H2, Wrapper, Center, Img1, Img2, Img3, BGBox, Container, Sub, RightSide, Button, Logo, ButtonContainer, P } from './HomeSection1.styled'
+import { Grid, H2, Wrapper, Center, Img1, Img2, Img3, BGBox, Container, Sub, RightSide, Button, Logo, ButtonContainer, P, MainLogo, ThemeTest } from './HomeSection1.styled'
 
 function HomeSection1(): JSX.Element {
     return (
         <Section>
-
             <RightSide>
                 <BGBox></BGBox>
                 <Img1 src="/assets/svg/img1.svg" />
@@ -18,10 +17,8 @@ function HomeSection1(): JSX.Element {
                     <Container>
 
                         <Center>
-                            <img src="/assets/svg/logo.svg" alt="Logo" aria-label="Logo" />
-                            <H2 fontWeight="500" fontSize="38px">Ł</H2>
-                            <H2 fontWeight="500" fontSize="38px" color="green">app</H2>
-                            <H2 fontWeight="500" fontSize="38px">ka</H2>
+                            <ThemeTest>asdasdasd</ThemeTest>
+                            <MainLogo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo" />
                         </Center>
 
                         <section>

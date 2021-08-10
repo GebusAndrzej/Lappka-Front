@@ -1,9 +1,6 @@
 import styled from "styled-components";
 import { CSS } from '../../../../../static/cssStatic'
 
-const tablet = "1200px";
-const mobile = "648px";
-
 // container for all cards
 export const Container = styled.div`
     padding-top: 200px;
@@ -27,7 +24,7 @@ export const Card = styled.div`
     justify-content: center;
     padding:10%;
     box-sizing:border-box;
-    color: ${CSS.gray};
+    color: ${CSS.colors.gray};
     text-align: center;
     font-size: 17px;
     line-height: 27px;
@@ -38,24 +35,24 @@ export const Card = styled.div`
         opacity:.1;
         font-size:240px;
         font-family: Georgia, 'Times New Roman', Times, serif;
-        color:${CSS.green};
+        color:${CSS.colors.green};
         position: absolute;
         top: 130px;
     }
 
-    @media (max-width: ${tablet}) {
+    @media (max-width: ${CSS.break.tablet}) {
         font-size: 14px;
         line-height: 17px;
         width:70vw;
         height: auto;
     }
-    @media (max-width: ${mobile}) {
+    @media (max-width: ${CSS.break.mobile}) {
         width:90vw;
     }
 `;
 
 export const Person = styled.h3`
-    color: ${CSS.gray};
+    color: ${CSS.colors.gray};
     font-family: "Ubuntu";
     font-size: 20px;
     line-height: 23px;
@@ -64,7 +61,7 @@ export const Person = styled.h3`
 `;
 
 export const Age = styled.h5`
-    color: ${CSS.gray};
+    color: ${CSS.colors.gray};
     font-family: "Ubuntu";
     font-size: 16px;
     line-height: 18px;
