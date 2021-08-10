@@ -38,6 +38,7 @@ export const defaultTheme = {
 
     break: {
         tablet: "1200px",
-        mobile: "648px"
+        mobile: "648px",
+        between: "922px",
     }
 };
