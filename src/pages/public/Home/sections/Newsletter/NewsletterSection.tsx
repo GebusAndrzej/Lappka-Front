@@ -7,6 +7,7 @@ import * as Yup from 'yup';
 function Newsletter(): JSX.Element {
     return (
         <Box>
+            <BG></BG>
             <TextBox><Text>Chciałbyś włączyć się w naszą społeczność „<FontBold>Łapkowców</FontBold>” i być na bieżąco z najnowszymi informacjami? </Text></TextBox>
             <FormBox>
                 <Formik
