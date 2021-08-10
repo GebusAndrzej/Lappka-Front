@@ -26,7 +26,7 @@ export const Grid = styled.div`
     margin-top:inherit;
     transition-duration: inherit.5s;
     margin-bottom: 50px;
-    min-height: 650px;
+    min-height: 670px;
     max-width: 1440px;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
@@ -135,6 +135,10 @@ export const Img2 = styled.img`
     @media (max-width:${props => props.theme.break.tablet}) {
         display:none;
     }
+
+    @media (min-width: 1440px) {
+        left: 400px;
+    }
 `;
 
 //right bottom image
@@ -149,18 +153,21 @@ export const Img3 = styled.img`
         left:75%;
         transform: translateX(-50%);
     }
+
+    @media (min-width: 1440px) {
+        left: 400px;
+    }
 `;
 
 //green box on the right side
 export const BGBox = styled.div`
-    width:90%;
+    width:calc(100% - 70px);
     height:80%;
     position: absolute;
     right: 0;
     top:0;
     background: linear-gradient(135deg, #57D382 0.51%, #44A386 100%);
     border-radius: 0px 0px 0px 40px;
-    z-index: -900;
     min-height:400px;
     max-height: 650px;
 
@@ -177,7 +184,7 @@ export const RightSide = styled.div`
 
     top:0;
     left:50%;
-    transition-duration: .5s;
+    transition-duration: .4s;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         top:470px;
