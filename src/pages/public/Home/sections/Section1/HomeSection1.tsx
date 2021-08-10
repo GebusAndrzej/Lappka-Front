@@ -7,9 +7,9 @@ function HomeSection1(): JSX.Element {
         <Section>
             <RightSide>
                 <BGBox></BGBox>
-                <Img1 src="/assets/svg/img1.svg" />
-                <Img2 src="/assets/svg/img3.svg" />
-                <Img3 src="/assets/svg/img2.svg" />
+                <Img1 src="/assets/Homepage/img1.svg" />
+                <Img2 src="/assets/Homepage/img3.svg" />
+                <Img3 src="/assets/Homepage/img2.svg" />
             </RightSide>
 
             <Grid>

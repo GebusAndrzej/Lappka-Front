@@ -1,11 +1,11 @@
 import React from 'react'
 import { Section } from "../../components/HomeSection.styled"
-import { CSS } from '../../../../../static/cssStatic';
+import { defaultTheme } from '../../../../../static/cssStatic';
 import { ColorChange, GridContainer, GridItem, GridItemParagraph, SectionTitle } from './HomeSection3.styled'
 
 function HomeSection3(): JSX.Element {
     return (
-        <Section itemBackground={CSS.bg2}>
+        <Section itemBackground={defaultTheme.colors.bg2}>
             <SectionTitle>Dlaczego Ł<ColorChange>app</ColorChange>ka?</SectionTitle>
             <GridContainer>
                 <GridItem>

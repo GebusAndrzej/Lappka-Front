@@ -1,6 +1,4 @@
 import styled from "styled-components";
-import { CSS } from '../../../../../src/static/cssStatic';
-
 
 export const Section = styled.section<{ itemBackground?: string }>`
     width: 100%;

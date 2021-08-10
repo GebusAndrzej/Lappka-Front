@@ -1,4 +1,3 @@
-import { CSS } from '../../../../../static/cssStatic';
 import styled from 'styled-components';
 
 export const SectionTitle = styled.h1`
@@ -10,7 +9,7 @@ export const SectionTitle = styled.h1`
     line-height: 48px;
     text-align: center;
     letter-spacing: 1.425px;
-    color: ${CSS.colors.black};
+    color: ${props => props.theme.colors.black};
 `;
 export const GridContainer = styled.div`
     display: grid;
@@ -73,7 +72,7 @@ export const GridItemTitle = styled.h2`
     line-height: 26px;
     letter-spacing: 0.675px;
     text-transform: uppercase;
-    color: ${CSS.colors.black};
+    color: ${props => props.theme.colors.black};
 `;
 
 export const GridItemParagraph = styled.p`
@@ -85,5 +84,5 @@ export const GridItemParagraph = styled.p`
     font-size: 14px;
     line-height: 20px;
     letter-spacing: 0.6px;
-    color: ${CSS.colors.gray};
+    color: ${props => props.theme.colors.gray};
 `;
