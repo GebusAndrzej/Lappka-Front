@@ -1,7 +1,8 @@
 import React from 'react'
 import ReactCardCarousel from 'react-card-carousel'
 import { Section } from '../../components/HomeSection.styled'
-import { Age, Avatar, Card, Container, Person } from './HomeSection5.styled'
+
+import { Age, Avatar, Card, Container, Person, SectionTitle } from './HomeSection5.styled'
 import { defaultTheme } from '../../../../../static/cssStatic'
 
 
@@ -9,6 +10,7 @@ import { defaultTheme } from '../../../../../static/cssStatic'
 function HomeSection5(): JSX.Element {
     return (
         <Section itemBackground={defaultTheme.colors.bg2}>
+            <SectionTitle>Opinie</SectionTitle>
             <Container>
                 <Avatar position="1" src="/assets/Homepage/avatars/avatar1.webp" />
                 <Avatar position="2" src="/assets/Homepage/avatars/avatar2.webp" />

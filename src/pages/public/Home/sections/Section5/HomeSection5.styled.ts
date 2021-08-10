@@ -69,6 +69,16 @@ export const Age = styled.h5`
     margin-top:5px;
     font-weight: 500;
 `;
+export const SectionTitle = styled.h1`
+    padding-top: 100px;
+    margin: 0px;
+    font-family: 'Ubuntu';
+    font-size: 38px;
+    line-height: 48px;
+    text-align: center;
+    letter-spacing: 1.425px;
+    color: ${props => props.theme.colors.black};
+`;
 
 export const Avatar = styled.img<{ position: "1" | "2" | "3" | "4" }>`
     max-width:130px;
@@ -105,5 +115,4 @@ const handleAvatar = (position: string) => {
             `
     }
 }
-
 
