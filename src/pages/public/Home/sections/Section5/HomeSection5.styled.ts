@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { CSS } from '../../../../../static/cssStatic'
 
-const tablet = "1200px"
+const tablet = "1200px";
+const mobile = "648px";
 
 // container for all cards
 export const Container = styled.div`
@@ -30,6 +31,7 @@ export const Card = styled.div`
     text-align: center;
     font-size: 17px;
     line-height: 27px;
+    position: relative;
 
     ::before{
         content: "''";
@@ -44,8 +46,11 @@ export const Card = styled.div`
     @media (max-width: ${tablet}) {
         font-size: 14px;
         line-height: 17px;
-        width:auto;
+        width:70vw;
         height: auto;
+    }
+    @media (max-width: ${mobile}) {
+        width:90vw;
     }
 `;
 

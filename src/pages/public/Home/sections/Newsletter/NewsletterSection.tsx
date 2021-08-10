@@ -1,12 +1,12 @@
 import React from 'react'
-import { CSS } from '../../../../../static/cssStatic';
 import MyInput from '../../components/MyInput';
-import { Box, FontBold, FormBox, TextBox, Text, Input, Button, TotalInput } from './NewsletterSection.styled';
+import { Box, FontBold, FormBox, TextBox, Text, Button, TotalInput, BG } from './NewsletterSection.styled';
 import { Formik } from 'formik';
 
 function Newsletter(): JSX.Element {
     return (
         <Box>
+            <BG></BG>
             <TextBox><Text>Chciałbyś włączyć się w naszą społeczność „<FontBold>Łapkowców</FontBold>” i być na bieżąco z najnowszymi informacjami? </Text></TextBox>
             <FormBox>
                 <Formik
