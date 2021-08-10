@@ -13,25 +13,15 @@ export const BG = styled.div`
 export const Box = styled.div`
     box-sizing: border-box;
     display: flex;
-    margin: 0px auto;
+    justify-content: center;
+    margin: 0 auto;
     background: ${props => props.theme.colors.green};
     width: 1146px;
-    height: 246px;
+    min-height: 246px;
     border-radius: 10px;
     padding: 0px 68px;
-    @media(max-width:1280px){
-        width: 90%;
-        height: auto;
-    }
-    @media(max-width:1160px){
-        width: 700px;
-        height: auto;
-        flex-direction: column;
-        margin: 0 auto; 
-        padding: 0px 38px;
-    }
-    @media(max-width:683px){
-        width: 100%;
+    @media(max-width:${props => props.theme.break.tablet}){
+        width: 95%;
         height: auto;
         flex-direction: column;
         padding: 0px 30px;
@@ -56,40 +46,30 @@ export const TextBox = styled.div`
     line-height: 140%;
     color: white;
     float: left;
-    @media(max-width:1160px){
-        margin: 40px 0px 0px 0px;
-    }
-    @media(max-width:683px){
+    @media(max-width: ${props => props.theme.break.tablet}){
         width: 90%;
-        margin: 20px 0px 0px 0px;
+        margin: 30px 0px 0px 0px;
     }
 `;
 
 export const FormBox = styled.div`
     width: 520px;
-    margin: 67px 0px;
+    margin: 68px 0px;
     font-size: 17px;
     margin-left: auto;
-    @media(max-width:1160px){
+    @media(max-width:${props => props.theme.break.tablet}){
         width: 100%;
         float: left;
-        margin: 0 auto; 
-    }
-    @media(max-width:1160px){
-        margin: 40px 0px;
-        width: 100%;
+        margin: 0 auto;
+        margin: 30px 0px;
 
-    }
-    @media(max-width:683px){
-        width: 100%;
-        margin: 20px 0px;
     }
 `;
 
 export const Input = styled.input`
     width: 100%;
     height: 72px;
-    margin-top: 15px;
+    margin: 15px 0px 0px;
     background: rgba(255,255,255,0.1) ;
     border: 0px;
     border-radius: 4px;
@@ -114,7 +94,7 @@ export const Button = styled.button`
     height: 56px;
     border: 0px;
     font-weight: 500;
-    @media(max-width:683px){
+    @media(max-width: ${props => props.theme.break.mobile}){
         width: 100px;
     }
 `;
