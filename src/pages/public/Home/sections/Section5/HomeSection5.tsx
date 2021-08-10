@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactCardCarousel from 'react-card-carousel'
 import { Section } from '../../components/HomeSection.styled'
-import { Age, Card, Container, Person } from './HomeSection5.styled'
+import { Age, Avatar, Card, Container, Person } from './HomeSection5.styled'
 import { defaultTheme } from '../../../../../static/cssStatic'
 
 
@@ -10,6 +10,10 @@ function HomeSection5(): JSX.Element {
     return (
         <Section itemBackground={defaultTheme.colors.bg2}>
             <Container>
+                <Avatar position="1" src="/assets/Homepage/avatars/avatar1.webp" />
+                <Avatar position="2" src="/assets/Homepage/avatars/avatar2.webp" />
+                <Avatar position="3" src="/assets/Homepage/avatars/avatar3.webp" />
+                <Avatar position="4" src="/assets/Homepage/avatars/avatar4.webp" />
                 <ReactCardCarousel autoplay={true} autoplay_speed={6000} alignment="vertical">
                     {
                         [1, 2, 3].map(x => {
