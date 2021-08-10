@@ -1,10 +1,14 @@
 import React from 'react';
-import { Counter } from './features/counter/Counter';
+// import { Counter } from './features/counter/Counter';
 import Home from './pages/public/Home/Home';
+import { Route, BrowserRouter as Router } from 'react-router-dom';
 
-function App() {
+
+function App(): JSX.Element {
   return (
-    <Home></Home>
+    <Router>
+      <Route path="/" exact component={Home} />
+    </Router>
   );
 }
 

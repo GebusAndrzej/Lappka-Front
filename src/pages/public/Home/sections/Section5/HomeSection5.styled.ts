@@ -28,6 +28,7 @@ export const Card = styled.div`
     font-size: 17px;
     line-height: 27px;
     position: relative;
+    transition-duration: .4s;
 
     ::before{
         content: "''";
