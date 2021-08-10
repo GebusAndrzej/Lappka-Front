@@ -70,5 +70,40 @@ export const Age = styled.h5`
     font-weight: 500;
 `;
 
+export const Avatar = styled.img<{ position: "1" | "2" | "3" | "4" }>`
+    max-width:130px;
+    position: absolute;
+    top: 60px;
+    transform: translateX(-50%);
+
+    ${({ position }) => handleAvatar(position)};
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        display:none;
+    }
+`;
+
+const handleAvatar = (position: string) => {
+    switch (+position) {
+        case 1:
+            return `
+                left: calc(50% - 460px);
+            `
+        case 2:
+            return `
+                left: calc(50% - 520px);
+                top: 500px;
+            `
+        case 3:
+            return `
+                right: calc(50% - 570px);
+            `
+        case 4:
+            return `
+                right: calc(50% - 650px);
+                top: 600px;
+            `
+    }
+}
 
 
