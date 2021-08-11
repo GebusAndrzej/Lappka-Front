@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const InvalidMail = styled.p`
+    position: absolute;
+    @media(max-width:${props => props.theme.break.tablet}){
+        position: initial;
+    }
+`;
+
 export const BG = styled.div`
     position: absolute;
     left:0;

@@ -24,8 +24,8 @@ function Newsletter(): JSX.Element {
                     <Form>
                         <Text>Zapraszamy do zapisania się do naszego newslettera!</Text>
                         <TotalInput>
-                            <EmailInput label="" name="email" type="email" placeholder="Enter your e-mail" />
-                            <Button type="submit">Subscribe Now</Button>
+                            <EmailInput label="" name="email" type="email" placeholder="Wprowadź e-mail" />
+                            <Button type="submit">Zapisuję się!</Button>
                         </TotalInput>
                     </Form>
                 </Formik>
