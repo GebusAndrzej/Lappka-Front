@@ -22,7 +22,7 @@ export default function ButtonNavLink(props: Props): JSX.Element {
             activeStyle={activeStyle}
         >
             <figure>
-                <img src={props.img} />
+                <img src={props.img} alt="" />
             </figure>
             {props.name}
         </Button>

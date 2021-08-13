@@ -4,6 +4,8 @@ import { Button, ButtonBox, Logo, Nav } from './Sidebar.styled'
 import { NavLink } from 'react-router-dom'
 import ButtonNavLink from './components/ButtonNavLink'
 
+import { ReactComponent as Aaaa } from '../../../../assets/svg/dashboard.svg';
+
 const activeStyle: React.CSSProperties = {
     fontWeight: "bold",
     color: "White",
@@ -19,38 +21,13 @@ function Sidebar(): JSX.Element {
 
             <ButtonBox>
 
-                <ButtonNavLink to="/dashboard" name="Test"></ButtonNavLink>
-                <Button
-                    to="/dashboard"
-                    activeStyle={activeStyle}
-                >
-                    Dashboard
-                </Button>
-                <Button
-                    to="/messages"
-                    activeStyle={activeStyle}
-                >
-                    Wiadomości
-                </Button>
+                <ButtonNavLink img="/assets/Dashboard/dashboard.svg" to="/dashboard" name="Dashboard"></ButtonNavLink>
+                <ButtonNavLink img="/assets/Dashboard/message.svg" to="/messages" name="Wiadomości"></ButtonNavLink>
+                <ButtonNavLink img="/assets/Dashboard/pets_symbol.svg" to="/" name="Karty zwiarząt"></ButtonNavLink>
+                <ButtonNavLink img="/assets/Dashboard/volounteering.svg" to="/" name="Wolontariat"></ButtonNavLink>
 
-                <Button
-                    to="/"
-                    exact
-                    activeStyle={activeStyle}
-                >
-                    Karty zwierząt
-                </Button>
+                <ButtonNavLink img="/assets/Dashboard/logout.svg" to="/" name="Wyloguj Się"></ButtonNavLink>
 
-                <Button
-                    to="/"
-                    exact
-                    activeStyle={activeStyle}
-                >
-                    Wolontariat
-                </Button>
-                <Button as="a">
-                    Wyloguj się
-                </Button>
             </ButtonBox>
 
         </Nav>

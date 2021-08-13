@@ -47,14 +47,24 @@ export const Button = styled(NavLink)`
     font-weight: 500;
     font-size: 16px;
     line-height: 28px;
-
     letter-spacing: -0.02em;
-
     display:flex;
-    justify-content: center;
+    justify-content: flex-start;;
     
     :active {
         color:white;
+    }
+
+    & figure {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        margin:10px;
+
+        img {
+            width:24px;
+            height: 24px;
+        }
     }
 `;
 
