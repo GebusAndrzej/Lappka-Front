@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonBox, Hr, Logo, Nav } from './Sidebar.styled'
+import { ButtonBox, Fixed, Hr, Logo, Nav } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
 import { ReactComponent as SVG_Dashboard } from '../../../../assets/svg/dashboard.svg';
@@ -11,22 +11,24 @@ import { ReactComponent as SVG_Logout } from '../../../../assets/svg/logout.svg'
 function Sidebar(): JSX.Element {
 
     return (
-        <Nav>
-            <figure>
-                <Logo src="/assets/Homepage/logo.webp" />
-            </figure>
-            <Hr />
-            <ButtonBox>
-                <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
-                <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
-                <ButtonNavLink svg={SVG_Pets} to="/pets" name="Karty zwiarząt"></ButtonNavLink>
-                <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
+        <Fixed>
+            <Nav>
+                <figure>
+                    <Logo src="/assets/Homepage/logo.webp" />
+                </figure>
+                <Hr />
+                <ButtonBox>
+                    <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Pets} to="/pets" name="Karty zwiarząt"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
 
-                <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
 
-            </ButtonBox>
+                </ButtonBox>
 
-        </Nav>
+            </Nav>
+        </Fixed>
     )
 }
 

@@ -9,6 +9,7 @@ export const Titlebar = styled.div`
     display: flex;
     align-items: center;
     justify-content: flex-end;
+    grid-area: title;
 `;
 
 export const Title = styled.h2`

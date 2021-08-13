@@ -1,11 +1,17 @@
 import { NavLink } from "react-router-dom";
 import styled from "styled-components";
 
+export const Fixed = styled.div`
+    grid-area: sidebar;
+    position: fixed;
+    height:100vh;
+    z-index:10;
+`;
+
 export const Nav = styled.nav`
     width: 290px;
     height:100%;
     background-color: white;
-    grid-area: sidebar;
     display:flex;
     flex-direction: column;
     /* box-shadow: 0px 0px 5px rgba(0,0,0,.25); */

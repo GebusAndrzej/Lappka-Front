@@ -12,5 +12,6 @@ export const PanelWrapper = styled.section`
 `;
 
 export const Container = styled.div`
-    margin:69px 32px 50px 31px;
+    margin:16px 32px 50px 31px;
+    grid-area: child;
 `;
