@@ -4,7 +4,7 @@ export const Titlebar = styled.div`
     width:100%;
     height:100%;
     background-color:white;
-    box-shadow: 0px 2px 48px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.35);
     z-index:5;
     display: flex;
     align-items: center;

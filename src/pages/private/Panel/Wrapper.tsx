@@ -1,4 +1,4 @@
-import React, { Children, ReactChild } from 'react'
+import React, { ReactChild } from 'react'
 import { Container, PanelWrapper } from './Panel.styled'
 import Sidebar from './Sidebar/Sidebar'
 import TitleBar from './TitleBar/TitleBar'
@@ -14,7 +14,11 @@ function Wrapper(props: Props): JSX.Element {
             <Sidebar></Sidebar>
             <TitleBar title={props.title}></TitleBar>
             <Container>
-                <div>panel</div>
+                {props.child ?
+                    props.child
+                    :
+                    <div>panel</div>}
+
 
             </Container>
 

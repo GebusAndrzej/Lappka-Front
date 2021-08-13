@@ -1,8 +1,9 @@
 import React from 'react'
 
-function Dashboard() {
+function Dashboard(): JSX.Element {
     return (
         <>
+            Dashboard
         </>
     )
 }

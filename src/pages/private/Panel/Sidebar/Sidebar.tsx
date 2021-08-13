@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonBox, Logo, Nav } from './Sidebar.styled'
+import { ButtonBox, Hr, Logo, Nav } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
 import { ReactComponent as SVG_Dashboard } from '../../../../assets/svg/dashboard.svg';
@@ -15,12 +15,12 @@ function Sidebar(): JSX.Element {
             <figure>
                 <Logo src="/assets/Homepage/logo.webp" />
             </figure>
-
+            <Hr />
             <ButtonBox>
                 <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
                 <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
-                <ButtonNavLink svg={SVG_Pets} to="/" name="Karty zwiarząt"></ButtonNavLink>
-                <ButtonNavLink svg={SVG_Volounteering} to="/" name="Wolontariat"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Pets} to="/pets" name="Karty zwiarząt"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
 
                 <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
 

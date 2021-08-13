@@ -29,10 +29,6 @@ export const ButtonBox = styled.div`
     }
 `;
 
-// export const Navlink = styled.`
-
-// `;
-
 export const Button = styled(NavLink)`
     display:block;
     width:214px;
@@ -49,11 +45,10 @@ export const Button = styled(NavLink)`
     line-height: 28px;
     letter-spacing: -0.02em;
     display:flex;
-    justify-content: flex-start;;
-    
-    :active {
-        color:white;
-    }
+    justify-content: flex-start;
+    transition-duration:.3s;
+
+    user-select:none;
 
     & figure {
         display:flex;
@@ -69,6 +64,7 @@ export const Button = styled(NavLink)`
     }
 
     &.active{
+        transition-duration:.3s;
         font-Weight: bold;
         color: White;
         background-color: ${props => props.theme.colors.green};
@@ -77,8 +73,17 @@ export const Button = styled(NavLink)`
             path {
                 fill: white
             }
+            ellipse {
+                stroke: white;
+            }
         }
     }
+`;
+
+export const Hr = styled.hr`
+    width:100%;
+    border-top: 1px solid ${props => props.theme.colors.bg1};
+    margin-bottom: 30px;
 `;
 
 
