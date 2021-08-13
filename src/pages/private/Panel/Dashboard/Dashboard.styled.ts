@@ -3,6 +3,7 @@ import styled, { css } from "styled-components";
 export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "third-row" }>`
     display:flex;
     flex-direction: row;
+    box-sizing: border-box;
 
     ${(props) => props.variant == "date" && css`
         align-items: center;
@@ -17,6 +18,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
     ${(props) => props.variant == "second-row" && css`
         display:grid;
         grid-template-columns: 2fr 1fr;
+        gap:20px;
     `}
 
     ${(props) => props.variant == "third-row" && css`
@@ -36,10 +38,11 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
     padding:10px;
     margin:5px;
     margin-bottom:15px;
+    box-sizing: border-box;
 
     ${(props) => props.variant == "first-row" && css`
         border-radius: 20px;
-        width:21.5%;
+        width:22.5%;
         height:97px;
         display:flex;
         flex-direction: row;
@@ -50,11 +53,13 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
     ${(props) => props.variant == "second-row" && css`
         border-radius: 20px;
         height:345px;
-        width: 95%;
+        width: 100%;
         display:flex;
         flex-direction: row;
         align-items: center;
         justify-content: center;
+        box-sizing: border-box;
+        position: relative;
     `}
 
     ${(props) => props.variant == "third-row" && css`
@@ -71,7 +76,7 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
 // first row
 export const IconFigure = styled.figure`
     border-radius: 50%;
-    background-color: ${props => props.theme.colors.bg1};
+    background-color: ${props => props.theme.colors.bg2};
     width:56px;
     height: 56px;
     margin:16px;
@@ -92,16 +97,20 @@ export const IconFigure = styled.figure`
     }
 `;
 
-export const Title = styled.p`
+export const Title = styled.p<{ variant?: "light" }>`
     font-style: normal;
     font-weight: normal;
     font-size: 14px;
     line-height: 24px;
     color: ${props => props.theme.colors.gray};
     margin:2px;
+
+    ${(props) => props.variant == "light" && css`
+        font-size: 12px;
+    `}
 `;
 
-export const Value = styled.p`
+export const Value = styled.p<{ variant?: "light" }>`
     font-style: normal;
     font-weight: bold;
     font-size: 30px;
@@ -109,6 +118,10 @@ export const Value = styled.p`
     letter-spacing: -0.02em;
     color:black;
     margin:0;
+
+    ${(props) => props.variant == "light" && css`
+        font-weight: normal;
+    `}
 `;
 
 
