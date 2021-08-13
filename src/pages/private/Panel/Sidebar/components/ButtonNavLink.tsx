@@ -1,10 +1,10 @@
-import React from 'react'
+import React, { FunctionComponent } from 'react'
 import { Button } from '../Sidebar.styled'
 
 interface Props {
     name: string;
     to: string;
-    svg?: any;
+    svg?: FunctionComponent;
 }
 
 export default function ButtonNavLink(props: Props): JSX.Element {
