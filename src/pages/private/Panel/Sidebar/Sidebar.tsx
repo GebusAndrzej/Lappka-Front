@@ -1,18 +1,15 @@
 import React from 'react'
-import { Button, ButtonBox, Logo, Nav } from './Sidebar.styled'
-//navlink
-import { NavLink } from 'react-router-dom'
+import { ButtonBox, Logo, Nav } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
-import { ReactComponent as Aaaa } from '../../../../assets/svg/dashboard.svg';
-
-const activeStyle: React.CSSProperties = {
-    fontWeight: "bold",
-    color: "White",
-    backgroundColor: "#4EBC84",
-}
+import { ReactComponent as SVG_Dashboard } from '../../../../assets/svg/dashboard.svg';
+import { ReactComponent as SVG_Messages } from '../../../../assets/svg/message.svg';
+import { ReactComponent as SVG_Pets } from '../../../../assets/svg/pets_symbol.svg';
+import { ReactComponent as SVG_Volounteering } from '../../../../assets/svg/volounteering.svg';
+import { ReactComponent as SVG_Logout } from '../../../../assets/svg/logout.svg';
 
 function Sidebar(): JSX.Element {
+
     return (
         <Nav>
             <figure>
@@ -20,13 +17,12 @@ function Sidebar(): JSX.Element {
             </figure>
 
             <ButtonBox>
+                <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Pets} to="/" name="Karty zwiarząt"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Volounteering} to="/" name="Wolontariat"></ButtonNavLink>
 
-                <ButtonNavLink img="/assets/Dashboard/dashboard.svg" to="/dashboard" name="Dashboard"></ButtonNavLink>
-                <ButtonNavLink img="/assets/Dashboard/message.svg" to="/messages" name="Wiadomości"></ButtonNavLink>
-                <ButtonNavLink img="/assets/Dashboard/pets_symbol.svg" to="/" name="Karty zwiarząt"></ButtonNavLink>
-                <ButtonNavLink img="/assets/Dashboard/volounteering.svg" to="/" name="Wolontariat"></ButtonNavLink>
-
-                <ButtonNavLink img="/assets/Dashboard/logout.svg" to="/" name="Wyloguj Się"></ButtonNavLink>
+                <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
 
             </ButtonBox>
 

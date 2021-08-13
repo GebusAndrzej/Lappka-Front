@@ -61,9 +61,22 @@ export const Button = styled(NavLink)`
         justify-content: center;
         margin:10px;
 
-        img {
-            width:24px;
-            height: 24px;
+        svg {
+            path{
+                fill:${props => props.theme.colors.gray};
+            }
+        }
+    }
+
+    &.active{
+        font-Weight: bold;
+        color: White;
+        background-color: ${props => props.theme.colors.green};
+
+        svg {
+            path {
+                fill: white
+            }
         }
     }
 `;
