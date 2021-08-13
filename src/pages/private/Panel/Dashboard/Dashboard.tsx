@@ -9,6 +9,7 @@ import { ReactComponent as SVG_Stats } from '../../../../assets/svg/stats.svg';
 import FirstRowItem from './components/FirstRowItem';
 import ViewGraph from './components/ViewGraph';
 import Shelter from './components/Shelter';
+import PetList from './components/PetList';
 
 
 function Dashboard(): JSX.Element {
@@ -41,7 +42,7 @@ function Dashboard(): JSX.Element {
 
             <Bar variant="third-row">
                 <ItemWrapper variant="third-row">
-
+                    <PetList></PetList>
                 </ItemWrapper>
             </Bar>
         </>

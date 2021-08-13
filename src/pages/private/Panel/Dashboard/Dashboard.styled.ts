@@ -54,6 +54,7 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
         border-radius: 20px;
         height:345px;
         width: 100%;
+        /* padding:25px; */
         display:flex;
         flex-direction: row;
         align-items: center;
@@ -63,13 +64,11 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
     `}
 
     ${(props) => props.variant == "third-row" && css`
+        display: block;
         border-radius: 20px;
-        height:345px;
+        min-height:345px;
         width: 100%;
-        display:flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
+        padding: 25px;
     `}
 `;
 
