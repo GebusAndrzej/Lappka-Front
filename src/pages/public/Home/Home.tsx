@@ -1,6 +1,4 @@
 import React from 'react'
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyle, defaultTheme } from '../../../static/cssStatic';
 import Newsletter from './sections/Newsletter/NewsletterSection';
 // import { Section } from "./components/HomeSection.styled"
 import HomeSection1 from './sections/Section1/HomeSection1';
@@ -12,8 +10,7 @@ import FooterSection from './sections/Footer/FooterSection';
 
 function Home(): JSX.Element {
     return (
-        <ThemeProvider theme={defaultTheme}>
-            <GlobalStyle></GlobalStyle>
+        <>
             <HomeSection1></HomeSection1>
             <HomeSection2></HomeSection2>
             <HomeSection3></HomeSection3>
@@ -21,7 +18,7 @@ function Home(): JSX.Element {
             <HomeSection5></HomeSection5>
             <Newsletter></Newsletter>
             <FooterSection></FooterSection>
-        </ThemeProvider>
+        </>
     )
 }
 
