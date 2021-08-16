@@ -9,6 +9,12 @@ function ViewGraph(): JSX.Element {
             <Value>2 657</Value>
             <div>
                 Graph
+                <br />
+                <br />
+                <br />
+                <br />
+                <br />
+                as
             </div>
         </Container>
     )
