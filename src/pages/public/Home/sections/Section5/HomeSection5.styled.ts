@@ -8,6 +8,16 @@ export const Container = styled.div`
     margin:auto;
     position: relative;
     padding-bottom: 200px;
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        padding-top: 80px;
+        padding-bottom: 80px;
+    }
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        padding-top: 40px;
+        padding-bottom: 50px;
+    }
 `;
 
 // each card
@@ -42,7 +52,7 @@ export const Card = styled.div`
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         font-size: 14px;
-        line-height: 17px;
+        line-height: 19px;
         width:70vw;
         height: auto;
     }
