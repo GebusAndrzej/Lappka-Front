@@ -22,6 +22,7 @@ function Sidebar(): JSX.Element {
                     <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/pets" name="Karty zwiarząt"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Pets} to="/shelters" name="Schroniska"></ButtonNavLink>
 
                     <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
 
