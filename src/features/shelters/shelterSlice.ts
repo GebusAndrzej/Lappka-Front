@@ -21,8 +21,8 @@ const initialState: InitialState = {
 export const fetchShelters = createAsyncThunk(
     'posts/fetchShelters',
     async () => {
-        return await fetchSheltersFromApi();
-        // return response;
+        const response = await axiosConfig.get<Shelter[]>(endpoints.shelters)
+        return response.data;
     }
 );
 
@@ -35,7 +35,7 @@ export const shelterSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(fetchShelters.fulfilled, (state, action) => {
-                state.shelters = action.payload.data
+                state.shelters = action.payload
                 state.sheltersStatus = "idle"
                 console.log(action.payload); // !
             })
@@ -54,12 +54,3 @@ export const getShelters = (state: RootState): Shelter[] => {
 
 
 export default shelterSlice.reducer
-
-
-
-
-// --- Axios functions
-
-async function fetchSheltersFromApi() {
-    return await (await axiosConfig.get<Shelter[]>(endpoints.shelters))
-}
