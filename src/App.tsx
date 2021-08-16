@@ -24,6 +24,8 @@ function App(): JSX.Element {
         <PrivateRoute path="/volounteering" exact component={() => <Wrapper title="Wolontariat" />} isAuthenticated={true} />
 
         <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/edit/{id}" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
 
       </Router>
     </ThemeProvider>
