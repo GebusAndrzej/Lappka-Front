@@ -1,5 +1,7 @@
 import React from 'react'
-import { Avatar, Company, IconBox, Name, Title, Titlebar, UserBox } from './TitleBar.styled'
+import { ReactComponent as SVG_Burger } from '../../../../assets/svg/burger.svg';
+import { ReactComponent as SVG_Notification } from '../../../../assets/svg/notification.svg';
+import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox } from './TitleBar.styled'
 
 interface Props {
     title: string;
@@ -12,7 +14,7 @@ export default function TitleBar(props: Props): JSX.Element {
 
             <IconBox>
                 <figure>
-                    <img src="/assets/Dashboard/notification.svg" />
+                    <SVG_Notification />
                 </figure>
             </IconBox>
 
@@ -26,6 +28,10 @@ export default function TitleBar(props: Props): JSX.Element {
                     <Company>nazwa firmy</Company>
                 </div>
             </UserBox>
+
+            <Burger>
+                <SVG_Burger />
+            </Burger>
         </Titlebar>
     )
 }
