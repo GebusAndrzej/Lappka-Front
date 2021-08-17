@@ -31,6 +31,7 @@ export const SubTitle = styled.h2`
     letter-spacing: 0.571428px;
     padding-left:5px;
 `;
+
 export const Titlebox = styled.div`
     margin-right: auto;
     display: flex;

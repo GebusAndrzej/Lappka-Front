@@ -13,6 +13,7 @@ import { Avatar, Company, Name, UserBox } from '../TitleBar/TitleBar.styled';
 interface Props {
     state: string;
     toggle: () => void;
+    subTitle?: string;
 }
 
 function Sidebar(props: Props): JSX.Element {
