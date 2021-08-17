@@ -1,6 +1,10 @@
 import React from 'react'
+import { Icon } from '../../Shelters/Shelters.styled'
 import { Title } from '../Dashboard.styled'
 import { PetListContainer, PetTable } from './PetList.styled'
+
+import { ReactComponent as SVG_Edit } from '../../../../../assets/svg/edit.svg';
+import { ReactComponent as SVG_Delete } from '../../../../../assets/svg/delete.svg';
 
 function PetList(): JSX.Element {
     return (
@@ -31,7 +35,14 @@ function PetList(): JSX.Element {
                                     <td>a{x}</td>
                                     <td>a{x}</td>
                                     <td>a{x}</td>
-                                    <td>+ -</td>
+                                    <td>
+                                        <Icon color="green">
+                                            <SVG_Edit />
+                                        </Icon>
+                                        <Icon color="red">
+                                            <SVG_Delete />
+                                        </Icon>
+                                    </td>
                                 </tr>
                             )
                         })

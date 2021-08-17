@@ -37,7 +37,7 @@ export const Grid = styled.div`
     
     @media (max-width: ${props => props.theme.break.mobile}) {
         margin-top: 50px;
-        margin-bottom: 150px;
+        margin-bottom: -30px;
     }
 `;
 

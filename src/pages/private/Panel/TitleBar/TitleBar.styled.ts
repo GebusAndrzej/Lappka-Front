@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Titlebar = styled.div`
     width:100%;
@@ -40,7 +40,7 @@ export const IconBox = styled.div`
 
 `;
 
-export const UserBox = styled.div`
+export const UserBox = styled.div<{ location?: "sidebar" }>`
     min-width:130px;
     min-height: 35px;
     display:flex;
@@ -48,6 +48,26 @@ export const UserBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    //show sidebar user when mobile
+    @media (max-width: ${props => props.theme.break.tablet}){
+        display:none;
+        ${(props) => props.location == "sidebar" && css`
+            display:flex;
+            margin-bottom: 20px;
+            width:100%;
+            align-items: center;
+            justify-content: flex-start;
+        `}
+    }
+    //hide sidebar user when fullscreen
+    @media (min-width: ${props => props.theme.break.tablet}){
+        ${(props) => props.location == "sidebar" && css`
+            display:none;
+        `}
+    }
+
+    
 `;
 
 export const Avatar = styled.figure`
@@ -59,6 +79,11 @@ export const Avatar = styled.figure`
         position: relative;
         max-height: 50px;
     }
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        margin-right:10px;
+        /* max-width:70px; */
+    }
 `;
 
 export const Name = styled.p`
@@ -68,6 +93,10 @@ export const Name = styled.p`
     line-height: 16px;
     margin:0;
     letter-spacing: 0.7p;
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        color:white;
+    }
 `;
 
 export const Company = styled.span`
@@ -76,7 +105,21 @@ export const Company = styled.span`
     font-size: 12px;
     line-height: 14px;
     letter-spacing: 0.6px; 
-    color: ${props => props.theme.colors.gray}
+    color: ${props => props.theme.colors.gray};
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        color:white;
+    }
 `;
 
+export const Burger = styled.button`
+    margin-right: 15px;
+    height:100%;
+    border: none;
+    background-color: inherit;
+
+    @media (min-width: ${props => props.theme.break.tablet}) {
+        display:none;
+    }
+`;
 

@@ -5,6 +5,7 @@ interface Props {
     name: string;
     to: string;
     svg?: FunctionComponent;
+    exact?: boolean;
 }
 
 export default function ButtonNavLink(props: Props): JSX.Element {
@@ -12,7 +13,7 @@ export default function ButtonNavLink(props: Props): JSX.Element {
     return (
         <Button
             to={props.to}
-            exact
+            exact={props.exact ?? true}
         >
             <figure>
                 {props.svg ?

@@ -24,5 +24,9 @@ export const PetTable = styled.table`
     tbody tr{
         height:53px;
         border-bottom: 2px solid ${props => props.theme.colors.bg1};
+
+        td:last-child{
+            text-align:center;
+        }
     }
 `;
