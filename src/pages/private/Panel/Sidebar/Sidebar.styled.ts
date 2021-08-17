@@ -6,6 +6,15 @@ export const Fixed = styled.div`
     position: fixed;
     height:100vh;
     z-index:10;
+
+    @media (max-width: ${props => props.theme.break.tablet}){
+        right:-290px;
+
+        nav {
+            background-color: ${props => props.theme.colors.green};
+            border-radius: 30px 0 0 30px;
+        }
+    }
 `;
 
 export const Nav = styled.nav`
@@ -17,6 +26,11 @@ export const Nav = styled.nav`
     /* box-shadow: 0px 0px 5px rgba(0,0,0,.25); */
     z-index: 10;
     align-items: center;
+
+    @media (max-width: ${props => props.theme.break.tablet}){
+        background-color: ${props => props.theme.colors.green};
+        border-radius: 30px 0 0 30px;
+    }
 `;
 
 export const Logo = styled.img`

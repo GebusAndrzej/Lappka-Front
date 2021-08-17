@@ -36,6 +36,10 @@ export const UserBox = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+
+    @media (max-width: ${props => props.theme.break.tablet}){
+        display:none;
+    }
 `;
 
 export const Avatar = styled.figure`
@@ -64,7 +68,13 @@ export const Company = styled.span`
     font-size: 12px;
     line-height: 14px;
     letter-spacing: 0.6px; 
-    color: ${props => props.theme.colors.gray}
+    color: ${props => props.theme.colors.gray};
 `;
 
+export const Burger = styled.button`
+    margin-right: 15px;
+    height:100%;
+    border: none;
+    background-color: inherit;
+`;
 

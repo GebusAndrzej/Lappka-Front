@@ -1,33 +1,27 @@
 import styled, { css } from "styled-components";
 
-export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "third-row" }>`
-    display:flex;
-    flex-direction: row;
-    box-sizing: border-box;
+export const Grid = styled.div`
+    display:grid;
 
-    ${(props) => props.variant == "date" && css`
-        align-items: center;
-        justify-content: flex-end;
-    `}
+    grid-template-areas: 
+    "date date date date date date"
+    "item item item item item item"
+    "chart chart chart chart shelter shelter"
+    "list list list list list list";
+    gap: 20px;
 
-    ${(props) => props.variant == "first-row" && css`
-        align-items: center;
-        justify-content: space-around;
-    `}
-
-    ${(props) => props.variant == "second-row" && css`
-        display:grid;
-        grid-template-columns: 2fr 1fr;
-        gap:20px;
-    `}
-
-    ${(props) => props.variant == "third-row" && css`
-        align-items: center;
-    `}
-    
+    @media (max-width: ${props => props.theme.break.tablet}){
+        margin-top:20px;
+        grid-template-areas: 
+        "shelter"
+        "date"
+        "item"
+        "chart"
+        "list";
+    }
 `;
 
-export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "third-row" }>`
+export const Item = styled.div<{ variant: "chart" | "shelter" }>`
     display:flex;
     align-items: center;
     justify-content: center;
@@ -36,7 +30,72 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
     min-width:10px;
     min-height: 10px;
     padding:10px;
-    margin:5px;
+    /* margin:5px;
+    margin-bottom:15px; */
+    box-sizing: border-box;
+
+    ${(props) => props.variant == "chart" && css`
+        grid-area: chart;
+        padding: 0px;
+    `}
+    ${(props) => props.variant == "shelter" && css`
+        grid-area: shelter;
+        @media (max-width: ${props => props.theme.break.tablet}) {
+            width:49%;
+            margin:auto;
+        }
+        @media (max-width: ${props => props.theme.break.mobile}) {
+            width:90%;
+            margin:auto;
+        }
+    `}
+`;
+
+// OLD
+
+export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "third-row" }>`
+    display:flex;
+    flex-direction: row;
+    box-sizing: border-box;
+
+    ${(props) => props.variant == "date" && css`
+    align-items: center;
+    justify-content: flex-end;
+    grid-area: date;
+    
+    @media (max-width: ${props => props.theme.break.tablet}) {
+            margin-top:40px;
+            justify-content: center;
+        }
+    `}
+
+    ${(props) => props.variant == "first-row" && css`
+        align-items: center;
+        justify-content: space-between;
+        grid-area: item;
+        flex-wrap: wrap;
+
+        @media (max-width: ${props => props.theme.break.mobile}) {
+            flex-direction: column;
+        }
+    `}
+
+    ${(props) => props.variant == "third-row" && css`
+        align-items: center;
+        grid-area: list;
+        overflow-y: auto;
+    `}
+    
+`;
+
+export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "third-row" }>`
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 12px;
+    min-width:10px;
+    min-height: 10px;
     margin-bottom:15px;
     box-sizing: border-box;
 
@@ -48,19 +107,13 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
         flex-direction: row;
         align-items: center;
         justify-content: flex-start;
-    `}
 
-    ${(props) => props.variant == "second-row" && css`
-        border-radius: 20px;
-        height:345px;
-        width: 100%;
-        /* padding:25px; */
-        display:flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        box-sizing: border-box;
-        position: relative;
+        @media (max-width: ${props => props.theme.break.tablet}) {
+            width:49%;
+        }
+        @media (max-width: ${props => props.theme.break.mobile}) {
+            width:90%;
+        }
     `}
 
     ${(props) => props.variant == "third-row" && css`
@@ -70,6 +123,20 @@ export const ItemWrapper = styled.div<{ variant?: "first-row" | "second-row" | "
         width: 100%;
         padding: 25px;
     `}
+
+    ${(props) => props.variant == "date" && css`
+        padding:9px;
+        margin-right: 10px;
+        height:38px;
+        min-width: 38px;
+        display:flex;
+        gap:5px;
+    `}
+
+`;
+
+export const Date = styled.input`
+
 `;
 
 // first row

@@ -10,6 +10,10 @@ export const SectionTitle = styled.h1`
     text-align: center;
     letter-spacing: 1.425px;
     color: ${props => props.theme.colors.black};
+
+    @media (max-width: ${props => props.theme.break.mobile}) {
+        padding-top: 70px;
+    }
 `;
 export const GridContainer = styled.div`
     display: grid;
