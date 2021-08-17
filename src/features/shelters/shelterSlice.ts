@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Shelter';
 import axiosConfig, { endpoints } from '../../app/axiosConfig'
@@ -31,18 +31,22 @@ export const shelterSlice = createSlice({
     initialState,
 
     reducers: {
+        setShelter: (state, action: PayloadAction<Shelter>) => {
+            state.shelter = action.payload;
+            state.shelterStatus = 'idle'
+        },
     },
     extraReducers: (builder) => {
         builder
             .addCase(fetchShelters.fulfilled, (state, action) => {
                 state.shelters = action.payload
                 state.sheltersStatus = "idle"
-                console.log(action.payload); // !
+                // console.log(action.payload); // !
             })
     }
 })
 
-// export const { } = loginSlice.actions;
+export const { setShelter } = shelterSlice.actions;
 
 
 
