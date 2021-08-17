@@ -1,14 +1,20 @@
 import React from 'react'
-import { Avatar, Company, IconBox, Name, Title, Titlebar, UserBox } from './TitleBar.styled'
+import { Avatar, Company, IconBox, Name, SubTitle, Title, Titlebar, UserBox, Titlebox} from './TitleBar.styled'
 
 interface Props {
     title: string;
+    subTitle?: string;
 }
 
 export default function TitleBar(props: Props): JSX.Element {
     return (
         <Titlebar>
-            <Title>{props.title}</Title>
+            <Titlebox>
+                <Title>{props.title}</Title>
+                {props.subTitle? <SubTitle>/ {props.subTitle}</SubTitle> : null}
+            </Titlebox>
+            
+            
 
             <IconBox>
                 <figure>

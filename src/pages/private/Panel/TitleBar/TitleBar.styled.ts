@@ -18,10 +18,22 @@ export const Title = styled.h2`
     font-weight: bold;
     font-size: 20px;
     line-height: 23px;
-
     letter-spacing: 0.571428px;
     padding-left:20px;
+    display: inline;
+`;
+export const SubTitle = styled.h2`
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 20px;
+    line-height: 23px;
+    letter-spacing: 0.571428px;
+    padding-left:5px;
+`;
+export const Titlebox = styled.div`
     margin-right: auto;
+    display: flex;
 `;
 
 export const IconBox = styled.div`
