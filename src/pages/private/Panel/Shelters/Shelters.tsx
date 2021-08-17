@@ -1,25 +1,34 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { fetchShelters, getShelters } from '../../../../features/shelters/shelterSlice'
+import { fetchShelters, getShelters, setShelter } from '../../../../features/shelters/shelterSlice'
 import { PetTable } from '../Dashboard/components/PetList.styled'
 import { Bar, ItemWrapper, Title } from '../Dashboard/Dashboard.styled'
 
 import { ReactComponent as SVG_Edit } from '../../../../assets/svg/edit.svg';
 import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg';
+import { Shelter } from '../../../../model/Shelter'
+import { useHistory } from 'react-router'
+import { Icon } from './Shelters.styled'
 
 function Shelters(): JSX.Element {
     const shelters = useAppSelector(getShelters)
     const dispatch = useAppDispatch()
+    const history = useHistory()
 
     useEffect(() => {
         if (shelters.length == 0)
             dispatch(fetchShelters())
     }, [])
 
+    function edit(shelter: Shelter) {
+        dispatch(setShelter(shelter))
+        history.push(`/shelters/edit/${shelter.id}`)
+    }
+
     return (
         <Bar variant="third-row">
             <ItemWrapper variant="third-row">
-                <Title>Karty Zwierząt</Title>
+                <Title>Schroniska</Title>
                 <PetTable>
                     <thead>
                         <tr>
@@ -42,8 +51,14 @@ function Shelters(): JSX.Element {
                                         <td>{x.address.city}</td>
                                         <td>{x.phoneNumber}</td>
                                         <td>
-                                            <SVG_Edit />
-                                            <SVG_Delete />
+                                            <Icon onClick={() => edit(x)} color="green">
+                                                <SVG_Edit />
+                                            </Icon>
+                                            <Icon color="red">
+                                                <SVG_Delete />
+                                            </Icon>
+                                            {/* <Link to={'/shelters/edit/' + x.id}> */}
+                                            {/* </Link> */}
                                         </td>
                                     </tr>
                                 )

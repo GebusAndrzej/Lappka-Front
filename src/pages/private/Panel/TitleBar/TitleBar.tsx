@@ -5,9 +5,15 @@ import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox } from
 
 interface Props {
     title: string;
+    toggle: () => void;
 }
 
 export default function TitleBar(props: Props): JSX.Element {
+
+    function MenuToggle() {
+        props.toggle()
+    }
+
     return (
         <Titlebar>
             <Title>{props.title}</Title>
@@ -29,7 +35,7 @@ export default function TitleBar(props: Props): JSX.Element {
                 </div>
             </UserBox>
 
-            <Burger>
+            <Burger onClick={MenuToggle}>
                 <SVG_Burger />
             </Burger>
         </Titlebar>
