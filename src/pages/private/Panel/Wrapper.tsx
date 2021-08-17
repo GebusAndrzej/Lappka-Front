@@ -24,8 +24,8 @@ function Wrapper(props: Props): JSX.Element {
 
     return (
         <PanelWrapper>
-            <Sidebar state={MenuState} toggle={MenuToggle}  subTitle={props.subTitle} ></Sidebar>
-            <TitleBar toggle={MenuToggle} title={props.title}></TitleBar>
+            <Sidebar state={MenuState} toggle={MenuToggle}></Sidebar>
+            <TitleBar toggle={MenuToggle} title={props.title} subTitle={props.subTitle}></TitleBar>
             <Container>
                 {props.child ?
                     props.child
