@@ -31,7 +31,9 @@ function PetList(): JSX.Element {
                                     <td>a{x}</td>
                                     <td>a{x}</td>
                                     <td>a{x}</td>
-                                    <td>+ -</td>
+                                    <td>+ -
+
+                                    </td>
                                 </tr>
                             )
                         })

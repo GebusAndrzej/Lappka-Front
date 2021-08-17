@@ -7,6 +7,7 @@ import Wrapper from './pages/private/Panel/Wrapper';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme, GlobalStyle } from './static/cssStatic';
 import Dashboard from './pages/private/Panel/Dashboard/Dashboard';
+import Shelters from './pages/private/Panel/Shelters/Shelters';
 
 
 function App(): JSX.Element {
@@ -21,6 +22,10 @@ function App(): JSX.Element {
         <PrivateRoute path="/messages" exact component={() => <Wrapper title="Wiadomości" />} isAuthenticated={true} />
         <PrivateRoute path="/pets" exact component={() => <Wrapper title="Karty Zwierząt" />} isAuthenticated={true} />
         <PrivateRoute path="/volounteering" exact component={() => <Wrapper title="Wolontariat" />} isAuthenticated={true} />
+
+        <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/edit/{id}" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
 
       </Router>
     </ThemeProvider>
