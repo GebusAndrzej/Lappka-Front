@@ -7,9 +7,10 @@ import Wrapper from './pages/private/Panel/Wrapper';
 import { ThemeProvider } from 'styled-components';
 import { defaultTheme, GlobalStyle } from './static/cssStatic';
 import Dashboard from './pages/private/Panel/Dashboard/Dashboard';
+import AllPets from './pages/private/Panel/Pets/AllPets/AllPets'
+import AddPet from './pages/private/Panel/Pets/AddPet/AddPet';
 import Shelters from './pages/private/Panel/Shelters/Shelters';
 import AddShelter from './pages/private/Panel/Shelters/AddShelter/AddShelter';
-
 
 function App(): JSX.Element {
   return (
@@ -21,9 +22,11 @@ function App(): JSX.Element {
 
         <PrivateRoute path="/dashboard" exact component={() => <Wrapper title="Dashboard" child={<Dashboard />} />} isAuthenticated={true} />
         <PrivateRoute path="/messages" exact component={() => <Wrapper title="Wiadomości" />} isAuthenticated={true} />
-        <PrivateRoute path="/pets" exact component={() => <Wrapper title="Karty Zwierząt" />} isAuthenticated={true} />
+        <PrivateRoute path="/pets" exact component={() => <Wrapper title="Karty Zwierząt" child={<AllPets />}/>} isAuthenticated={true} />
         <PrivateRoute path="/volounteering" exact component={() => <Wrapper title="Wolontariat" />} isAuthenticated={true} />
 
+        <PrivateRoute path="/pets/add-pet" exact component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj kartę" child={<AddPet />} />}  isAuthenticated={true} />
+       
         <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
         <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
         <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />

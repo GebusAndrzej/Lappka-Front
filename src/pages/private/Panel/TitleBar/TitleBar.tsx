@@ -1,4 +1,6 @@
 import React from 'react'
+
+import { Avatar, Company, IconBox, Name, SubTitle, Title, Titlebar, UserBox, Titlebox} from './TitleBar.styled'
 import { ReactComponent as SVG_Burger } from '../../../../assets/svg/burger.svg';
 import { ReactComponent as SVG_Notification } from '../../../../assets/svg/notification.svg';
 import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox } from './TitleBar.styled'
@@ -6,6 +8,7 @@ import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox } from
 interface Props {
     title: string;
     toggle: () => void;
+    subTitle?: string;
 }
 
 export default function TitleBar(props: Props): JSX.Element {
@@ -16,7 +19,12 @@ export default function TitleBar(props: Props): JSX.Element {
 
     return (
         <Titlebar>
-            <Title>{props.title}</Title>
+            <Titlebox>
+                <Title>{props.title}</Title>
+                {props.subTitle? <SubTitle>/ {props.subTitle}</SubTitle> : null}
+            </Titlebox>
+            
+            
 
             <IconBox>
                 <figure>

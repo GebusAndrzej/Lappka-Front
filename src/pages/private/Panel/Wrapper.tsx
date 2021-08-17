@@ -5,6 +5,7 @@ import TitleBar from './TitleBar/TitleBar'
 
 interface Props {
     title: string,
+    subTitle?: string,
     child?: ReactChild
 }
 
@@ -23,7 +24,7 @@ function Wrapper(props: Props): JSX.Element {
 
     return (
         <PanelWrapper>
-            <Sidebar state={MenuState} toggle={MenuToggle}></Sidebar>
+            <Sidebar state={MenuState} toggle={MenuToggle}  subTitle={props.subTitle} ></Sidebar>
             <TitleBar toggle={MenuToggle} title={props.title}></TitleBar>
             <Container>
                 {props.child ?
