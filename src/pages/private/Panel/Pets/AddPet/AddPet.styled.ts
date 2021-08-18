@@ -15,6 +15,9 @@ export const GridContainer = styled.div`
     margin: 0 auto;
     grid-template-columns: 1fr 1fr;
     grid-gap: 30px;
+    @media(max-width: ${props => props.theme.break.tablet} ){ 
+        grid-template-columns: 1fr;
+    }
 `;
 
 export const GridItem = styled.div<{ background?: string }>`
