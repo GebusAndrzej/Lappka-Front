@@ -58,9 +58,7 @@ export const Item = styled.div<{ variant: "chart" | "shelter" }>`
     `}
 `;
 
-// OLD
-
-export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "third-row" }>`
+export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "full-width" }>`
     display:flex;
     flex-direction: row;
     box-sizing: border-box;
@@ -87,7 +85,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
         }
     `}
 
-    ${(props) => props.variant == "third-row" && css`
+    ${(props) => props.variant == "full-width" && css`
         align-items: center;
         grid-area: list;
         overflow-y: auto;
@@ -98,7 +96,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
     
 `;
 
-export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "third-row" }>`
+export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "full-width" }>`
     display:flex;
     align-items: center;
     justify-content: center;
@@ -126,7 +124,7 @@ export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "third-
         }
     `}
 
-    ${(props) => props.variant == "third-row" && css`
+    ${(props) => props.variant == "full-width" && css`
         display: block;
         border-radius: 20px;
         min-height:345px;

@@ -42,8 +42,8 @@ function Dashboard(): JSX.Element {
                     <Shelter></Shelter>
                 </Item>
 
-                <Bar variant="third-row">
-                    <ItemWrapper variant="third-row">
+                <Bar variant="full-width">
+                    <ItemWrapper variant="full-width">
                         <PetList></PetList>
                     </ItemWrapper>
                 </Bar>

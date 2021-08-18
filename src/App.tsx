@@ -22,13 +22,13 @@ function App(): JSX.Element {
 
         <PrivateRoute path="/dashboard" exact component={() => <Wrapper title="Dashboard" child={<Dashboard />} />} isAuthenticated={true} />
         <PrivateRoute path="/messages" exact component={() => <Wrapper title="Wiadomości" />} isAuthenticated={true} />
-        <PrivateRoute path="/pets" exact component={() => <Wrapper title="Karty Zwierząt" child={<AllPets />}/>} isAuthenticated={true} />
+        <PrivateRoute path="/pets" exact component={() => <Wrapper title="Karty Zwierząt" child={<AllPets />} />} isAuthenticated={true} />
         <PrivateRoute path="/volounteering" exact component={() => <Wrapper title="Wolontariat" />} isAuthenticated={true} />
 
-        <PrivateRoute path="/pets/add-pet" exact component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj kartę" child={<AddPet />} />}  isAuthenticated={true} />
-       
+        <PrivateRoute path="/pets/add-pet" exact component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj kartę" child={<AddPet />} />} isAuthenticated={true} />
+
         <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
-        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />
         <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />
 
       </Router>
