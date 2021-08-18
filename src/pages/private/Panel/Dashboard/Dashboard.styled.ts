@@ -37,9 +37,16 @@ export const Item = styled.div<{ variant: "chart" | "shelter" }>`
     ${(props) => props.variant == "chart" && css`
         grid-area: chart;
         padding: 0px;
+        margin-left:20px;            
+
+        @media (max-width: ${props => props.theme.break.tablet}) {
+            margin-right: 20px;
+        }
+
     `}
     ${(props) => props.variant == "shelter" && css`
         grid-area: shelter;
+        margin-right: 20px;
         @media (max-width: ${props => props.theme.break.tablet}) {
             width:49%;
             margin:auto;
@@ -71,7 +78,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
 
     ${(props) => props.variant == "first-row" && css`
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-evenly;
         grid-area: item;
         flex-wrap: wrap;
 
@@ -84,6 +91,9 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
         align-items: center;
         grid-area: list;
         overflow-y: auto;
+        margin-left:20px;
+        padding-right: 20px;
+        margin-bottom: 50px;
     `}
     
 `;
@@ -121,6 +131,7 @@ export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "third-
         border-radius: 20px;
         min-height:345px;
         width: 100%;
+        min-width: 800px;
         padding: 25px;
     `}
 

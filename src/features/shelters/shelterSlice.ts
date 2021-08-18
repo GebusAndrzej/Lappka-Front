@@ -6,17 +6,22 @@ import axiosConfig, { endpoints } from '../../app/axiosConfig'
 interface InitialState {
     shelters: Array<Shelter>,
     sheltersStatus: 'idle' | 'loading' | 'failed',
+    sheltersUpdateTime: number,
     shelter: Shelter | null,
     shelterStatus: 'idle' | 'loading' | 'failed',
-
+    shelterUpdateTime: number
 }
 
 const initialState: InitialState = {
     shelters: [],
     sheltersStatus: "idle",
+    sheltersUpdateTime: 0,
     shelter: null,
     shelterStatus: 'idle',
+    shelterUpdateTime: 0
 }
+
+// async operations
 
 export const fetchShelters = createAsyncThunk(
     'posts/fetchShelters',
@@ -26,22 +31,32 @@ export const fetchShelters = createAsyncThunk(
     }
 );
 
+// slice
+
 export const shelterSlice = createSlice({
     name: 'shelters',
     initialState,
 
     reducers: {
         setShelter: (state, action: PayloadAction<Shelter>) => {
-            state.shelter = action.payload;
+            state.shelter = action.payload
             state.shelterStatus = 'idle'
+            state.shelterUpdateTime = Date.now()
         },
     },
     extraReducers: (builder) => {
         builder
+            .addCase(fetchShelters.pending, (state) => {
+                state.sheltersStatus = "loading"
+            })
             .addCase(fetchShelters.fulfilled, (state, action) => {
                 state.shelters = action.payload
                 state.sheltersStatus = "idle"
+                state.sheltersUpdateTime = Date.now()
                 // console.log(action.payload); // !
+            })
+            .addCase(fetchShelters.rejected, (state) => {
+                state.sheltersStatus = "failed"
             })
     }
 })
@@ -49,12 +64,13 @@ export const shelterSlice = createSlice({
 export const { setShelter } = shelterSlice.actions;
 
 
-
 export const getShelters = (state: RootState): Shelter[] => {
     return state.shelters.shelters
 }
 
-
+export const getShelter = (state: RootState): Shelter | null => {
+    return state.shelters.shelter
+}
 
 
 export default shelterSlice.reducer
