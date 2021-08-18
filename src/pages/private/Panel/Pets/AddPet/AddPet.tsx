@@ -10,22 +10,21 @@ function AddPet(): JSX.Element {
     return (
         <>
             <Formik
-                    initialValues={{
-                        Spacies: '',
-                        Race: '',
-                        Name: '',
-                        Sex:'',
-                        Weight:'',
-                        Sterilization: null,
-                        Images: [''],
-                    }}
-                    validationSchema={Yup.object({
-                        Name: Yup.string()
-                    })}
-                    onSubmit={values => {
-                        alert(JSON.stringify(values, null, 2));
-                    }}
-                >
+                initialValues={{
+                    Spacies: '',
+                    Race: '',
+                    Name: '',
+                    Sex: '',
+                    Images: ""
+                }}
+                validationSchema={Yup.object({
+                    //Name: Yup.string().required(''),
+                })}
+                onSubmit={values => {
+                    // alert(JSON.stringify(values, null, 2));
+                    console.log(values)
+                }}
+            >
                     <Form>
                         <Title>Ważne informacje</Title>
                         <GridContainer>
