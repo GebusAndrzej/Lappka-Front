@@ -11,7 +11,7 @@ const TextInput = (props: TSProps & FieldHookConfig<string | number>): JSX.Eleme
     return (
         <InputDiv>
             <Text htmlFor={props.id || props.name}></Text>
-            <Input {...field} {...props} />
+            <Input placeholder="placeholder" {...field} {...props} />
             <Label>{props.label}</Label>
             {meta.touched && meta.error ? (<InvalidInput>{meta.error}</InvalidInput>) : null}
         </InputDiv>  

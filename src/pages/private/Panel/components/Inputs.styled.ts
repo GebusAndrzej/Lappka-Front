@@ -6,6 +6,12 @@ export const Text = styled.label<{ fontWeight?: string }>`
 export const InvalidInput = styled.p`
 `;
 
+export const Icon = styled.div<{ top?: string }>`
+    position: absolute;
+    top: ${props => props.top || "20px"};
+    right:20px;
+`;
+
 //Inputs Wrapper + default proporties
 export const InputDiv = styled.div`
     position: relative;
@@ -23,12 +29,18 @@ export const InputDiv = styled.div`
         font-size: 16px;
         letter-spacing: -0.02em;
     }
+    padding-top: 10px;
+    
+}
 `;
 
 // Input styles
 export const Input = styled.input`
     color: ${props => props.theme.colors.black};
     text-indent: 16px;
+    ::placeholder{
+        opacity: 0;
+    }
     
 `;
 
@@ -36,8 +48,9 @@ export const Input = styled.input`
 export const SelInput = styled.select`
     color: ${props => props.theme.colors.black};
     text-indent: 14px;
-    padding-top: 10px;
+    -webkit-appearance: none;
 `;
+
 export const Option = styled.option`
 `;
 
@@ -57,13 +70,14 @@ export const Label = styled.label`
     color: ${props => props.theme.colors.gray};
     mix-blend-mode: normal;
     left: 18px;
+    letter-spacing: -0.02em;
     top: 19px;
     font-size: 16px;
-    letter-spacing: -0.02em;
     ${Input}:focus ~ &,
-    ${SelInput}:valid ~ &,
-    ${Input}:valid ~ &{
-        top: 6px;
+    ${Input}:not(:placeholder-shown) ~ &,
+    ${SelInput}:valid ~ &
+    {
+        top: 8px;
         font-size: 11px;
     }
 `;
