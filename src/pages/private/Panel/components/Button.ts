@@ -10,6 +10,7 @@ export const Button = styled.button`
     border-radius: 16px;
     background: ${props => props.theme.colors.green};
     padding: 0;
+    
     color: white;
     font-family: Ubuntu;
     font-style: normal;

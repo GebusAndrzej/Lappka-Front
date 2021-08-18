@@ -1,30 +1,34 @@
 import styled from "styled-components";
 import React from 'react'
-import { FieldHookConfig} from 'formik';
 
-// function returnFileSize(number<) {
-//     if(number < 1024) {
-//       return number + 'bytes';
-//     } else if(number >= 1024 && number < 1048576) {
-//       return (number/1024).toFixed(1) + 'KB';
-//     } else if(number >= 1048576) {
-//       return (number/1048576).toFixed(1) + 'MB';
-//     }
-//   }
 const ImagePreview = styled.img`
-
+    width: 100px;
+    height:100px;
+    margin:10px;
+    margin-top:20px;
+    border-radius: 8px;
 `;
 
 
-interface TSProps{
-    linkUrl?:string;
+interface TSProps {
+    blob: Blob;
 }
 
-const updateImageDisplay = (props: TSProps & FieldHookConfig<Array<string>>): JSX.Element =>{
-    return(
+const FilesPreview = (props: TSProps): JSX.Element => {
+    const url = URL.createObjectURL(props.blob)
+
+    return (
         <>
-            {props.linkUrl} ? <ImagePreview src={URL.createObjectURL(props.linkUrl)} alt=""/>
+            {props.blob ?
+                <>
+                    <ImagePreview src={url} alt="image preview" />
+
+                </>
+
+                :
+                false
+            }
         </>
     )
 }
-export default updateImageDisplay 
+export default FilesPreview
