@@ -12,7 +12,7 @@ export const PanelWrapper = styled.section`
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         grid-template-columns: 1fr;
-        grid-template-rows: 1fr;
+        grid-template-rows: 57px 1fr;
         grid-template-areas: 
         "title"
         "child";
@@ -20,10 +20,12 @@ export const PanelWrapper = styled.section`
 `;
 
 export const Container = styled.div`
+    overflow-x: auto;
     margin:16px 32px 50px 31px;
     grid-area: child;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         margin: 5px;
+        margin-top:32px;
     }
 `;
