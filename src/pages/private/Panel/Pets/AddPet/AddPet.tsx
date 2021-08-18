@@ -6,7 +6,6 @@ import FileInput from '../../components/FileInput'
 import { Form, Formik, } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../components/Button';
-
 function AddPet(): JSX.Element {
     return (
         <>
@@ -16,10 +15,12 @@ function AddPet(): JSX.Element {
                         Race: '',
                         Name: '',
                         Sex:'',
+                        Weight:'',
+                        Sterilization: null,
                         Images: [''],
                     }}
                     validationSchema={Yup.object({
-                        Name: Yup.string().required(''),
+                        Name: Yup.string()
                     })}
                     onSubmit={values => {
                         alert(JSON.stringify(values, null, 2));
@@ -29,12 +30,12 @@ function AddPet(): JSX.Element {
                         <Title>Ważne informacje</Title>
                         <GridContainer>
                             <GridItem>
-                                <SelectInput name="Species" label="nie pytają mnie o imie"
+                                <SelectInput name="Species" label="Wybierz gatunek zwierzaka"
                                 optionsArray={["Tu będą opcje czytane z bazy","i inne" ]}>
                                 </SelectInput>
                             </GridItem>
                             <GridItem>
-                                <SelectInput name="Race" label="nie pytają mnie o imie"
+                                <SelectInput name="Race" label="Wybierz rasę"
                                 optionsArray={["Tu będą opcje czytane z bazy","i inne" ]}>
                                 </SelectInput>
                             </GridItem>
@@ -42,13 +43,13 @@ function AddPet(): JSX.Element {
                                 <TextInput name="Name" type="text" label="Wpisz imię zwierzaka" />
                             </GridItem>
                             <GridItem>
-                                <SelectInput name="Sex" label="nie pytają mnie o imie"
+                                <SelectInput name="Sex" label="Wybierz płeć"
                                 optionsArray={["Tu będą opcje czytane z bazy","i inne" ]}>
                                 </SelectInput>
                             </GridItem>
 
                             <GridItem>
-                                <FileInput name="Images" label="nie pytają mnie o imie" type="file" multiple accept="image/*" />
+                                <FileInput name="Images" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
                             </GridItem>
                             <GridItem background="transparent"></GridItem>
                         </GridContainer>
@@ -56,13 +57,15 @@ function AddPet(): JSX.Element {
                         <GridContainer>
                             <GridItem></GridItem>
                             <GridItem>
-                                <SelectInput name="Color" label="nie pytają mnie o imie"
+                                <SelectInput name="Color" label="Wybierz umaszczenie"
                                 optionsArray={["Tu będą opcje czytane z bazy","i inne" ]}>
                                 </SelectInput>
                             </GridItem>
-                            <GridItem></GridItem>
                             <GridItem>
-                                <SelectInput name="Sterilizaation" label="nie pytają mnie o imie"
+                                <TextInput name="Weight" type="text" label="Waga (w kg)" />
+                            </GridItem>
+                            <GridItem>
+                                <SelectInput name="Sterilizaation" label="Czy zwierzak jest wysterylizowany?"
                                 optionsArray={["Tu będą opcje czytane z bazy","i inne" ]}>
                                 </SelectInput>
                             </GridItem>
