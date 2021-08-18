@@ -3,24 +3,26 @@ import styled from "styled-components";
 export const Text = styled.label<{ fontWeight?: string }>`
 `;
 
-export const  InvalidInput= styled.p`
+export const InvalidInput = styled.p`
 `;
 
 //Inputs Wrapper + default proporties
 export const InputDiv = styled.div`
     position: relative;
-input,select{
-    background: white;
-    width: 100%;
-    height: 56px;
-    border: 0px;
+    background-color:white;
     border-radius: 20px;
-    position: relative;
-    box-sizing: border-box;
-    line-height: 28px;
-    font-size: 16px;
-    letter-spacing: -0.02em;
-}
+    input,select{
+        background: white;
+        width: 100%;
+        height: 56px;
+        border: 0px;
+        border-radius: 20px;
+        position: relative;
+        box-sizing: border-box;
+        line-height: 28px;
+        font-size: 16px;
+        letter-spacing: -0.02em;
+    }
 `;
 
 // Input styles
