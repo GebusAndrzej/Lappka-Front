@@ -5,7 +5,7 @@ const ImagePreview = styled.img`
     width: 100px;
     height:100px;
     margin:10px;
-    margin-top:15px;
+    margin-top:20px;
     border-radius: 8px;
 `;
 

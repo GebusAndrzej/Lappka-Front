@@ -28,10 +28,7 @@ export const InputDiv = styled.div`
         line-height: 28px;
         font-size: 16px;
         letter-spacing: -0.02em;
-    }
-    padding-top: 10px;
-    
-}
+    }    
 `;
 
 // Input styles

@@ -21,7 +21,7 @@ export const GridContainer = styled.div`
 `;
 
 export const GridItem = styled.div<{ background?: string }>`
-    background: ${props => props.background || "white"};
+    /* background: ${props => props.background || "white"}; */
     width: 100%;
     /* height: 56px; */
     border: 0px;
