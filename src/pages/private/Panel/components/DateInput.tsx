@@ -1,8 +1,8 @@
 import { FieldHookConfig, useField } from 'formik'
 import React from 'react'
-import DatePicker from "react-datepicker"
+// import DatePicker from "react-datepicker"
 import 'react-datepicker/dist/react-datepicker.css';
-import { CustomDatePicker, Icon, InputDiv, InvalidInput, Label } from './Inputs.styled';
+import { CustomDatePicker, Icon, InputDiv, InvalidInput } from './Inputs.styled';
 
 interface OtherProps {
     label?: string

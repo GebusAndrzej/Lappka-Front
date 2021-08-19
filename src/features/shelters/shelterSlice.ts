@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Shelter';
-import axiosConfig, { endpoints } from '../../app/axiosConfig'
+import { endpoints, AxiosUnauthorized } from '../../app/axiosConfig'
 
 interface InitialState {
     shelters: Array<Shelter>,
@@ -26,7 +26,15 @@ const initialState: InitialState = {
 export const fetchShelters = createAsyncThunk(
     'posts/fetchShelters',
     async () => {
-        const response = await axiosConfig.get<Shelter[]>(endpoints.shelters)
+        const response = await AxiosUnauthorized.get<Shelter[]>(endpoints.shelters)
+        return response.data;
+    }
+);
+
+export const fetchShelter = createAsyncThunk(
+    'posts/fetchShelter',
+    async (id: string) => {
+        const response = await AxiosUnauthorized.get<Shelter>(endpoints.shelters + `/${id}`)
         return response.data;
     }
 );
@@ -46,6 +54,7 @@ export const shelterSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            //shelters
             .addCase(fetchShelters.pending, (state) => {
                 state.sheltersStatus = "loading"
             })
@@ -57,6 +66,20 @@ export const shelterSlice = createSlice({
             })
             .addCase(fetchShelters.rejected, (state) => {
                 state.sheltersStatus = "failed"
+            })
+
+            //one shelter
+            .addCase(fetchShelter.pending, (state) => {
+                state.shelterStatus = "loading"
+            })
+            .addCase(fetchShelter.fulfilled, (state, action) => {
+                state.shelter = action.payload
+                state.shelterStatus = "idle"
+                state.shelterUpdateTime = Date.now()
+
+            })
+            .addCase(fetchShelter.rejected, (state) => {
+                state.shelterStatus = "failed"
             })
     }
 })
