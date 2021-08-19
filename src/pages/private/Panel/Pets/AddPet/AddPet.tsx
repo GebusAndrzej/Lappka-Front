@@ -6,25 +6,25 @@ import FileInput from '../../components/FileInput'
 import { Form, Formik, } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '../../components/Button';
-
-export enum Species {
-    "Pies" = 0,
-    "Kot" = 1,
-    "Papuga" = 2,
-    "Królik" = 3
-}
+import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
+import { DateInput } from '../../components/DateInput';
+import TextArea from '../../components/TextArea';
 
 function AddPet(): JSX.Element {
-
     return (
         <>
             <Formik
                 initialValues={{
-                    Species: '',
-                    Race: '',
                     Name: '',
                     Sex: '',
-                    Images: ""
+                    Race: '',
+                    Species: '',
+                    File: "",
+                    BirthDay: null,
+                    Color: "",
+                    Weight: "",
+                    Sterilization: "false",
+                    Description: ""
                 }}
                 validationSchema={Yup.object({
                     //Name: Yup.string().required(''),
@@ -40,29 +40,23 @@ function AddPet(): JSX.Element {
                     <GridContainer>
 
                         <GridItem>
-                            <SelectInput name="Species" label="Wybierz gatunek zwierzaka"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <SelectInput name="Species" label="Wybierz gatunek zwierzaka" map={petSpecies}></SelectInput>
                         </GridItem>
 
                         <GridItem>
-                            <SelectInput name="Race" label="Wybierz rasę"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <TextInput name="Race" label="Rasa"></TextInput>
                         </GridItem>
 
                         <GridItem>
-                            <TextInput name="Name" type="text" label="Wpisz imię zwierzaka" />
+                            <TextInput name="Name" type="text" label="Imię zwierzaka" />
                         </GridItem>
 
                         <GridItem>
-                            <SelectInput name="Sex" label="Wybierz płeć"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <SelectInput name="Sex" label="Wybierz płeć" map={petSexes}></SelectInput>
                         </GridItem>
 
                         <GridItem>
-                            <FileInput name="Images" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
+                            <FileInput name="File" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
                         </GridItem>
 
                     </GridContainer>
@@ -72,15 +66,12 @@ function AddPet(): JSX.Element {
                     <GridContainer>
 
                         <GridItem>
-                            <SelectInput name="Date" label="Data"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <DateInput name="BirthDay" label="Data Urodzenia"></DateInput>
+                            {/* <TextInput name="BirthDay" label="Data"></TextInput> */}
                         </GridItem>
 
                         <GridItem>
-                            <SelectInput name="Color" label="Wybierz umaszczenie"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <TextInput name="Color" label="Umaszczenie"></TextInput>
                         </GridItem>
 
                         <GridItem>
@@ -88,9 +79,11 @@ function AddPet(): JSX.Element {
                         </GridItem>
 
                         <GridItem>
-                            <SelectInput name="Sterilizaation" label="Czy zwierzak jest wysterylizowany?"
-                                optionsArray={["Tu będą opcje czytane z bazy", "i inne"]}>
-                            </SelectInput>
+                            <SelectInput name="Sterilization" label="Czy zwierzak jest wysterylizowany?" map={petSterilization}></SelectInput>
+                        </GridItem>
+
+                        <GridItem colspan="2">
+                            <TextArea name="Description" label="Opis"></TextArea>
                         </GridItem>
 
                     </GridContainer>
