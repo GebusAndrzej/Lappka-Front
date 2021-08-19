@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import DatePicker from "react-datepicker"
+
 
 export const Text = styled.label<{ fontWeight?: string }>`
 `;
@@ -57,6 +59,34 @@ export const FiInput = styled.input`
     
 `;
 
+
+
+export const CustomDatePicker = styled(DatePicker)`
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    text-align:center;
+`;
+
+export const DescriptionField = styled.textarea`
+    width:100%;
+    height:100%;
+    border:none;
+    background-color:transparent;
+    padding:15px;
+    box-sizing: border-box;
+    min-height:150px;
+    resize: vertical;
+    line-height: 28px;
+    font-size: 16px;
+    letter-spacing: -0.02em;
+
+    :active{
+        outline: none;
+        border:none;
+    }
+`;
+
 // Active Label / Placeholder 
 
 export const Label = styled.label`
@@ -72,7 +102,8 @@ export const Label = styled.label`
     font-size: 16px;
     ${Input}:focus ~ &,
     ${Input}:not(:placeholder-shown) ~ &,
-    ${SelInput}:valid ~ &
+    ${SelInput}:valid ~ &,
+    ${DescriptionField}:focus ~ &
     {
         top: 8px;
         font-size: 11px;

@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Title = styled.h2`
     font-family: Ubuntu;
@@ -20,7 +20,7 @@ export const GridContainer = styled.div`
     }
 `;
 
-export const GridItem = styled.div<{ background?: string }>`
+export const GridItem = styled.div<{ background?: string, colspan?: string }>`
     /* background: ${props => props.background || "white"}; */
     width: 100%;
     /* height: 56px; */
@@ -28,5 +28,14 @@ export const GridItem = styled.div<{ background?: string }>`
     border-radius: 20px;
     padding: 0px;
     color: ${props => props.theme.colors.black};
+
+    ${props => props.colspan && css`
+        width:100%;
+        grid-column: span ${props.colspan};
+
+        @media(max-width: ${props.theme.break.mobile}){
+            grid-column: span 1;
+        }
+    `}
 `;
 

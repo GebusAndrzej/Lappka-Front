@@ -25,7 +25,12 @@ export const Container = styled.div`
     grid-area: child;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
-        margin: 5px;
+        margin: 15px;
+        margin-top:32px;
+    }
+
+    @media (max-width: ${props => props.theme.break.mobile}) {
+        margin: 15px;
         margin-top:32px;
     }
 `;

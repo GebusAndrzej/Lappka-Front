@@ -21,15 +21,22 @@ export const Title = styled.h2`
     letter-spacing: 0.571428px;
     padding-left:20px;
     display: inline;
+    @media (max-width: ${props => props.theme.break.mobile}){
+        font-size: 70%;
+    }
 `;
 export const SubTitle = styled.h2`
     font-family: Ubuntu;
     font-style: normal;
     font-weight: 300;
     font-size: 20px;
-    line-height: 23px;
+    line-height: 25px;
     letter-spacing: 0.571428px;
     padding-left:5px;
+
+    @media (max-width: ${props => props.theme.break.mobile}){
+        font-size: 70%;
+    }
 `;
 
 export const Titlebox = styled.div`

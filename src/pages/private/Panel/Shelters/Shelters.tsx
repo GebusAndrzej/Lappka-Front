@@ -9,7 +9,8 @@ import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg'
 import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
 import { Icon } from './Shelters.styled'
-import { Button } from '../Sidebar/Sidebar.styled'
+import { Button } from '../components/Button'
+import { Link } from 'react-router-dom'
 
 function Shelters(): JSX.Element {
     const shelters = useAppSelector(getShelters)
@@ -70,7 +71,9 @@ function Shelters(): JSX.Element {
                     </tbody>
                 </PetTable>
                 <Bar variant="date">
-                    <Button to="/shelters/add"> Dodaj schronisko </Button>
+                    <Link to="/shelters/add" >
+                        <Button>Dodaj schronisko</Button>
+                    </Link>
                 </Bar>
             </ItemWrapper>
         </Bar>

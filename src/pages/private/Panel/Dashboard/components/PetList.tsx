@@ -13,7 +13,7 @@ function PetList(): JSX.Element {
             <PetTable>
                 <thead>
                     <tr>
-                        <th>Imię zwiarzaka</th>
+                        <th>Imię zwierzaka</th>
                         <th>Płeć</th>
                         <th>Wiek</th>
                         <th>Kolor</th>

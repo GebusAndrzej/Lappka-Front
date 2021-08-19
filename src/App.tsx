@@ -11,6 +11,7 @@ import AllPets from './pages/private/Panel/Pets/AllPets/AllPets'
 import AddPet from './pages/private/Panel/Pets/AddPet/AddPet';
 import Shelters from './pages/private/Panel/Shelters/Shelters';
 import AddShelter from './pages/private/Panel/Shelters/AddShelter/AddShelter';
+import EditShelter from './pages/private/Panel/Shelters/EditShelter/EditShelter';
 
 function App(): JSX.Element {
   return (
@@ -29,7 +30,7 @@ function App(): JSX.Element {
 
         <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
         <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />
-        <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<EditShelter />} />} isAuthenticated={true} />
 
       </Router>
     </ThemeProvider>
