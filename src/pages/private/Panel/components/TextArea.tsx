@@ -10,7 +10,7 @@ function TextArea(props: TSProps & FieldHookConfig<string>): JSX.Element {
     const [field, meta] = useField(props);
 
     return (
-        <InputDiv>
+        <InputDiv className={meta.touched && meta.error ? "error" : "valid"}>
             <DescriptionField {...field} required></DescriptionField>
             <Label>{props.label}</Label>
             <Icon></Icon>
