@@ -11,7 +11,7 @@ function TextArea(props: TSProps & FieldHookConfig<string>): JSX.Element {
 
     return (
         <InputDiv>
-            <DescriptionField {...field}></DescriptionField>
+            <DescriptionField {...field} required></DescriptionField>
             <Label>{props.label}</Label>
             <Icon></Icon>
             {meta.touched && meta.error ? (<InvalidInput className="error">{meta.error}</InvalidInput>) : null}

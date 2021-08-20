@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import DatePicker from "react-datepicker"
 
-
 export const Text = styled.label<{ fontWeight?: string }>`
 `;
 
@@ -20,6 +19,7 @@ export const InputDiv = styled.div`
     background-color:white;
     border-radius: 20px;
     input,select{
+        
         background: white;
         width: 100%;
         height: 56px;
@@ -27,16 +27,20 @@ export const InputDiv = styled.div`
         border-radius: 20px;
         position: relative;
         box-sizing: border-box;
-        line-height: 28px;
+        line-height: 18px;
         font-size: 16px;
         letter-spacing: -0.02em;
+        text-indent: 18px;
     }    
 `;
 
 // Input styles
 export const Input = styled.input`
     color: ${props => props.theme.colors.black};
+    display: block;
+    padding-top: 10px;
     text-indent: 16px;
+    line-height: 18px;
     ::placeholder{
         opacity: 0;
     }
@@ -46,6 +50,8 @@ export const Input = styled.input`
 // Select styles
 export const SelInput = styled.select`
     color: ${props => props.theme.colors.black};
+    display: block;
+    padding-top: 10px;
     text-indent: 14px;
     -webkit-appearance: none;
 `;
@@ -62,26 +68,30 @@ export const FiInput = styled.input`
 
 
 export const CustomDatePicker = styled(DatePicker)`
+    padding-top: 0px;
     display:flex;
     align-items:center;
     justify-content: center;
-    text-align:center;
-    border:0;
+    text-align:right;
+    padding-right: 20px;
+    ::placeholder{
+        opacity: 0;
+    }
 `;
 
 export const DescriptionField = styled.textarea`
+    display: block;
     width:100%;
     height:100%;
     border:none;
     background-color:transparent;
-    padding:15px;
     box-sizing: border-box;
     min-height:150px;
     resize: vertical;
-    line-height: 28px;
+    line-height: 22px;
     font-size: 16px;
     letter-spacing: -0.02em;
-
+    padding: 20px 18px;
     :active{
         outline: none;
         border:none;
@@ -104,7 +114,7 @@ export const Label = styled.label`
     ${Input}:focus ~ &,
     ${Input}:not(:placeholder-shown) ~ &,
     ${SelInput}:valid ~ &,
-    ${DescriptionField}:focus ~ &
+    ${DescriptionField}:valid ~ &
     {
         top: 8px;
         font-size: 11px;
