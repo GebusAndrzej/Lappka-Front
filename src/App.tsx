@@ -29,8 +29,8 @@ function App(): JSX.Element {
         <PrivateRoute path="/pets/add-pet" exact component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj kartę" child={<AddPet />} />} isAuthenticated={true} />
 
         <PrivateRoute path="/shelters" exact component={() => <Wrapper title="Schroniska" child={<Shelters />} />} isAuthenticated={true} />
-        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} />} isAuthenticated={true} />
-        <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<EditShelter />} />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/add" exact component={() => <Wrapper title="Schroniska" child={<AddShelter />} subTitle="Dodaj schronisko" />} isAuthenticated={true} />
+        <PrivateRoute path="/shelters/edit/:id" exact component={() => <Wrapper title="Schroniska" child={<EditShelter />} subTitle="Edytuj schronisko" />} isAuthenticated={true} />
 
       </Router>
     </ThemeProvider>

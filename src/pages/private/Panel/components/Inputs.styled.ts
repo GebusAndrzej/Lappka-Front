@@ -97,6 +97,7 @@ export const CustomDatePicker = styled(DatePicker)`
     justify-content: center;
     text-align:right;
     padding-right: 50px;
+    border:none;
     ::placeholder{
         opacity: 0;
     }
