@@ -74,6 +74,7 @@ export const CustomDatePicker = styled(DatePicker)`
     justify-content: center;
     text-align:right;
     padding-right: 20px;
+    border:none;
     ::placeholder{
         opacity: 0;
     }
