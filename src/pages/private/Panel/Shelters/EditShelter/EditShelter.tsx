@@ -1,6 +1,6 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
 import { fetchShelter, getShelter, updateShelter } from '../../../../../features/shelters/shelterSlice';
@@ -15,6 +15,7 @@ interface RouteParams {
 function EditShelter(): JSX.Element {
     const shelter = useAppSelector(getShelter)
     const dispatch = useAppDispatch()
+    const history = useHistory()
 
     if (!shelter) {
         const params = useParams<RouteParams>()
@@ -50,7 +51,12 @@ function EditShelter(): JSX.Element {
 
                     try {
                         const res = await dispatch(updateShelter({ ...values, id: shelter?.id }))
-                        console.log(res);
+
+                        // console.dir(res.payload);
+                        if (`${res.payload}`.match(/^2..$/)) {
+                            history.push("/shelters")
+
+                        }
 
                     }
                     catch (e) {

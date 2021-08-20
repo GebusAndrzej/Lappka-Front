@@ -57,13 +57,13 @@ export const addShelter = createAsyncThunk(
             endpoints.shelters,
             shelter
         )
-        return response.status
+        return response.data
     }
 )
 
 // slice
 
-export const shelterSlice = createSlice({
+export const petsSlice = createSlice({
     name: 'shelters',
     initialState,
 
@@ -76,46 +76,17 @@ export const shelterSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            //shelters
-            .addCase(fetchShelters.pending, (state) => {
-                state.sheltersStatus = "loading"
-            })
-            .addCase(fetchShelters.fulfilled, (state, action) => {
-                state.shelters = action.payload
-                state.sheltersStatus = "idle"
-                state.sheltersUpdateTime = Date.now()
-                // console.log(action.payload); // !
-            })
-            .addCase(fetchShelters.rejected, (state) => {
-                state.sheltersStatus = "failed"
-            })
 
-            //one shelter
-            .addCase(fetchShelter.pending, (state) => {
-                state.shelterStatus = "loading"
-            })
-            .addCase(fetchShelter.fulfilled, (state, action) => {
-                state.shelter = action.payload
-                state.shelterStatus = "idle"
-                state.shelterUpdateTime = Date.now()
-
-            })
-            .addCase(fetchShelter.rejected, (state) => {
-                state.shelterStatus = "failed"
-            })
     }
 })
 
-export const { setShelter } = shelterSlice.actions;
-
-
-export const getShelters = (state: RootState): Shelter[] => {
+export const getPet = (state: RootState): Shelter[] => {
     return state.shelters.shelters
 }
 
-export const getShelter = (state: RootState): Shelter | null => {
+export const getPets = (state: RootState): Shelter | null => {
     return state.shelters.shelter
 }
 
 
-export default shelterSlice.reducer
+export default petsSlice.reducer

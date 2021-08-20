@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik'
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../../../../app/hooks';
 import { addShelter } from '../../../../../features/shelters/shelterSlice';
@@ -9,6 +10,7 @@ import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled'
 
 function AddShelter(): JSX.Element {
     const dispatch = useAppDispatch()
+    const history = useHistory()
 
     return (
         <>
@@ -35,7 +37,11 @@ function AddShelter(): JSX.Element {
                     // console.log(values)
                     try {
                         const res = await dispatch(addShelter({ ...values, name: values.Name, email: values.Email }))
-                        console.log(res);
+                        // console.log(res);
+                        if (`${res.payload}`.match(/^2..$/)) {
+                            history.push("/shelters")
+
+                        }
 
                     }
                     catch (e) {
