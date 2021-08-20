@@ -16,10 +16,10 @@ const SelectInput = (props: TSProps & FieldHookConfig<string | number>): JSX.Ele
     return (
         <InputDiv>
             <Text htmlFor={props.id || props.name}></Text>
-            <SelInput {...field} {...props}>
+            <SelInput {...field} {...props} required>
                 <Option hidden></Option>
                 {props.map ?
-                    props.map.map((x) => (<Option value={x.key.toString()} key={x.key.toString()}>{x.value}</Option>))
+                    props.map.map((x) => (<Option value={x.key.toString()} key={x.value.toString()}>{x.value}</Option>))
                     :
                     props.optionsArray?.map((x) => (<Option value={x} key={x}>{x}</Option>))
                 }
