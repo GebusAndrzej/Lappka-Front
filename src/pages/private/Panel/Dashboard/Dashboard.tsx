@@ -1,5 +1,5 @@
-import React from 'react'
-import { Bar, Grid, Item, ItemWrapper, Date } from './Dashboard.styled'
+import React, { useState } from 'react'
+import { Bar, Grid, Item, ItemWrapper } from './Dashboard.styled'
 
 import { ReactComponent as SVG_Refresh } from '../../../../assets/svg/refresh.svg';
 import { ReactComponent as SVG_Messages } from '../../../../assets/svg/message.svg';
@@ -11,15 +11,30 @@ import FirstRowItem from './components/FirstRowItem';
 import ViewGraph from './components/ViewGraph';
 import Shelter from './components/Shelter';
 import PetList from './components/PetList';
+// import { DateInput } from '../components/DateInput';
+// import ReactDatePicker from 'react-datepicker';
+import { CustomDatePicker } from '../components/Inputs.styled';
 
 
 function Dashboard(): JSX.Element {
+    const [startDate, setStartDate] = useState(new Date());
+
     return (
         <>
             <Grid>
                 <Bar variant="date">
                     <ItemWrapper variant="date">
-                        <Date type="date" />
+                        <CustomDatePicker
+                            placeholderText="Data"
+                            dateFormat="dd-MM-yyyy"
+                            selected={startDate}
+                            // value={startDate}
+
+                            onChange={(date: Date) => {
+                                setStartDate(date)
+                            }}
+                        >
+                        </CustomDatePicker>
                         <SVG_Callendar />
                     </ItemWrapper>
                     <ItemWrapper variant="date">

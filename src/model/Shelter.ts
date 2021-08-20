@@ -1,5 +1,5 @@
 export interface Shelter {
-    id: string;
+    id?: string;
     name: string;
     address: Address;
     geoLocation: GeoLocation;

@@ -23,7 +23,7 @@ function AddPet(): JSX.Element {
                     BirthDay: null,
                     Color: "",
                     Weight: "",
-                    Sterilization: "false",
+                    Sterilization: "",
                     Description: ""
                 }}
                 validationSchema={Yup.object({

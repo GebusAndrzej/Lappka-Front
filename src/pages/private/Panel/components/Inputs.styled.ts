@@ -66,6 +66,7 @@ export const CustomDatePicker = styled(DatePicker)`
     align-items:center;
     justify-content: center;
     text-align:center;
+    border:0;
 `;
 
 export const DescriptionField = styled.textarea`

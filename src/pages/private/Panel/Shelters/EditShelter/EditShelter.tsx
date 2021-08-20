@@ -1,28 +1,30 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
-import { useParams } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
-import { fetchShelter, getShelter } from '../../../../../features/shelters/shelterSlice';
+import { fetchShelter, getShelter, updateShelter } from '../../../../../features/shelters/shelterSlice';
 import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 
 interface RouteParams {
-    id?: string
+    id: string
 }
 
 function EditShelter(): JSX.Element {
     const shelter = useAppSelector(getShelter)
     const dispatch = useAppDispatch()
+    const history = useHistory()
+
+    const { id } = useParams<RouteParams>();
+
+    useEffect(() => {
+        dispatch(fetchShelter(id))
+    }, [id]);
 
     if (!shelter) {
-        const params = useParams<RouteParams>()
-        if (params.id) {
-            console.log("Get shelter from api");
-            dispatch(fetchShelter(params.id))
-            console.log(shelter)
-        }
+        return <div>loading</div>
     }
 
     return (
@@ -46,9 +48,28 @@ function EditShelter(): JSX.Element {
                 validationSchema={Yup.object({
                     //Name: Yup.string().required(''),
                 })}
-                onSubmit={values => {
-                    // alert(JSON.stringify(values, null, 2));
-                    console.log(values)
+                onSubmit={async values => {
+
+                    try {
+                        const res = await dispatch(updateShelter({ ...values, id: shelter?.id }))
+
+                        // console.dir(res.payload);
+                        if (`${res.payload}`.match(/^2..$/)) {
+                            history.push("/shelters")
+
+                        }
+
+                    }
+                    catch (e) {
+                        console.log(e);
+
+                    }
+                    // // alert(JSON.stringify(values, null, 2));
+                    // // console.dir(values)
+                    // dispatch(updateShelter({ ...values, id: shelter?.id })).then(res => {
+                    //     console.log(res);
+
+                    // })
                 }}
             >
                 <Form>
