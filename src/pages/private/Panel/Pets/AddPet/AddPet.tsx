@@ -9,8 +9,11 @@ import { Button } from '../../components/Button';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { DateInput } from '../../components/DateInput';
 import TextArea from '../../components/TextArea';
+import { useAppDispatch } from '../../../../../app/hooks';
+import { addPet } from '../../../../../features/pets/petsSlice';
 
 function AddPet(): JSX.Element {
+    const dispatch = useAppDispatch();
     return (
         <>
             <Formik
@@ -31,7 +34,8 @@ function AddPet(): JSX.Element {
                 })}
                 onSubmit={values => {
                     // alert(JSON.stringify(values, null, 2));
-                    console.log(values)
+                    dispatch(addPet(values))
+                    // console.log(values)
                 }}
             >
                 <Form>

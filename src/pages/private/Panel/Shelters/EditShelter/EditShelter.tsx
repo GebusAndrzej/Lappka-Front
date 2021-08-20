@@ -7,6 +7,8 @@ import { fetchShelter, getShelter, updateShelter } from '../../../../../features
 import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
+import { SnackbarProvider, VariantType, useSnackbar, OptionsObject } from 'notistack';
+
 
 interface RouteParams {
     id: string
@@ -16,15 +18,43 @@ function EditShelter(): JSX.Element {
     const shelter = useAppSelector(getShelter)
     const dispatch = useAppDispatch()
     const history = useHistory()
+    const { enqueueSnackbar } = useSnackbar();
 
+    //get shelter from path id
     const { id } = useParams<RouteParams>();
-
     useEffect(() => {
         dispatch(fetchShelter(id))
     }, [id]);
 
+    //snackbar on success editing
+    const successSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+            action: (x) => (useEffect(() => (history.push("/shelters")), [x]))
+        }
+        enqueueSnackbar('Pomyślnie zedytowano informacje', x);
+    }
+
+    //snackbar on success editing
+    const errorSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'error',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+        }
+        enqueueSnackbar('Wystąpił błąd', x);
+    };
+
     if (!shelter) {
-        return <div>loading</div>
+        return (
+            <div>Loading</div>
+        )
     }
 
     return (
@@ -55,27 +85,18 @@ function EditShelter(): JSX.Element {
 
                         // console.dir(res.payload);
                         if (`${res.payload}`.match(/^2..$/)) {
-                            history.push("/shelters")
-
+                            successSnackbar()
                         }
-
+                        else {
+                            errorSnackbar()
+                        }
                     }
                     catch (e) {
                         console.log(e);
-
                     }
-                    // // alert(JSON.stringify(values, null, 2));
-                    // // console.dir(values)
-                    // dispatch(updateShelter({ ...values, id: shelter?.id })).then(res => {
-                    //     console.log(res);
-
-                    // })
                 }}
             >
                 <Form>
-                    {/* <pre>
-                        {JSON.stringify(shelter, null, 2)}
-                    </pre> */}
                     <Title>Informacje</Title>
 
                     <GridContainer>

@@ -7,6 +7,16 @@ export interface Shelter {
     email: string;
 }
 
+export interface Pet {
+    id?: string;
+    name: string;
+    sex: number;
+    mainPhotoPath: string;
+    race: string;
+    birthDay: Date;
+    shelterAddress: Address;
+}
+
 export interface Address {
     street: string;
     zipCode: string;
