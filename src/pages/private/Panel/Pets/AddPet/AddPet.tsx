@@ -9,6 +9,8 @@ import { Button } from '../../components/Button';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { DateInput } from '../../components/DateInput';
 import TextArea from '../../components/TextArea';
+import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
+
 
 function AddPet(): JSX.Element {
     return (
@@ -27,10 +29,19 @@ function AddPet(): JSX.Element {
                     Description: ""
                 }}
                 validationSchema={Yup.object({
-                    //Name: Yup.string().required(''),
+                    Name: Yup.string().required('wymagane'),
+                    Sex: Yup.string().required('wymagane'),
+                    Race: Yup.string().required('wymagane'),
+                    Species: Yup.string().required('wymagane'),
+                    File: Yup.object().required('wymagane'),
+                    BirthDay: Yup.date().required('wymagane'),
+                    Color: Yup.string().required('wymagane'),
+                    Weight: Yup.string().required('wymagane'),
+                    Sterilization: Yup.string().required('wymagane'),
+                    Description: Yup.string().required('wymagane')
                 })}
                 onSubmit={values => {
-                    // alert(JSON.stringify(values, null, 2));
+                    alert(JSON.stringify(values, null, 2));
                     console.log(values)
                 }}
             >
@@ -75,7 +86,7 @@ function AddPet(): JSX.Element {
                         </GridItem>
 
                         <GridItem>
-                            <TextInput name="Weight" type="text" label="Waga (w kg)" />
+                            <TextInput name="Weight" type="text" label="Waga (w kg)" svg={SVG_Weight}/>
                         </GridItem>
 
                         <GridItem>

@@ -14,7 +14,7 @@ const SelectInput = (props: TSProps & FieldHookConfig<string | number>): JSX.Ele
     const [field, meta] = useField(props);
 
     return (
-        <InputDiv>
+        <InputDiv className={meta.touched && meta.error ? "error" : "valid"}>
             <Text htmlFor={props.id || props.name}></Text>
             <SelInput {...field} {...props} required>
                 <Option hidden></Option>

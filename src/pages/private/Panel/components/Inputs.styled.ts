@@ -5,6 +5,15 @@ export const Text = styled.label<{ fontWeight?: string }>`
 `;
 
 export const InvalidInput = styled.p`
+    position: absolute;
+    top:42px;
+    transition: 0.1s ease all;
+    opacity: 1;
+    color: red;
+    mix-blend-mode: normal;
+    left: 18px;
+    letter-spacing: -0.02em;
+    font-size: 16px;
 `;
 
 export const Icon = styled.div<{ top?: string }>`
@@ -18,9 +27,9 @@ export const InputDiv = styled.div`
     position: relative;
     background-color:white;
     border-radius: 20px;
+    box-shadow: 0px 0px 20px rgba(200,200,200,0.3);
+
     input,select{
-        
-        background: white;
         width: 100%;
         height: 56px;
         border: 0px;
@@ -31,12 +40,22 @@ export const InputDiv = styled.div`
         font-size: 16px;
         letter-spacing: -0.02em;
         text-indent: 18px;
+        outline: none;
+
     }    
+    :hover,:focus-within,:active{
+        box-shadow: 0px 0px 20px rgba(0,0,0,0.15);
+    }
+    
+    &.error{
+        background: #F9E3E3;
+    }
 `;
 
 // Input styles
 export const Input = styled.input`
     color: ${props => props.theme.colors.black};
+    background-color:transparent;
     display: block;
     padding-top: 10px;
     text-indent: 16px;
@@ -44,11 +63,13 @@ export const Input = styled.input`
     ::placeholder{
         opacity: 0;
     }
+
     
 `;
 
 // Select styles
 export const SelInput = styled.select`
+    background-color:transparent;
     color: ${props => props.theme.colors.black};
     display: block;
     padding-top: 10px;
@@ -68,12 +89,14 @@ export const FiInput = styled.input`
 
 
 export const CustomDatePicker = styled(DatePicker)`
+    background-color:transparent;
+
     padding-top: 0px;
     display:flex;
     align-items:center;
     justify-content: center;
     text-align:right;
-    padding-right: 20px;
+    padding-right: 50px;
     ::placeholder{
         opacity: 0;
     }
@@ -101,9 +124,12 @@ export const DescriptionField = styled.textarea`
 // Active Label / Placeholder 
 
 export const Label = styled.label`
+    width:80%;
     position: absolute;
+    justify-content: center;
+    word-wrap: break-word;
     pointer-events: none;
-    transition: 0.3s ease all;
+    transition: 0.1s ease all;
     opacity: 0.5;
     color: ${props => props.theme.colors.gray};
     mix-blend-mode: normal;
@@ -116,6 +142,7 @@ export const Label = styled.label`
     ${SelInput}:valid ~ &,
     ${DescriptionField}:valid ~ &
     {
+        position: absolute;
         top: 8px;
         font-size: 11px;
     }
