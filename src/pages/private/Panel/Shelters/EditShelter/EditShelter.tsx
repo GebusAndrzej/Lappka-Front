@@ -3,7 +3,7 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
-import { fetchShelter, getShelter } from '../../../../../features/shelters/shelterSlice';
+import { fetchShelter, getShelter, updateShelter } from '../../../../../features/shelters/shelterSlice';
 import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
@@ -19,9 +19,9 @@ function EditShelter(): JSX.Element {
     if (!shelter) {
         const params = useParams<RouteParams>()
         if (params.id) {
-            console.log("Get shelter from api");
+            // console.log("Get shelter from api");
             dispatch(fetchShelter(params.id))
-            console.log(shelter)
+            // console.log(shelter)
         }
     }
 
@@ -46,9 +46,23 @@ function EditShelter(): JSX.Element {
                 validationSchema={Yup.object({
                     //Name: Yup.string().required(''),
                 })}
-                onSubmit={values => {
-                    // alert(JSON.stringify(values, null, 2));
-                    console.log(values)
+                onSubmit={async values => {
+
+                    try {
+                        const res = await dispatch(updateShelter({ ...values, id: shelter?.id }))
+                        console.log(res);
+
+                    }
+                    catch (e) {
+                        console.log(e);
+
+                    }
+                    // // alert(JSON.stringify(values, null, 2));
+                    // // console.dir(values)
+                    // dispatch(updateShelter({ ...values, id: shelter?.id })).then(res => {
+                    //     console.log(res);
+
+                    // })
                 }}
             >
                 <Form>

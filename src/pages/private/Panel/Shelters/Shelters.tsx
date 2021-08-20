@@ -18,8 +18,7 @@ function Shelters(): JSX.Element {
     const history = useHistory()
 
     useEffect(() => {
-        if (shelters.length == 0)
-            dispatch(fetchShelters())
+        dispatch(fetchShelters())
     }, [])
 
     function edit(shelter: Shelter) {

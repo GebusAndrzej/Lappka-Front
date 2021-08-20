@@ -24,7 +24,7 @@ const initialState: InitialState = {
 // async operations
 
 export const fetchShelters = createAsyncThunk(
-    'posts/fetchShelters',
+    'shelter/fetchShelters',
     async () => {
         const response = await AxiosUnauthorized.get<Shelter[]>(endpoints.shelters)
         return response.data;
@@ -32,12 +32,34 @@ export const fetchShelters = createAsyncThunk(
 );
 
 export const fetchShelter = createAsyncThunk(
-    'posts/fetchShelter',
+    'shelter/fetchShelter',
     async (id: string) => {
         const response = await AxiosUnauthorized.get<Shelter>(endpoints.shelters + `/${id}`)
         return response.data;
     }
 );
+
+export const updateShelter = createAsyncThunk(
+    'shelters/updateShelter',
+    async (shelter: any) => {
+        const response = await AxiosUnauthorized.put(
+            endpoints.shelters + `/${shelter.id}`,
+            shelter
+        )
+        return response.data
+    }
+)
+
+export const addShelter = createAsyncThunk(
+    'shelters/addShelter',
+    async (shelter: Shelter) => {
+        const response = await AxiosUnauthorized.post(
+            endpoints.shelters,
+            shelter
+        )
+        return response.data
+    }
+)
 
 // slice
 

@@ -18,6 +18,13 @@ const unauthorizedInstance = axios.create({
 // unauthorizedInstance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM unauthorizedInstance';
 unauthorizedInstance.defaults.headers.post['Content+Type'] = 'application/json';
 
+unauthorizedInstance.interceptors.response.use(function (response) {
+    return response;
+}, function (error) {
+    // console.dir(error);
+    return Promise.reject(error);
+});
+
 // Also add/ configure interceptors && all the other cool stuff
 
 // unauthorizedInstance.interceptors.request...
