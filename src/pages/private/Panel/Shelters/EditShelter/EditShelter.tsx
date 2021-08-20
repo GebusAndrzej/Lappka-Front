@@ -1,5 +1,5 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
@@ -9,7 +9,7 @@ import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 
 interface RouteParams {
-    id?: string
+    id: string
 }
 
 function EditShelter(): JSX.Element {
@@ -17,13 +17,14 @@ function EditShelter(): JSX.Element {
     const dispatch = useAppDispatch()
     const history = useHistory()
 
+    const { id } = useParams<RouteParams>();
+
+    useEffect(() => {
+        dispatch(fetchShelter(id))
+    }, [id]);
+
     if (!shelter) {
-        const params = useParams<RouteParams>()
-        if (params.id) {
-            // console.log("Get shelter from api");
-            dispatch(fetchShelter(params.id))
-            // console.log(shelter)
-        }
+        return <div>loading</div>
     }
 
     return (

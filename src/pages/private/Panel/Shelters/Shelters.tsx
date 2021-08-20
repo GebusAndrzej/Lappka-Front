@@ -22,7 +22,7 @@ function Shelters(): JSX.Element {
     }, [])
 
     function edit(shelter: Shelter) {
-        dispatch(setShelter(shelter))
+        // dispatch(setShelter(shelter))
         history.push(`/shelters/edit/${shelter.id}`)
     }
 
