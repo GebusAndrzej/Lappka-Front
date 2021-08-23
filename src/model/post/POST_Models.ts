@@ -1,13 +1,17 @@
-export interface Shelter {
+import { Address, GeoLocation } from "../Shelter";
+
+type NewType = Address;
+
+export interface POST_Shelter {
     id?: string;
     name: string;
-    address: Address;
+    address: NewType;
     geoLocation: GeoLocation;
     phoneNumber: string;
     email: string;
 }
 
-export interface Pet {
+export interface POST_Pet {
     id?: string;
     name: string;
     sex: number;
@@ -15,15 +19,4 @@ export interface Pet {
     race: string;
     birthDay: Date;
     shelterAddress: Address;
-}
-
-export interface Address {
-    street: string;
-    zipCode: string;
-    city: string;
-}
-
-export interface GeoLocation {
-    latitude: string;
-    longitude: string;
 }

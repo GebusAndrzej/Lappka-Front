@@ -9,10 +9,13 @@ import { Button } from '../../components/Button';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { DateInput } from '../../components/DateInput';
 import TextArea from '../../components/TextArea';
+
+import { useAppDispatch } from '../../../../../app/hooks';
+import { addPet } from '../../../../../features/pets/petsSlice';
 import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
 
-
 function AddPet(): JSX.Element {
+    const dispatch = useAppDispatch();
     return (
         <>
             <Formik
@@ -41,8 +44,9 @@ function AddPet(): JSX.Element {
                     Description: Yup.string().required('wymagane')
                 })}
                 onSubmit={values => {
-                    alert(JSON.stringify(values, null, 2));
-                    console.log(values)
+                    // alert(JSON.stringify(values, null, 2));
+                    dispatch(addPet(values))
+                    // console.log(values)
                 }}
             >
                 <Form>
