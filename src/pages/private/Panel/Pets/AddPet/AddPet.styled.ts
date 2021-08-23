@@ -33,7 +33,7 @@ export const GridItem = styled.div<{ background?: string, colspan?: string }>`
         width:100%;
         grid-column: span ${props.colspan};
 
-        @media(max-width: ${props.theme.break.tablet}){
+        @media(max-width: ${props => props.theme.break.tablet}){
             grid-column: span 1;
         }
     `}

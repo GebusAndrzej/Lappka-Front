@@ -18,7 +18,7 @@ const FileInput = (props: TSProps & FieldHookConfig<File>): JSX.Element => {
 
     return (
         <>
-            <InputDiv>
+            <InputDiv className={meta.touched && meta.error ? "error" : "valid"}>
                 <Icon top="15px"><SVG_Camera /></Icon>
                 <Text htmlFor={props.id || props.name}></Text>
                 <FiInput {...props} onChange={(e: any) => handleChange(e)} />

@@ -16,9 +16,17 @@ export const Button = styled.button`
     font-style: normal;
     font-weight: 500;
     font-size: 16px;
-    line-height: 60px;
+    line-height: 18px;
     text-align: center;
     letter-spacing: 0.5px;
     text-transform: uppercase;
     cursor: pointer;
+    word-wrap: break-word;
+
+
+    @media(max-width: ${props => props.theme.break.mobile}){
+            width: 100%;
+            margin: 0 auto;
+            margin-top: 30px;
+    };
 `;
