@@ -8,6 +8,7 @@ import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 import { useSnackbar, OptionsObject } from 'notistack';
+import LoadingComponent from '../../components/LoadingComponent';
 
 interface RouteParams {
     id: string
@@ -18,15 +19,7 @@ function EditShelter(): JSX.Element {
     const dispatch = useAppDispatch()
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar();
-    const [open, setOpen] = React.useState(false);
 
-    const handleClickOpen = () => {
-        setOpen(true);
-    };
-
-    const handleClose = () => {
-        setOpen(false);
-    };
 
     //get shelter from path id
     const { id } = useParams<RouteParams>();
@@ -61,7 +54,7 @@ function EditShelter(): JSX.Element {
 
     if (!shelter) {
         return (
-            <div>Loading</div>
+            <LoadingComponent></LoadingComponent>
         )
     }
 

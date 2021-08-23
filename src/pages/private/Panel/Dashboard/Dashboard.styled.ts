@@ -37,7 +37,7 @@ export const Item = styled.div<{ variant: "chart" | "shelter" }>`
     ${(props) => props.variant == "chart" && css`
         grid-area: chart;
         padding: 0px;
-        margin-left:20px;            
+        /* margin-left:20px;             */
 
         @media (max-width: ${props => props.theme.break.tablet}) {
             margin-right: 20px;
@@ -76,7 +76,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
 
     ${(props) => props.variant == "first-row" && css`
         align-items: center;
-        justify-content: space-evenly;
+        justify-content: space-between;
         grid-area: item;
         flex-wrap: wrap;
 
@@ -89,7 +89,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
         align-items: center;
         grid-area: list;
         overflow-y: auto;
-        margin-left:20px;
+        /* margin-left:20px; */
         padding-right: 20px;
         margin-bottom: 50px;
     `}
