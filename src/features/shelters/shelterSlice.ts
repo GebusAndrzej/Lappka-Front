@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Shelter';
-import { endpoints, AxiosUnauthorized } from '../../app/axiosConfig'
+import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 
 interface InitialState {
     shelters: Array<Shelter>,
@@ -57,6 +57,14 @@ export const addShelter = createAsyncThunk(
             endpoints.shelters,
             shelter
         )
+        return response.status
+    }
+)
+
+export const deleteShelter = createAsyncThunk(
+    'shelters/deleteShelter',
+    async (id: string) => {
+        const response = await AxiosAuthorized.delete(endpoints.shelters + `/${id}`)
         return response.status
     }
 )

@@ -1,5 +1,6 @@
 import { Form, Formik } from 'formik'
-import React from 'react'
+import { OptionsObject, useSnackbar } from 'notistack';
+import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import * as Yup from 'yup';
 import { useAppDispatch } from '../../../../../app/hooks';
@@ -11,6 +12,32 @@ import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled'
 function AddShelter(): JSX.Element {
     const dispatch = useAppDispatch()
     const history = useHistory()
+    const { enqueueSnackbar } = useSnackbar();
+
+
+    const successSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+            action: (x) => (useEffect(() => (history.push("/shelters")), [x]))
+        }
+        enqueueSnackbar('Pomyślnie dodano schronisko', x);
+    }
+
+    //snackbar on success
+    const errorSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'error',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+        }
+        enqueueSnackbar('Wystąpił błąd', x);
+    };
 
     return (
         <>
@@ -39,8 +66,10 @@ function AddShelter(): JSX.Element {
                         const res = await dispatch(addShelter({ ...values, name: values.Name, email: values.Email }))
                         // console.log(res);
                         if (`${res.payload}`.match(/^2..$/)) {
-                            history.push("/shelters")
-
+                            successSnackbar()
+                        }
+                        else {
+                            errorSnackbar()
                         }
 
                     }
@@ -48,14 +77,6 @@ function AddShelter(): JSX.Element {
                         console.log(e);
 
                     }
-                    // .then(res => {
-                    //     console.log("success");
-                    //     console.log(res);
-                    // }, err => {
-                    //     console.log("err");
-                    //     console.log(err);
-
-                    // })
                 }}
             >
                 <Form>
