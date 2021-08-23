@@ -22,7 +22,6 @@ function Shelters(): JSX.Element {
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar();
 
-
     useEffect(() => {
         dispatch(fetchShelters())
     }, [])
@@ -74,7 +73,10 @@ function Shelters(): JSX.Element {
             console.log(e);
 
         }
+    }
 
+    function createData(shelter: Shelter) {
+        return {};
     }
 
     if (!shelters) {

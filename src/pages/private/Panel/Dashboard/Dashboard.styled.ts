@@ -46,7 +46,7 @@ export const Item = styled.div<{ variant: "chart" | "shelter" }>`
     `}
     ${(props) => props.variant == "shelter" && css`
         grid-area: shelter;
-        margin-right: 20px;
+        /* margin-right: 20px; */
         @media (max-width: ${props => props.theme.break.tablet}) {
             width:49%;
             margin:auto;
@@ -90,7 +90,7 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
         grid-area: list;
         overflow-y: auto;
         /* margin-left:20px; */
-        padding-right: 20px;
+        /* padding-right: 20px; */
         margin-bottom: 50px;
     `}
     
