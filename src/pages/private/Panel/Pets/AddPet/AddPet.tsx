@@ -13,6 +13,7 @@ import TextArea from '../../components/TextArea';
 import { useAppDispatch } from '../../../../../app/hooks';
 import { addPet } from '../../../../../features/pets/petsSlice';
 import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
+import { PetsValidation } from '../PetsValidation';
 
 function AddPet(): JSX.Element {
     const dispatch = useAppDispatch();
@@ -30,20 +31,9 @@ function AddPet(): JSX.Element {
                 Sterilization: '',
                 Description: ''
             }}
-            validationSchema={Yup.object({
-                Name: Yup.string().required('wymagane'),
-                Sex: Yup.string().required('wymagane'),
-                Race: Yup.string().required('wymagane'),
-                Species: Yup.string().required('wymagane'),
-                File: Yup.object(),
-                BirthDay: Yup.date().required('wymagane').typeError('Proszę wprowadzić datę(DD-MM-RRRR)'),
-                Color: Yup.string().required('wymagane'),
-                Weight: Yup.number().required('wymagane').typeError('Niepoprawny typ danych, proszę wprowadzić liczbę'),
-                Sterilization: Yup.string().required('wymagane'),
-                Description: Yup.string().min(50, 'Minimum 50 znaków.').max(500, 'Maksymalnie 500 znaków.')
-            })}
+            validationSchema={PetsValidation}
             onSubmit={values => {
-                // alert(JSON.stringify(values, null, 2));
+                 alert(JSON.stringify(values, null, 2));
                     dispatch(addPet(values))
                     // console.log(values)
             }}

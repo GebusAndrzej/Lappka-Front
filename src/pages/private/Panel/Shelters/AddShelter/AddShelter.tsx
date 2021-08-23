@@ -2,12 +2,12 @@ import { Form, Formik } from 'formik'
 import { OptionsObject, useSnackbar } from 'notistack';
 import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
-import * as Yup from 'yup';
 import { useAppDispatch } from '../../../../../app/hooks';
 import { addShelter } from '../../../../../features/shelters/shelterSlice';
 import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
+import { ShelterValidation } from '../SheltersValidation';
 
 function AddShelter(): JSX.Element {
     const dispatch = useAppDispatch()
@@ -56,9 +56,7 @@ function AddShelter(): JSX.Element {
                         longitude: ''
                     }
                 }}
-                validationSchema={Yup.object({
-                    //Name: Yup.string().required(''),
-                })}
+                validationSchema={ShelterValidation}
                 onSubmit={async values => {
                     // alert(JSON.stringify(values, null, 2));
                     // console.log(values)

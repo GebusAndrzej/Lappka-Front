@@ -50,7 +50,7 @@ export const InputDiv = styled.div`
     
     &.error{
         background: #F9E3E3;
-
+        margin-bottom: 8px;
 
     }
 `;

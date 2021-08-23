@@ -1,7 +1,6 @@
 import { Form, Formik } from 'formik'
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
-import * as Yup from 'yup';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
 import { fetchShelter, getShelter, updateShelter } from '../../../../../features/shelters/shelterSlice';
 import { Button } from '../../components/Button';
@@ -9,6 +8,7 @@ import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 import { useSnackbar, OptionsObject } from 'notistack';
 import LoadingComponent from '../../components/LoadingComponent';
+import { ShelterValidation } from '../SheltersValidation';
 
 interface RouteParams {
     id: string
@@ -76,9 +76,7 @@ function EditShelter(): JSX.Element {
                         longitude: shelter?.geoLocation.longitude
                     }
                 }}
-                validationSchema={Yup.object({
-                    //Name: Yup.string().required(''),
-                })}
+                validationSchema={ShelterValidation}
                 onSubmit={async values => {
 
                     try {
