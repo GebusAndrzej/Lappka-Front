@@ -9,7 +9,7 @@ import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg'
 import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
 import { Icon } from './Shelters.styled'
-import { Button } from '../components/Button'
+import { Button, ClearLink } from '../components/Button'
 import { Link } from 'react-router-dom'
 
 import LoadingComponent from '../components/LoadingComponent'
@@ -128,9 +128,9 @@ function Shelters(): JSX.Element {
                     </tbody>
                 </PetTable>
                 <Bar variant="date">
-                    <Link to="/shelters/add" >
+                    <ClearLink to="/shelters/add" >
                         <Button>Dodaj schronisko</Button>
-                    </Link>
+                    </ClearLink>
                 </Bar>
             </ItemWrapper>
             {/* </Bar> */}
