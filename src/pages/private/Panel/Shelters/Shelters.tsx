@@ -10,11 +10,11 @@ import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
 import { Icon } from './Shelters.styled'
 import { Button, ClearLink } from '../components/Button'
-import { Link } from 'react-router-dom'
 
 import LoadingComponent from '../components/LoadingComponent'
 import { ConfirmDialog } from '../components/ConfirmDialog'
 import { useSnackbar, OptionsObject } from 'notistack';
+import ShelterTable from './components/ShelterTable'
 
 function Shelters(): JSX.Element {
     const shelters = useAppSelector(getShelters)
@@ -134,6 +134,10 @@ function Shelters(): JSX.Element {
                         <Button>Dodaj schronisko</Button>
                     </ClearLink>
                 </Bar>
+
+                {shelters ?
+                    <ShelterTable shelters={shelters}></ShelterTable>
+                    : <div>asdasF</div>}
             </ItemWrapper>
             {/* </Bar> */}
         </>
