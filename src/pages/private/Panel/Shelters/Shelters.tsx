@@ -23,7 +23,12 @@ function Shelters(): JSX.Element {
     const { enqueueSnackbar } = useSnackbar();
 
     useEffect(() => {
-        dispatch(fetchShelters())
+        dispatch(fetchShelters()).then(e => {
+            if (!e.payload) {
+                errorSnackbar("Brak połączenia z serwerem")
+
+            }
+        })
     }, [])
 
     //snackbar on success editing
@@ -39,7 +44,7 @@ function Shelters(): JSX.Element {
     }
 
     //snackbar on success editing
-    const errorSnackbar = () => {
+    const errorSnackbar = (m?: string) => {
         const x: OptionsObject = {
             variant: 'error',
             anchorOrigin: {
@@ -47,7 +52,7 @@ function Shelters(): JSX.Element {
                 horizontal: 'center'
             },
         }
-        enqueueSnackbar('Wystąpił błąd', x);
+        enqueueSnackbar(`Wystąpił błąd ${m ? `: ${m}` : ""}`, x);
     };
 
 
@@ -75,16 +80,13 @@ function Shelters(): JSX.Element {
         }
     }
 
-    function createData(shelter: Shelter) {
-        return {};
-    }
-
-    if (!shelters) {
+    if (shelters == null) {
         return <LoadingComponent></LoadingComponent>
     }
 
     return (
         <>
+            {/* {JSON.stringify(shelters, null, 2)} */}
             {/* <Bar variant="full-width"> */}
             <ItemWrapper variant="full-width">
                 <Title>Schroniska</Title>

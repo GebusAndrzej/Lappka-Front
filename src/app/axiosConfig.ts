@@ -30,4 +30,14 @@ const authorizedInstance = axios.create({
 authorizedInstance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM unauthorizedInstance';
 authorizedInstance.defaults.headers.post['Content+Type'] = 'application/json';
 
+authorizedInstance.interceptors.response.use((response) => {
+    return response;
+
+},
+    (error) => {
+        // console.log(error);
+        return Promise.reject(error)
+
+    });
+
 export { unauthorizedInstance as AxiosUnauthorized, authorizedInstance as AxiosAuthorized };
