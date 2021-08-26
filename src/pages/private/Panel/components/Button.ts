@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 export const ClearLink = styled(Link)`
     text-decoration:none;
+    color: gray;
 `;
 
 export const Button = styled.button`
