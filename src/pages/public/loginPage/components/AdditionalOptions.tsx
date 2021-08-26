@@ -1,5 +1,5 @@
 import { FieldHookConfig, useField } from 'formik';
-import React, { FunctionComponent }  from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import { ClearLink } from '../../../private/Panel/components/Button';
 
@@ -23,21 +23,21 @@ const Span = styled.span`
     opacity: 0.7;
 `;
 
-interface TSProps{
-    label?:string,
+interface TSProps {
+    label?: string,
     value?: string,
     variant?: number,
 }
 
-const AdditionalOptions = (props: TSProps & FieldHookConfig<string | number >): JSX.Element =>{
+const AdditionalOptions = (props: TSProps & FieldHookConfig<string | number>): JSX.Element => {
     const [field] = useField(props);
-    return(
+    return (
         <Wrapper>
-        <label><RememberMe {...field} {...props} type="checkbox" /><Span>Zapamiętaj mnie</Span></label>
-        <ClearLink to="/" ><Span>Zapomniałeś hasła?</Span></ClearLink>
+            <label><RememberMe {...field} {...props} type="checkbox" /><Span>Zapamiętaj mnie</Span></label>
+            <ClearLink to="/" ><Span>Zapomniałeś hasła?</Span></ClearLink>
         </Wrapper>
     );
-    
+
 };
 
 export default AdditionalOptions;

@@ -4,7 +4,7 @@ import SelectInput from '../../components/SelectInput';
 import TextInput from '../../components/TextInput';
 import FileInput from '../../components/FileInput'
 import { Form, Formik, } from 'formik';
-import * as Yup from 'yup';
+// import * as Yup from 'yup';
 import { Button } from '../../components/Button';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { DateInput } from '../../components/DateInput';
@@ -33,9 +33,9 @@ function AddPet(): JSX.Element {
             }}
             validationSchema={PetsValidation}
             onSubmit={values => {
-                 alert(JSON.stringify(values, null, 2));
-                    dispatch(addPet(values))
-                    // console.log(values)
+                alert(JSON.stringify(values, null, 2));
+                dispatch(addPet(values))
+                // console.log(values)
             }}
         >
             <Form>

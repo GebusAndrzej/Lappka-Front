@@ -2,22 +2,27 @@ import styled from 'styled-components';
 
 export const Background = styled.div`
     background-color: ${props => props.theme.colors.lightgray};
-    width: 100vw;
-    height: 100vh;
-    padding-top: 10vh;
+    min-height: 100vh;
+    align-items: center;
+    text-align:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     * {
 	box-sizing: border-box;
     }
 `;
 
 export const MainContainer = styled.div`
+    width: clamp( 500px, 1100px, 1100px);
     max-width: 1100px;
     min-height: 620px;
-    margin: auto;
     background: white;
     position: relative;
     box-shadow: 0px 0px 29px rgba(0, 0, 0, 0.15);
     border-radius: 20px;
+    box-sizing: border-box;
+
     @media (max-width:${props => props.theme.break.tablet}) {
         margin:2%;
         margin-top:0px;

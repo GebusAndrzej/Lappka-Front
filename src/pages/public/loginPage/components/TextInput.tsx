@@ -1,6 +1,6 @@
 import React, { FunctionComponent } from 'react'
 import styled from 'styled-components';
-import {useField, FieldHookConfig} from 'formik';
+import { useField, FieldHookConfig } from 'formik';
 
 const InputDiv = styled.div`
     padding:0px;
@@ -86,25 +86,29 @@ const ShowPasswordButton = styled.button`
     line-height: 52px;
 `;
 
-interface TSProps{
-    label?:string,
-    svg?:FunctionComponent,
-    isPassword?: string,
+interface TSProps {
+    label?: string,
+    svg?: FunctionComponent,
 }
 
-const TextInput = (props: TSProps & FieldHookConfig<string | number | FunctionComponent>): JSX.Element =>{
-    const [field,meta] = useField(props);
+const TextInput = (props: TSProps & FieldHookConfig<string | number | FunctionComponent>): JSX.Element => {
+    const [field, meta] = useField(props);
     const [show, setShow] = React.useState(false)
 
     return (
         <InputDiv className={meta.touched && meta.error ? "error" : "valid"}>
-            {props.svg ? <SVG><props.svg/></SVG> : null}
+
+            {props.svg ? <SVG><props.svg /></SVG> : null}
+
             <Text htmlFor={props.id || props.name}></Text>
-            <Input placeholder="placeholder" {...field} {...props} type={props.isPassword ? (show ? 'text' : 'password'): 'text' }/>
+
+            <Input placeholder="placeholder" {...field} {...props} type={props.type == "password" ? (show ? 'text' : 'password') : 'text'} />
+
             <Label>{props.label}</Label>
             {meta.touched && meta.error ? (<InvalidInput>{meta.error}</InvalidInput>) : null}
-            {props.isPassword ? <ShowPasswordButton type="button" onClick={() => setShow(!show)}>{show ? '🐵' : '🙈'}</ShowPasswordButton> : null}
-        </InputDiv>  
+
+            {props.type == "password" ? <ShowPasswordButton type="button" onClick={() => setShow(!show)}>{show ? '🐵' : '🙈'}</ShowPasswordButton> : null}
+        </InputDiv>
     );
 };
 

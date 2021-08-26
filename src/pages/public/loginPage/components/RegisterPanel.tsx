@@ -1,17 +1,18 @@
-import React, { FunctionComponent }  from 'react'
+import React from 'react'
 import styled from 'styled-components';
-import { Formik } from 'formik';
+import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Title from './Title';
 import { Logo } from '../LoginPage.styled';
 import TextInput from './TextInput';
-import { ReactComponent as SVG_LOGINICON} from '../../../../assets/svg/loginIcon.svg';
-import { ReactComponent as SVG_PASSICON} from '../../../../assets/svg/passwordIcon.svg';
+import { ReactComponent as SVG_LOGINICON } from '../../../../assets/svg/loginIcon.svg';
+import { ReactComponent as SVG_PASSICON } from '../../../../assets/svg/passwordIcon.svg';
 import { SubmitButton } from './SubmitButton';
 import SocialInput from './SocialInput';
 
 
-const Form = styled.form`
+const Form1 = styled(Form)`
+    top:0;
     position: absolute;
     box-sizing: border-box;
     width: 60%;
@@ -47,36 +48,41 @@ const Footer = styled.div`
     }
 `;
 
-interface TSProps{
+interface TSProps {
     status?: boolean,
 }
 
-const RegisterPanel = (props: TSProps): JSX.Element =>{
+const RegisterPanel = (props: TSProps): JSX.Element => {
     return (
         <Formik
-        initialValues={{
-            email: '',
-        }}
-        validationSchema={Yup.object({
-            email: Yup.string().email('Niepoprawny adres email').required(''),
-        })}
-        onSubmit={values => {
-            alert(JSON.stringify(values, null, 2));
-        }}
+            initialValues={{
+                login: '',
+                email: '',
+                password: '',
+                repeatPassword: ''
+            }}
+            validationSchema={Yup.object({
+            })}
+            onSubmit={values => {
+                alert(JSON.stringify(values, null, 2));
+            }}
         >
-            <Form className={props.status ? "register" : "login"}>
-            <Logo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo"/>
-                <Title value="Zarejestruj się "/>
-                <TextInput name="Login" placeholder="Podaj Login" svg={SVG_LOGINICON}></TextInput>
+            <Form1 className={props.status ? "register" : "login"}>
+                <Logo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo" />
+                <Title value="Zarejestruj się " />
+
+                <TextInput name="login" placeholder="Podaj Login" svg={SVG_LOGINICON}></TextInput>
                 <TextInput name="email" placeholder="Podaj e-mail" svg={SVG_LOGINICON}></TextInput>
-                <TextInput name="Password" placeholder="Hasło" isPassword="is" svg={SVG_PASSICON}></TextInput>
-                <TextInput name="RepeatPassword" placeholder="Powtórz Hasło" isPassword="is" svg={SVG_PASSICON}></TextInput>
+                <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                <TextInput name="repeatPassword" placeholder="Powtórz Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+
                 <SubmitButton type="submit">Zarejestruj się</SubmitButton>
-                <SocialInput value="zaloguj"></SocialInput>
+
+                <SocialInput value="zarejestruj"></SocialInput>
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
-            </Form>
+            </Form1>
         </Formik>
-    ); 
+    );
 };
 
 export default RegisterPanel;

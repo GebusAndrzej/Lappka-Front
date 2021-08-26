@@ -1,7 +1,7 @@
-import React, { FunctionComponent }  from 'react'
+import React from 'react'
 import styled from 'styled-components';
 import { ReactComponent as SVG_ARROWLEFT } from '../../../../assets/svg/arrowLeft.svg';
-import { ReactComponent as SVG_KITTY} from '../../../../assets/svg/kitty.svg';
+import { ReactComponent as SVG_KITTY } from '../../../../assets/svg/kitty.svg';
 
 import { ClearLink } from '../../../private/Panel/components/Button';
 import SocialInput from './SocialInput';
@@ -9,15 +9,17 @@ import Title from './Title';
 
 
 export const Panel = styled.div`
+    top:0;
   	background: linear-gradient(180deg, #43BE8D 8.98%, #0fe971 90.85%);
     position: absolute;
-    height: 620px;
+    height: 100%;
     width: 40%;
     transition: 0.75s;
-    box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.45);
+    /* box-shadow: inset 0px 0px 40px rgba(0, 0, 0, 0.45); */
     padding: 90px 0px;
     display: flex;
     flex-direction: column;
+
     &.register{
         border-radius: 0px 20px 20px 0px;
         right:0%;
@@ -77,7 +79,7 @@ const ReturnButton = styled.button`
     bottom: 0;
     left:0;
     border: 0px;
-    background: ${props=>props.theme.colors.black};
+    background: ${props => props.theme.colors.black};
     color: white;
     font-family: Ubuntu;
     font-style: normal;
@@ -100,23 +102,23 @@ const ReturnButton = styled.button`
     }
 `;
 
-interface TSProps{
+interface TSProps {
     toggle: () => void,
     status?: boolean,
 }
 
-const Overlay = (props: TSProps): JSX.Element =>{
-    return(
+const Overlay = (props: TSProps): JSX.Element => {
+    return (
         <Panel className={props.status ? "login" : "register"}>
-            <Title value="Podaj łappkę!" variant="white"/>
-            <SVG><SVG_KITTY/></SVG>
+            <Title value="Podaj łappkę!" variant="white" />
+            <SVG><SVG_KITTY /></SVG>
             <P>{props.status ? "Zaloguj się i sprawdź pocieszne zwierzątka w twojej okolicy" : "Zarejestruj się i dołącz do  społeczności łappkowiczów"}</P>
             <SignButton onClick={() => props.toggle()}>{props.status ? "Logowanie" : "Rejestracja"}</SignButton>
-            <ClearLink to="/"><ReturnButton className={props.status ? "login" : "register"}><SVG_ARROWLEFT/>Link do strony głównej</ReturnButton></ClearLink>
-            <SocialInput value="zaloguj" variant="white"></SocialInput>
+            <ClearLink to="/"><ReturnButton className={props.status ? "login" : "register"}><SVG_ARROWLEFT />Link do strony głównej</ReturnButton></ClearLink>
+            <SocialInput value={props.status ? "zaloguj" : "zarejstruj"} variant="white"></SocialInput>
         </Panel>
     );
-    
+
 };
 
 export default Overlay;

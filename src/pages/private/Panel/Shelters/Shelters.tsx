@@ -10,7 +10,7 @@ import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
 import { Icon } from './Shelters.styled'
 import { Button, ClearLink } from '../components/Button'
-import { Link } from 'react-router-dom'
+// import { Link } from 'react-router-dom'
 
 import LoadingComponent from '../components/LoadingComponent'
 import { ConfirmDialog } from '../components/ConfirmDialog'
