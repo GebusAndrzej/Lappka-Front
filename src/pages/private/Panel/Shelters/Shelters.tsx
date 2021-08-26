@@ -1,23 +1,25 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { deleteShelter, fetchShelters, getShelters } from '../../../../features/shelters/shelterSlice'
-import { PetTable } from '../Dashboard/components/PetList.styled'
+import { deleteShelter, fetchShelters, getShelters, getSheltersStatus } from '../../../../features/shelters/shelterSlice'
+// import { PetTable } from '../Dashboard/components/PetList.styled'
 import { Bar, ItemWrapper, Title } from '../Dashboard/Dashboard.styled'
 
-import { ReactComponent as SVG_Edit } from '../../../../assets/svg/edit.svg';
-import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg';
+// import { ReactComponent as SVG_Edit } from '../../../../assets/svg/edit.svg';
+// import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg';
 import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
-import { Icon } from './Shelters.styled'
+// import { Icon } from './Shelters.styled'
 import { Button, ClearLink } from '../components/Button'
 
 import LoadingComponent from '../components/LoadingComponent'
-import { ConfirmDialog } from '../components/ConfirmDialog'
+// import { ConfirmDialog } from '../components/ConfirmDialog'
 import { useSnackbar, OptionsObject } from 'notistack';
 import ShelterTable from './components/ShelterTable'
 
 function Shelters(): JSX.Element {
     const shelters = useAppSelector(getShelters)
+    const sheltersStatus = useAppSelector(getSheltersStatus)
+
     const dispatch = useAppDispatch()
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar();
@@ -81,7 +83,11 @@ function Shelters(): JSX.Element {
     }
 
     if (shelters == null) {
-        return <LoadingComponent></LoadingComponent>
+        return (
+            <>
+                <LoadingComponent state={sheltersStatus}></LoadingComponent>
+            </>
+        )
     }
 
     return (
@@ -91,8 +97,15 @@ function Shelters(): JSX.Element {
             <ItemWrapper variant="full-width">
                 <Title>Schroniska</Title>
 
+                <ShelterTable shelters={shelters} edit={edit} delete={handleDeleteShelter} ></ShelterTable>
 
-                <PetTable>
+                <Bar variant="date">
+                    <ClearLink to="/shelters/add" >
+                        <Button>Dodaj schronisko</Button>
+                    </ClearLink>
+                </Bar>
+
+                {/* <PetTable>
                     <thead>
                         <tr>
                             <th>Nazwa</th>
@@ -130,18 +143,12 @@ function Shelters(): JSX.Element {
                             })
                         }
                     </tbody>
-                </PetTable>
-                <Bar variant="date">
-                    <ClearLink to="/shelters/add" >
-                        <Button>Dodaj schronisko</Button>
-                    </ClearLink>
-                </Bar>
+                </PetTable> */}
 
-                {shelters ?
-                    <ShelterTable shelters={shelters}></ShelterTable>
-                    : <div>asdasF</div>}
+
+
+
             </ItemWrapper>
-            {/* </Bar> */}
         </>
     )
 }

@@ -13,17 +13,16 @@ function MessagesComponent(): JSX.Element {
     // const [activeUser, setActiveUser] = useState("");
     const { id } = useParams<RouteParams>();
 
-    function updateUser(x: string) {
-        // setActiveUser(x)
-    }
-
+    // function updateUser(x: string) {
+    //     // setActiveUser(x)
+    // }
 
     // const p = [
     //     { name: "Jan" }
     // ]
 
     return (
-        <MessagesWrapper>
+        <MessagesWrapper className={!id ? "wide" : "normal"}>
             <MessageUserListComponent state={id ? "mobile-hidden" : "normal"}></MessageUserListComponent>
             <MessageBoxComponent state={!id ? "hidden" : "normal"}></MessageBoxComponent>
         </MessagesWrapper>

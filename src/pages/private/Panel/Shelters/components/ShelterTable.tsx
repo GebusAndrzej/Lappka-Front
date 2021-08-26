@@ -9,11 +9,25 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import { Address, Shelter } from '../../../../../model/Shelter';
+import { Shelter } from '../../../../../model/Shelter';
 import { TableHead } from '@material-ui/core';
 
+import { Icon } from '../Shelters.styled'
+import { ReactComponent as SVG_Edit } from '../../../../../assets/svg/edit.svg';
+import { ReactComponent as SVG_Delete } from '../../../../../assets/svg/delete.svg';
+import { ConfirmDialog } from '../../components/ConfirmDialog';
+
+import styled from 'styled-components'
+
+const THeader = styled(TableCell)`
+    background-color: ${props => props.theme.colors.bg1};
+`;
+
+
 interface Props {
-    shelters: Shelter[]
+    shelters: Shelter[],
+    edit: (shelter: Shelter) => void,
+    delete: (shelter: Shelter) => void,
 }
 
 
@@ -23,6 +37,30 @@ interface TablePaginationActionsProps {
     rowsPerPage: number;
     onPageChange: (event: React.MouseEvent<HTMLButtonElement>, newPage: number) => void;
 }
+
+// function edit(shelter: Shelter) {
+//     // dispatch(setShelter(shelter))
+//     history.push(`/shelters/edit/${shelter.id}`)
+// }
+
+// async function handleDeleteShelter(shelter: Shelter) {
+//     console.log(shelter);
+//     try {
+//         const res = await dispatch(deleteShelter(shelter.id || ""))
+//         console.log(res)
+//         if (`${res.payload}`.match(/^2..$/)) {
+//             successSnackbar()
+//             dispatch(fetchShelters())
+//         }
+//         else {
+//             errorSnackbar()
+//         }
+//     }
+//     catch (e) {
+//         console.log(e);
+
+//     }
+// }
 
 function TablePaginationActions(props: TablePaginationActionsProps) {
     const theme = useTheme();
@@ -45,13 +83,13 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
     };
 
     return (
-        <div>
+        <div style={{ display: "flex" }}>
             <IconButton
                 onClick={handleFirstPageButtonClick}
                 disabled={page === 0}
                 aria-label="first page"
             >
-                {/* {theme.direction === 'rtl' ? "lp" : "fp"} */}
+                {theme.direction === 'rtl' ? ">>" : "<<"}
             </IconButton>
             <IconButton onClick={handleBackButtonClick} disabled={page === 0} aria-label="previous page">
                 {theme.direction === 'rtl' ? <span>{">"}</span> : <span>{"<"}</span>}
@@ -68,20 +106,14 @@ function TablePaginationActions(props: TablePaginationActionsProps) {
                 disabled={page >= Math.ceil(count / rowsPerPage) - 1}
                 aria-label="last page"
             >
-                {/* {theme.direction === 'rtl' ? <FirstPageIcon /> : <LastPageIcon />} */}
+                {theme.direction === 'rtl' ? "<<" : ">>"}
             </IconButton>
         </div>
     );
 }
 
-// function createData(name: string, calories: number, fat: number) {
-//     return { name, calories, fat };
-// }
-
 function create(shelter: Shelter) {
-    const { name, email, phoneNumber }: any = shelter
-
-    return { name, email, phoneNumber }
+    return shelter
 }
 
 // const rows = [
@@ -126,15 +158,18 @@ export default function ShelterTable(props: Props): JSX.Element {
             <Table aria-label="custom pagination table">
                 <TableHead>
                     <TableRow>
-                        <TableCell>
+                        <THeader>
                             Nazwa
-                        </TableCell>
-                        <TableCell>
+                        </THeader>
+                        <THeader>
                             Email
-                        </TableCell>
-                        <TableCell>
+                        </THeader>
+                        <THeader>
                             Telefon
-                        </TableCell>
+                        </THeader>
+                        <THeader>
+
+                        </THeader>
                     </TableRow>
                 </TableHead>
 
@@ -153,6 +188,17 @@ export default function ShelterTable(props: Props): JSX.Element {
                             <TableCell>
                                 {row.phoneNumber}
                             </TableCell>
+                            <TableCell style={{ textAlign: "right" }}>
+                                <Icon onClick={() => props.edit(row)} color="green">
+                                    <SVG_Edit />
+                                </Icon>
+
+                                <ConfirmDialog confirmationText={"Usunąć " + row.name + "?"} onAccept={() => (props.delete(row))} component={({ handleShowModal }: any) =>
+                                    <Icon color="red" onClick={handleShowModal}>
+                                        <SVG_Delete />
+                                    </Icon>}
+                                />
+                            </TableCell>
                         </TableRow>
                     ))}
                     {emptyRows > 0 && (
@@ -166,7 +212,7 @@ export default function ShelterTable(props: Props): JSX.Element {
                     <TableRow>
                         <TablePagination
                             rowsPerPageOptions={[5, 10, 25, { label: 'All', value: -1 }]}
-                            colSpan={3}
+                            colSpan={rows.length}
                             count={rows.length}
                             rowsPerPage={rowsPerPage}
                             page={page}

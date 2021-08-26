@@ -21,16 +21,17 @@ export const PanelWrapper = styled.section`
 
 export const Container = styled.div`
     overflow-x: auto;
-    margin:16px 32px 50px 31px;
+    padding:16px 32px 0px 31px;
     grid-area: child;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
-        margin: 15px;
-        margin-top:32px;
+        padding: 15px;
+        padding-top:32px;
+        /* margin-bottom: 30px; */
     }
 
     @media (max-width: ${props => props.theme.break.mobile}) {
-        margin: 15px;
-        margin-top:32px;
+        padding: 15px;
+        padding-top:32px;
     }
 `;

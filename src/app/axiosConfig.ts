@@ -1,4 +1,5 @@
 import axios from 'axios';
+import axiosRetry from 'axios-retry';
 
 export const endpoints = {
     shelters: "http://10.10.10.38:5001/api/shelter",
@@ -29,6 +30,10 @@ const authorizedInstance = axios.create({
 
 authorizedInstance.defaults.headers.common['Authorization'] = 'AUTH TOKEN FROM unauthorizedInstance';
 authorizedInstance.defaults.headers.post['Content+Type'] = 'application/json';
+
+axiosRetry(authorizedInstance, {
+    retries: 3,
+})
 
 authorizedInstance.interceptors.response.use((response) => {
     return response;

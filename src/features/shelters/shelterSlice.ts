@@ -126,9 +126,15 @@ export const { setShelter } = shelterSlice.actions;
 export const getShelters = (state: RootState): Shelter[] | null => {
     return state.shelters.shelters
 }
+export const getSheltersStatus = (state: RootState): string => {
+    return state.shelters.sheltersStatus
+}
 
 export const getShelter = (state: RootState): Shelter | null => {
     return state.shelters.shelter
+}
+export const getShelterStatus = (state: RootState): string => {
+    return state.shelters.shelterStatus
 }
 
 
