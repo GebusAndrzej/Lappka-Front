@@ -13,7 +13,8 @@ export const defaultTheme = {
         black: "#1E2022",
         gray: "#77838F",
         green: "#4EBC84",
-        lightgreen: "#0DE18C"
+        lightgreen: "#0DE18C",
+        lightgray: "#F6F6F6"
     },
 
     break: {

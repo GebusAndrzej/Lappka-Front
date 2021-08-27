@@ -6,7 +6,8 @@ export const Text = styled.label<{ fontWeight?: string }>`
 
 export const InvalidInput = styled.p`
     position: absolute;
-    top:42px;
+    //top:42px;
+    bottom: -38px;
     transition: 0.1s ease all;
     opacity: 1;
     color: red;
@@ -49,6 +50,8 @@ export const InputDiv = styled.div`
     
     &.error{
         background: #F9E3E3;
+        margin-bottom: 8px;
+
     }
 `;
 

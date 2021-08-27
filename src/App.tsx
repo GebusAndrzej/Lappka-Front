@@ -14,6 +14,7 @@ import AddShelter from './pages/private/Panel/Shelters/AddShelter/AddShelter';
 import EditShelter from './pages/private/Panel/Shelters/EditShelter/EditShelter';
 import MessagesComponent from './pages/private/Panel/Messages/MessagesComponent';
 import MessageBoxComponent from './pages/private/Panel/Messages/components/MessageBoxComponent';
+import LoginPage from './pages/public/loginPage/LoginPage';
 
 function App(): JSX.Element {
   return (
@@ -22,6 +23,7 @@ function App(): JSX.Element {
 
       <Router>
         <Route path="/" exact component={Home} />
+        <Route path="/login" exact component={LoginPage} />
 
         {/* Dashboard */}
         <PrivateRoute path="/dashboard" exact component={() => <Wrapper title="Dashboard" child={<Dashboard />} />} isAuthenticated={true} />
