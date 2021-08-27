@@ -1,30 +1,36 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { deleteShelter, fetchShelters, getShelters } from '../../../../features/shelters/shelterSlice'
-import { PetTable } from '../Dashboard/components/PetList.styled'
+import { deleteShelter, fetchShelters, getShelters, getSheltersStatus } from '../../../../features/shelters/shelterSlice'
+// import { PetTable } from '../Dashboard/components/PetList.styled'
 import { Bar, ItemWrapper, Title } from '../Dashboard/Dashboard.styled'
 
-import { ReactComponent as SVG_Edit } from '../../../../assets/svg/edit.svg';
-import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg';
+// import { ReactComponent as SVG_Edit } from '../../../../assets/svg/edit.svg';
+// import { ReactComponent as SVG_Delete } from '../../../../assets/svg/delete.svg';
 import { Shelter } from '../../../../model/Shelter'
 import { useHistory } from 'react-router'
-import { Icon } from './Shelters.styled'
+// import { Icon } from './Shelters.styled'
 import { Button, ClearLink } from '../components/Button'
-// import { Link } from 'react-router-dom'
 
 import LoadingComponent from '../components/LoadingComponent'
-import { ConfirmDialog } from '../components/ConfirmDialog'
+// import { ConfirmDialog } from '../components/ConfirmDialog'
 import { useSnackbar, OptionsObject } from 'notistack';
+import ShelterTable from './components/ShelterTable'
 
 function Shelters(): JSX.Element {
     const shelters = useAppSelector(getShelters)
+    const sheltersStatus = useAppSelector(getSheltersStatus)
+
     const dispatch = useAppDispatch()
     const history = useHistory()
     const { enqueueSnackbar } = useSnackbar();
 
-
     useEffect(() => {
-        dispatch(fetchShelters())
+        dispatch(fetchShelters()).then(e => {
+            if (!e.payload) {
+                errorSnackbar("Brak połączenia z serwerem")
+
+            }
+        })
     }, [])
 
     //snackbar on success editing
@@ -40,7 +46,7 @@ function Shelters(): JSX.Element {
     }
 
     //snackbar on success editing
-    const errorSnackbar = () => {
+    const errorSnackbar = (m?: string) => {
         const x: OptionsObject = {
             variant: 'error',
             anchorOrigin: {
@@ -48,7 +54,7 @@ function Shelters(): JSX.Element {
                 horizontal: 'center'
             },
         }
-        enqueueSnackbar('Wystąpił błąd', x);
+        enqueueSnackbar(`Wystąpił błąd ${m ? `: ${m}` : ""}`, x);
     };
 
 
@@ -74,21 +80,32 @@ function Shelters(): JSX.Element {
             console.log(e);
 
         }
-
     }
 
-    if (!shelters) {
-        return <LoadingComponent></LoadingComponent>
+    if (shelters == null) {
+        return (
+            <>
+                <LoadingComponent state={sheltersStatus}></LoadingComponent>
+            </>
+        )
     }
 
     return (
         <>
+            {/* {JSON.stringify(shelters, null, 2)} */}
             {/* <Bar variant="full-width"> */}
             <ItemWrapper variant="full-width">
                 <Title>Schroniska</Title>
 
+                <ShelterTable shelters={shelters} edit={edit} delete={handleDeleteShelter} ></ShelterTable>
 
-                <PetTable>
+                <Bar variant="date">
+                    <ClearLink to="/shelters/add" >
+                        <Button>Dodaj schronisko</Button>
+                    </ClearLink>
+                </Bar>
+
+                {/* <PetTable>
                     <thead>
                         <tr>
                             <th>Nazwa</th>
@@ -126,14 +143,12 @@ function Shelters(): JSX.Element {
                             })
                         }
                     </tbody>
-                </PetTable>
-                <Bar variant="date">
-                    <ClearLink to="/shelters/add" >
-                        <Button>Dodaj schronisko</Button>
-                    </ClearLink>
-                </Bar>
+                </PetTable> */}
+
+
+
+
             </ItemWrapper>
-            {/* </Bar> */}
         </>
     )
 }

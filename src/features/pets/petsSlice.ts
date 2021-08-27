@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Pet } from '../../model/Shelter';
 import { endpoints, AxiosUnauthorized } from '../../app/axiosConfig'
+import { RootState } from '../../app/store';
 
 
 interface InitialState {
@@ -65,12 +66,23 @@ export const petsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            .addCase(fetchPets.pending, (state) => {
+                state.petsStatus = "loading"
+            })
+            .addCase(fetchPets.fulfilled, (state, action) => {
+                state.pets = action.payload
+                state.petsStatus = "idle"
+                state.petsUpdateTime = Date.now()
+            })
+            .addCase(fetchPets.rejected, (state) => {
+                state.petsStatus = "failed"
+            })
     }
 })
 
-// export const getPet = (state: RootState): Shelter[] => {
-//     return state.shelters.shelters
-// }
+export const getPets = (state: RootState): Pet[] => {
+    return state.pets.pets
+}
 
 // export const getPets = (state: RootState): Shelter | null => {
 //     return state.shelters.shelter

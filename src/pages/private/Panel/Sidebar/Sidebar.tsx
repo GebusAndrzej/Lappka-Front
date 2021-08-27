@@ -42,7 +42,7 @@ function Sidebar(props: Props): JSX.Element {
                         </div>
                     </UserBox>
                     <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Messages} to="/messages" name="Wiadomości"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska"></ButtonNavLink>
