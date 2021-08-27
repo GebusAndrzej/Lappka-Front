@@ -73,7 +73,8 @@ export const ChatItem = styled.div`
         }
     }
     :hover{
-        box-shadow: 0px 2px 4px rgba(0,0,0,.25);
+        box-shadow: 0px 2px 4px rgba(0,0,0,.10);
+        background-color: rgba(255,255,255,.6);
     }
     &.active{
         background-color:white;

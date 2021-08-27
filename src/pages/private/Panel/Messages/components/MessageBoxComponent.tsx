@@ -51,7 +51,7 @@ const Header = styled.div`
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
-    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.15);
 `;
 
 const MessagesBox = styled.div`
@@ -134,11 +134,7 @@ function MessageBoxComponent(props: Props & RouteParams): JSX.Element {
             <MessagesBox>
                 <Message type="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
-                <Message type="self" message="Nie  asdasdasd\nas
-                dfadsfasdfasdf sadj jfd ksfkhdasbfk kadfjdsakfskadf asjdkfh kjsahfakjdsbf afl iurghanfkjb sdiuo UHFRADSHFLKJNkjf HFKJWBDAKLFJBWF DKJB
-                sadasdasdasjkflaslf
-                sadfsadfadsf
-                sdfd"></Message>
+                <Message type="self" message="Nie"></Message>
 
                 <Message type="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
