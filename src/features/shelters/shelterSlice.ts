@@ -4,7 +4,7 @@ import { Shelter } from '../../model/Shelter';
 import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 
 interface InitialState {
-    shelters: Array<Shelter>,
+    shelters: Array<Shelter> | null,
     sheltersStatus: 'idle' | 'loading' | 'failed',
     sheltersUpdateTime: number,
     shelter: Shelter | null,
@@ -13,7 +13,7 @@ interface InitialState {
 }
 
 const initialState: InitialState = {
-    shelters: [],
+    shelters: null,
     sheltersStatus: "idle",
     sheltersUpdateTime: 0,
     shelter: null,
@@ -26,8 +26,14 @@ const initialState: InitialState = {
 export const fetchShelters = createAsyncThunk(
     'shelter/fetchShelters',
     async () => {
-        const response = await AxiosUnauthorized.get<Shelter[]>(endpoints.shelters)
-        return response.data;
+        try {
+            const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters)
+            return response.data;
+        }
+        catch (e) {
+            // console.log(e);
+            return null
+        }
     }
 );
 
@@ -117,12 +123,18 @@ export const shelterSlice = createSlice({
 export const { setShelter } = shelterSlice.actions;
 
 
-export const getShelters = (state: RootState): Shelter[] => {
+export const getShelters = (state: RootState): Shelter[] | null => {
     return state.shelters.shelters
+}
+export const getSheltersStatus = (state: RootState): string => {
+    return state.shelters.sheltersStatus
 }
 
 export const getShelter = (state: RootState): Shelter | null => {
     return state.shelters.shelter
+}
+export const getShelterStatus = (state: RootState): string => {
+    return state.shelters.shelterStatus
 }
 
 

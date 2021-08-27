@@ -18,6 +18,7 @@ export const Grid = styled.div`
         "item"
         "chart"
         "list";
+        overflow-x: hidden;
     }
 `;
 
@@ -41,12 +42,13 @@ export const Item = styled.div<{ variant: "chart" | "shelter" }>`
 
         @media (max-width: ${props => props.theme.break.tablet}) {
             margin-right: 20px;
+            margin-left: 20px;
         }
 
     `}
     ${(props) => props.variant == "shelter" && css`
         grid-area: shelter;
-        margin-right: 20px;
+        /* margin-right: 20px; */
         @media (max-width: ${props => props.theme.break.tablet}) {
             width:49%;
             margin:auto;
@@ -67,6 +69,11 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
     align-items: center;
     justify-content: flex-end;
     grid-area: date;
+
+    a button {
+        margin:15px;
+        margin-bottom: 0;
+    }
     
     @media (max-width: ${props => props.theme.break.tablet}) {
             margin-top:40px;
@@ -90,8 +97,8 @@ export const Bar = styled.div<{ variant: "date" | "first-row" | "second-row" | "
         grid-area: list;
         overflow-y: auto;
         /* margin-left:20px; */
-        padding-right: 20px;
-        margin-bottom: 50px;
+        /* padding-right: 20px; */
+        margin-bottom: 40px;
     `}
     
 `;
@@ -131,6 +138,11 @@ export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "full-w
         width: 100%;
         min-width: 800px;
         padding: 25px;
+        @media (max-width: ${props => props.theme.break.tablet}) {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
     `}
 
     ${(props) => props.variant == "date" && css`

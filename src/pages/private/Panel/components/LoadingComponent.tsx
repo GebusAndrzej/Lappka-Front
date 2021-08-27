@@ -12,7 +12,15 @@ const Wrapper = styled.div`
     justify-content: center;
 `;
 
-function LoadingComponent(): JSX.Element {
+interface Props {
+    state?: string
+}
+
+function LoadingComponent(props: Props): JSX.Element {
+    if (props.state == "loading")
+        return (<Wrapper><CircularProgress></CircularProgress></Wrapper>)
+    else if (props.state == "idle")
+        return (<Wrapper>Brak połączenia z serwerem</Wrapper>)
     return (
         <Wrapper>
             <CircularProgress />

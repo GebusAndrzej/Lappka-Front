@@ -26,3 +26,12 @@ export const Icon = styled.button<{ color?: "green" | "red" }>`
     }
 
 `;
+
+export const TD = styled.td`
+    color:red;
+    /* display:none; */
+
+    @media (max-width: 840px) {
+        display:none;
+    }
+`;
