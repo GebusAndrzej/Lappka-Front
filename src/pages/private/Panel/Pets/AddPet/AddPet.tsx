@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { GridContainer, GridItem, Title, } from './AddPet.styled'
 import SelectInput from '../../components/SelectInput';
 import TextInput from '../../components/TextInput';
@@ -10,13 +10,48 @@ import { petSexes, petSpecies, petSterilization } from '../../../../../model/Sel
 import { DateInput } from '../../components/DateInput';
 import TextArea from '../../components/TextArea';
 
-import { useAppDispatch } from '../../../../../app/hooks';
-import { addPet } from '../../../../../features/pets/petsSlice';
+import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
+import { addPet, getAddingPetStatus } from '../../../../../features/pets/petsSlice';
 import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
 import { PetsValidation } from '../PetsValidation';
+import LoadingComponent from '../../components/LoadingComponent';
+import { OptionsObject, useSnackbar } from 'notistack';
+import { useHistory } from 'react-router-dom';
 
 function AddPet(): JSX.Element {
     const dispatch = useAppDispatch();
+    const addingPetStatus = useAppSelector(getAddingPetStatus)
+    const { enqueueSnackbar } = useSnackbar()
+    const history = useHistory()
+
+    //snackbar on success editing
+    const successSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'success',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+            action: (x) => (useEffect(() => (history.push("/pets")), [x]))
+        }
+        enqueueSnackbar('Dodano zwierzaka', x);
+    }
+
+    //snackbar on failed editing
+    const errorSnackbar = () => {
+        const x: OptionsObject = {
+            variant: 'error',
+            anchorOrigin: {
+                vertical: 'bottom',
+                horizontal: 'center'
+            },
+        }
+        enqueueSnackbar('Wystąpił błąd', x);
+    };
+
+    if (addingPetStatus == "loading") {
+        return <LoadingComponent></LoadingComponent>
+    }
     return (
         <Formik
             initialValues={{
@@ -24,7 +59,7 @@ function AddPet(): JSX.Element {
                 Sex: '',
                 Race: '',
                 Species: '',
-                File: '',
+                MainPhoto: '',
                 BirthDay: null,
                 Color: '',
                 Weight: '',
@@ -32,10 +67,27 @@ function AddPet(): JSX.Element {
                 Description: ''
             }}
             validationSchema={PetsValidation}
-            onSubmit={values => {
-                alert(JSON.stringify(values, null, 2));
-                dispatch(addPet(values))
-                // console.log(values)
+            onSubmit={async values => {
+
+
+                try {
+                    const res = await dispatch(addPet(values))
+
+                    // console.dir(res.payload);
+                    if (`${res.payload}`.match(/^2..$/)) {
+                        console.log("Sukces");
+
+                        successSnackbar()
+                    }
+                    else {
+                        console.log("Error");
+
+                        errorSnackbar()
+                    }
+                }
+                catch (e) {
+                    console.log(e);
+                }
             }}
         >
             <Form>
@@ -60,7 +112,7 @@ function AddPet(): JSX.Element {
                     </GridItem>
 
                     <GridItem>
-                        <FileInput name="File" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
+                        <FileInput name="MainPhoto" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
                     </GridItem>
 
                 </GridContainer>

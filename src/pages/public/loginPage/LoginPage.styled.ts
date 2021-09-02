@@ -11,6 +11,10 @@ export const Background = styled.div`
     * {
 	box-sizing: border-box;
     }
+
+    @media (max-width:${props => props.theme.break.tablet}) {
+        overflow-x: hidden;
+    }
 `;
 
 export const MainContainer = styled.div`
@@ -29,6 +33,11 @@ export const MainContainer = styled.div`
     }
     @media (max-width:${props => props.theme.break.between}) {
         /* tutaj na mobilkę  albo between*/
+        margin:0;
+        display:flex;
+        flex-direction: column;
+        max-width: 100%;
+        /* background-color: red; */
     }
 `;
 

@@ -3,7 +3,7 @@ import axiosRetry from 'axios-retry';
 
 export const endpoints = {
     shelters: "http://10.10.10.38:5001/api/shelter",
-    pets: "http://10.10.10.38:5002/api/pet",
+    pets: "http://10.10.10.38:5002/api/shelter/pet",
 }
 
 // ------------------------- Unauthorized Instance

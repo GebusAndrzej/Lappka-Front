@@ -9,5 +9,5 @@ export const PetsValidation = Yup.object({
     Color: Yup.string().required('wymagane'),
     Weight: Yup.number().required('wymagane').typeError('Niepoprawny typ danych, proszę wprowadzić liczbę'),
     Sterilization: Yup.string().required('wymagane'),
-    Description: Yup.string().min(50, 'Minimum 50 znaków.').max(500, 'Maksymalnie 500 znaków.')
+    Description: Yup.string().min(10, 'Minimum 10 znaków.').max(500, 'Maksymalnie 500 znaków.')
 });

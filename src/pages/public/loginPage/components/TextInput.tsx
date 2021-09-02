@@ -107,7 +107,7 @@ const TextInput = (props: TSProps & FieldHookConfig<string | number | FunctionCo
             <Label>{props.label}</Label>
             {meta.touched && meta.error ? (<InvalidInput>{meta.error}</InvalidInput>) : null}
 
-            {props.type == "password" ? <ShowPasswordButton type="button" onClick={() => setShow(!show)}>{show ? '🐵' : '🙈'}</ShowPasswordButton> : null}
+            {props.type == "password" ? <ShowPasswordButton tabIndex={-1} type="button" onClick={() => setShow(!show)}>{show ? '🐵' : '🙈'}</ShowPasswordButton> : null}
         </InputDiv>
     );
 };
