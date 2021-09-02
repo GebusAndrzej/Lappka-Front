@@ -136,15 +136,15 @@ function MessageBoxComponent(props: Props & RouteParams): JSX.Element {
                 <Message type="other" message="Żyje?"></Message>
                 <Message type="self" message="Nie"></Message>
 
-                <Message type="self" message="Hej znalazłem psa"></Message>
+                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
                 <Message type="self" message="Nie"></Message>
 
-                <Message type="self" message="Hej znalazłem psa"></Message>
+                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
                 <Message type="self" message="Nie"></Message>
 
-                <Message type="self" message="Hej znalazłem psa"></Message>
+                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
                 <Message type="self" message="Nie"></Message>
 

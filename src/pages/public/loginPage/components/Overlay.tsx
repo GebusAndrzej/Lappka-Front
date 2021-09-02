@@ -4,7 +4,7 @@ import { ReactComponent as SVG_ARROWLEFT } from '../../../../assets/svg/arrowLef
 import { ReactComponent as SVG_KITTY } from '../../../../assets/svg/kitty.svg';
 
 import { ClearLink } from '../../../private/Panel/components/Button';
-import SocialInput from './SocialInput';
+// import SocialInput from './SocialInput';
 import Title from './Title';
 
 
@@ -29,6 +29,22 @@ export const Panel = styled.div`
         transform: translateX(100%) ;
         border-radius: 20px 0px 0px 20px;
 
+    }
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        width:100%;
+        position: relative ;
+        /* border-radius: 0px; */
+        &.register{
+        border-radius: 0px;
+        right:0%;
+        }
+        &.login{
+            right:100%;
+            transform: translateX(100%) ;
+            border-radius: 0px;
+
+        }
     }
 
 
@@ -100,6 +116,15 @@ const ReturnButton = styled.button`
     &.login{
         border-radius: 0px 0px 0px 20px;
     }
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        &.register{
+            border-radius: 0px;
+        }
+        &.login{
+            border-radius: 0px;
+
+        }
+    }
 `;
 
 interface TSProps {
@@ -108,14 +133,18 @@ interface TSProps {
 }
 
 const Overlay = (props: TSProps): JSX.Element => {
+
+    function scrollTop() {
+        window.scrollTo(0, 100)
+    }
     return (
         <Panel className={props.status ? "login" : "register"}>
             <Title value="Podaj łappkę!" variant="white" />
             <SVG><SVG_KITTY /></SVG>
-            <P>{props.status ? "Zaloguj się i sprawdź pocieszne zwierzątka w twojej okolicy" : "Zarejestruj się i dołącz do  społeczności łappkowiczów"}</P>
-            <SignButton onClick={() => props.toggle()}>{props.status ? "Logowanie" : "Rejestracja"}</SignButton>
+            <P>{props.status ? "Zaloguj się do panelu schroniska" : "Zarejestruj się jako schronisko"}</P>
+            <SignButton onClick={() => { props.toggle(); scrollTop() }}>{props.status ? "Logowanie" : "Rejestracja"}</SignButton>
             <ClearLink to="/"><ReturnButton className={props.status ? "login" : "register"}><SVG_ARROWLEFT />Link do strony głównej</ReturnButton></ClearLink>
-            <SocialInput value={props.status ? "zaloguj" : "zarejstruj"} variant="white"></SocialInput>
+            {/* <SocialInput value={props.status ? "zaloguj" : "zarejstruj"} variant="white"></SocialInput> */}
         </Panel>
     );
 

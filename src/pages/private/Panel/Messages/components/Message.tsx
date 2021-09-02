@@ -62,15 +62,18 @@ const Msg = styled.div<{ type: "self" | "other" }>`
 
 interface Props {
     type: "self" | "other";
-    message: string
+    message: string,
+    prev?: "self" | "other";
 }
 
 function Message(props: Props): JSX.Element {
     return (
         <MsgWrapper type={props.type}>
-            <Avatar>
-                <img src="/assets/Homepage/avatars/avatar1.webp" />
-            </Avatar>
+            {!(props.prev != undefined) ?
+                <Avatar>
+                    <img src="/assets/Homepage/avatars/avatar1.webp" />
+                </Avatar>
+                : <Avatar></Avatar>}
             <Msg type={props.type}>
                 {props.message}
             </Msg>

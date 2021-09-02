@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import styled, { css } from "styled-components";
 
 export const ThemeTest = styled.div`
@@ -14,6 +15,26 @@ export const MainLogo = styled.img`
     @media (max-width: ${props => props.theme.break.mobile}) {
         max-width: 90%;
     }
+`;
+
+export const LoginButton = styled(Link)`
+    position: absolute;
+    font-size: 110%;
+    z-index:10;
+    left:0;
+    top:0;
+    height:50px;
+    width: 180px;
+    background: linear-gradient(to bottom right,
+        ${props => props.theme.colors.green},
+        ${props => props.theme.colors.lightgreen});
+    border:none;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    color:white;
+    text-decoration: none;
+    clip-path: polygon(0 0, 100% 0, 80% 100%, 0% 100%);
 `;
 
 //grid to divide page

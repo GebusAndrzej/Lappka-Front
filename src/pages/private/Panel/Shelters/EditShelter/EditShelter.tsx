@@ -40,7 +40,7 @@ function EditShelter(): JSX.Element {
         enqueueSnackbar('Pomyślnie zedytowano informacje', x);
     }
 
-    //snackbar on success editing
+    //snackbar on failed editing
     const errorSnackbar = () => {
         const x: OptionsObject = {
             variant: 'error',

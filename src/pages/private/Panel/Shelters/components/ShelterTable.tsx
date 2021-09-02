@@ -20,7 +20,8 @@ import { ConfirmDialog } from '../../components/ConfirmDialog';
 import styled from 'styled-components'
 
 const THeader = styled(TableCell)`
-    background-color: ${props => props.theme.colors.bg1};
+    background-color: ${props => props.theme.colors.green};
+    color:white;
 `;
 
 

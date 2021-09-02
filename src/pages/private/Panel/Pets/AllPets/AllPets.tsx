@@ -1,31 +1,53 @@
 import React from 'react'
-import { NavLink, useHistory } from 'react-router-dom'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { fetchPets, getPets } from '../../../../../features/pets/petsSlice'
-import { Button, ClearLink } from '../../components/Button'
-import { Bar, ItemWrapper } from '../../Dashboard/Dashboard.styled'
+import { Button } from '../../components/Button'
+import PetCardComponent from '../components/PetCardComponent'
+import styled from 'styled-components'
+import { Link } from 'react-router-dom'
+
+const Container = styled.div`
+    display:flex;
+    flex-direction: row-reverse;
+    flex-wrap: wrap;
+    gap:20px;
+    align-items: center;
+    justify-content: space-around;
+    padding-bottom: 30px;
+`
+
+const AddPetButton = styled(Link)`
+    position: fixed;
+    bottom:20px;
+    right:30px;
+    text-decoration:none;
+    background-color: ${props => props.theme.colors.green};
+    border-radius: 5px;
+    color:white;
+    font-size:130%;
+    padding: 15px 50px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,.2);
+`
 
 function AllPets(): JSX.Element {
     const pets = useAppSelector(getPets)
     const dispatch = useAppDispatch()
-    const history = useHistory()
 
     dispatch(fetchPets())
+    // console.log(pets);
+
 
     return (
-        <>
-            <Bar variant="full-width">
-                <ItemWrapper variant="full-width">
-                    <ClearLink to="/pets/add-pet">
-                        <Button>Dodaj Zwierzaka</Button>
+        <Container>
+            {pets.map(x => {
+                return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
+            })}
 
-                        {pets ? JSON.stringify(pets, null, 2) : "asdasd"}
+            <AddPetButton to="/pets/add-pet">
+                Dodaj Zwierzaka
+            </AddPetButton>
 
-                    </ClearLink>
-                </ItemWrapper>
-            </Bar>
-
-        </>
+        </Container>
     )
 }
 

@@ -9,7 +9,8 @@ import { ReactComponent as SVG_LOGINICON } from '../../../../assets/svg/loginIco
 import { ReactComponent as SVG_PASSICON } from '../../../../assets/svg/passwordIcon.svg';
 import AdditionalOptions from './AdditionalOptions';
 import { SubmitButton } from './SubmitButton';
-import SocialInput from './SocialInput';
+// import SocialInput from './SocialInput';
+import { useHistory } from 'react-router-dom';
 
 
 const Form1 = styled(Form)`
@@ -24,14 +25,16 @@ const Form1 = styled(Form)`
     &.register{
         opacity: 1;
         visibility: visible;
-
     }
     &.login{
         opacity: 0;
         visibility: hidden;
-
         transition-delay: 0s;
+    }
 
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        display:relative;
+        width:100%;
     }
 `;
 
@@ -53,6 +56,7 @@ interface TSProps {
 }
 
 const LoginPanel = (props: TSProps): JSX.Element => {
+    const history = useHistory()
     return (
 
         <Formik
@@ -63,7 +67,10 @@ const LoginPanel = (props: TSProps): JSX.Element => {
             validationSchema={Yup.object({
             })}
             onSubmit={values => {
-                alert(JSON.stringify(values, null, 2));
+                // alert(JSON.stringify(values, null, 2));
+                history.push("/dashboard")
+                console.log(values);
+
             }}
         >
             <Form1 className={props.status ? "login" : "register"}>
@@ -76,7 +83,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                 <AdditionalOptions name="RememberMe" ></AdditionalOptions>
                 <SubmitButton type="submit">Zaloguj się</SubmitButton>
 
-                <SocialInput value="zaloguj"></SocialInput>
+                {/* <SocialInput value="zaloguj"></SocialInput> */}
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
             </Form1>
         </Formik>

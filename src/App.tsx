@@ -13,7 +13,7 @@ import Shelters from './pages/private/Panel/Shelters/Shelters';
 import AddShelter from './pages/private/Panel/Shelters/AddShelter/AddShelter';
 import EditShelter from './pages/private/Panel/Shelters/EditShelter/EditShelter';
 import MessagesComponent from './pages/private/Panel/Messages/MessagesComponent';
-import MessageBoxComponent from './pages/private/Panel/Messages/components/MessageBoxComponent';
+// import MessageBoxComponent from './pages/private/Panel/Messages/components/MessageBoxComponent';
 import LoginPage from './pages/public/loginPage/LoginPage';
 
 function App(): JSX.Element {

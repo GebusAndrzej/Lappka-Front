@@ -11,8 +11,9 @@ export interface Pet {
     id?: string;
     name: string;
     sex: number;
-    mainPhotoPath: string;
     race: string;
+    species: string;
+    mainPhotoId: string;
     birthDay: Date;
     shelterAddress: Address;
 }

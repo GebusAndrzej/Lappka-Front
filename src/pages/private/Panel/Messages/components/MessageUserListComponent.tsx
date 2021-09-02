@@ -42,8 +42,8 @@ const Wrapper = styled.div<{ status?: "mobile-hidden" | "normal" }>`
     }
 
     /* Handle on hover */
-    &::-webkit-scrollbar-thumb:hover {
-    background: ${props => props.theme.colors.green}; 
+        &::-webkit-scrollbar-thumb:hover {
+        background: ${props => props.theme.colors.green}; 
     }
 `;
 
