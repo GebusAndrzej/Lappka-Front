@@ -1,5 +1,5 @@
-import React from 'react'
-import styled from 'styled-components';
+import React, { useState } from 'react'
+import styled, { css } from 'styled-components';
 import { Form, Formik } from 'formik';
 import * as Yup from 'yup';
 import Title from './Title';
@@ -51,20 +51,44 @@ const Footer = styled.div`
     }
 `;
 
+const FormPage = styled.div<{ active: boolean }>`
+
+
+    ${(props) => !props.active && css`
+        display:none;
+    `}
+`
+
 interface TSProps {
     status?: boolean,
 }
 
 const RegisterPanel = (props: TSProps): JSX.Element => {
+    const [formPage, setFormPage] = useState(1)
+
+    function changePage(x: number) {
+        setFormPage(x);
+    }
+
+
     return (
         <Formik
             initialValues={{
                 login: '',
                 email: '',
                 password: '',
-                repeatPassword: ''
+                repeatPassword: '',
+                firstName: '',
+                lastName: ''
             }}
             validationSchema={Yup.object({
+                login: Yup.string().required("Wymagane"),
+                email: Yup.string().required("Wymagane").email("Podaj prawidłowy email"),
+                password: Yup.string().required("Wymagane").min(4, "Co najmniej 4 znaki"),
+                repeatPassword: Yup.string().oneOf([Yup.ref('password'), null], "Hasła się nie zgadzają").required('Wymagane'),
+                firstName: Yup.string().required("Wymagane"),
+                lastName: Yup.string().required("Wymagane"),
+
             })}
             onSubmit={values => {
                 alert(JSON.stringify(values, null, 2));
@@ -74,12 +98,21 @@ const RegisterPanel = (props: TSProps): JSX.Element => {
                 <Logo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo" />
                 <Title value="Zarejestruj się " />
 
-                <TextInput name="login" placeholder="Podaj Login" svg={SVG_LOGINICON}></TextInput>
-                <TextInput name="email" placeholder="Podaj e-mail" svg={SVG_LOGINICON}></TextInput>
-                <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
-                <TextInput name="repeatPassword" placeholder="Powtórz Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                <FormPage active={formPage == 1 ? true : false}>
+                    <TextInput name="login" placeholder="Nazwa Uzytkownika" svg={SVG_LOGINICON}></TextInput>
+                    <TextInput name="email" placeholder="E-mail" svg={SVG_LOGINICON}></TextInput>
+                    <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                    <TextInput name="repeatPassword" placeholder="Powtórz Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                    <SubmitButton type="button" onClick={() => changePage(2)}>Dalej</SubmitButton>
+                </FormPage>
 
-                <SubmitButton type="submit">Zarejestruj się</SubmitButton>
+                <FormPage active={formPage == 2 ? true : false}>
+                    <TextInput name="firstName" placeholder="Nazwa Uzytkownika" svg={SVG_LOGINICON}></TextInput>
+                    <TextInput name="lastName" placeholder="E-mail" svg={SVG_LOGINICON}></TextInput>
+                    <SubmitButton type="submit">Zarejestruj się</SubmitButton>
+                    <SubmitButton buttonType="back" type="button" onClick={() => changePage(1)}>Wstecz</SubmitButton>
+                </FormPage>
+
 
                 {/* <SocialInput value="zarejestruj"></SocialInput> */}
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>

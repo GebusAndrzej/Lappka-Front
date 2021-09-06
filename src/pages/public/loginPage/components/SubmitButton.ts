@@ -1,6 +1,6 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const SubmitButton = styled.button`
+export const SubmitButton = styled.button<{ buttonType?: "back" }>`
     margin:19px auto;
     width: 350px;
     height: 56px;
@@ -17,4 +17,9 @@ export const SubmitButton = styled.button`
     text-align: center;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+
+    ${(props) => props.buttonType == "back" && css`
+        background-color:white;
+        color: ${props => props.theme.colors.gray};
+    `}
 `;
