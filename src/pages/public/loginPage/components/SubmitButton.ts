@@ -17,6 +17,7 @@ export const SubmitButton = styled.button<{ buttonType?: "back" }>`
     text-align: center;
     letter-spacing: 0.5px;
     text-transform: uppercase;
+    cursor: pointer;
 
     ${(props) => props.buttonType == "back" && css`
         background-color:white;

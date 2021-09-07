@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { fetchPets, getPets } from '../../../../../features/pets/petsSlice'
-import { Button } from '../../components/Button'
 import PetCardComponent from '../components/PetCardComponent'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -33,9 +32,9 @@ function AllPets(): JSX.Element {
     const pets = useAppSelector(getPets)
     const dispatch = useAppDispatch()
 
-    dispatch(fetchPets())
-    // console.log(pets);
-
+    useEffect(() => {
+        dispatch(fetchPets())
+    }, [])
 
     return (
         <Container>

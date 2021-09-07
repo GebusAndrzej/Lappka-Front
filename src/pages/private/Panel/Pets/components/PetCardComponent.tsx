@@ -67,6 +67,7 @@ function PetCardComponent(props: Props): JSX.Element {
             <Info>
                 <h3>{props.pet.name}</h3>
                 <p>{props.pet.birthDay}</p>
+                <p>{props.pet.mainPhotoId}</p>
                 <BottomBar>
 
                     <EditButton>Edytuj</EditButton>
