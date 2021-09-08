@@ -1,8 +1,10 @@
 import React from 'react'
+import { useAppSelector } from '../../../../app/hooks';
 
 // import { Avatar, Company, IconBox, Name, SubTitle, Title, Titlebar, UserBox, Titlebox } from './TitleBar.styled'
 import { ReactComponent as SVG_Burger } from '../../../../assets/svg/burger.svg';
 import { ReactComponent as SVG_Notification } from '../../../../assets/svg/notification.svg';
+import { getUserInfo } from '../../../../features/auth/authSlice';
 import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox, SubTitle, Titlebox } from './TitleBar.styled'
 
 interface Props {
@@ -12,6 +14,7 @@ interface Props {
 }
 
 export default function TitleBar(props: Props): JSX.Element {
+    const userInfo = useAppSelector(getUserInfo)
 
     function MenuToggle() {
         props.toggle()
@@ -34,11 +37,11 @@ export default function TitleBar(props: Props): JSX.Element {
 
             <UserBox>
                 <Avatar>
-                    <img src="/assets/Homepage/avatars/avatar1.webp" />
+                    <img src={userInfo?.photoId != "00000000-0000-0000-0000-000000000000" ? userInfo?.photoId : "/assets/mock/avatar-generic.jpg"} />
                 </Avatar>
 
                 <div>
-                    <Name>Robert G.</Name>
+                    <Name>{userInfo?.firstName} {userInfo?.lastName.substr(0, 1)}.</Name>
                     <Company>nazwa firmy</Company>
                 </div>
             </UserBox>

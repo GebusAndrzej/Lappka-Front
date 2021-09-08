@@ -3,23 +3,25 @@ import axiosRetry from 'axios-retry';
 
 export const endpoints = {
     shelters: "http://10.10.10.38:5001/api/shelter",
+    auth: "http://10.10.10.38:5001/api/auth",
+    users: "http://10.10.10.38:5001/api/user",
     pets: "http://10.10.10.38:5002/api/shelter/pet",
 }
 
-// ------------------------- Unauthorized Instance
+//-------------------------------------------------------------------------\\
+// ------------------------- Unauthorized Instance-------------------------\\
 
 const unauthorizedInstance = axios.create({
 });
 
-// Where you would set stuff like your 'Authorization' header, etc ...
 unauthorizedInstance.defaults.headers.post['Content+Type'] = 'application/json';
 
-unauthorizedInstance.interceptors.response.use(function (response) {
-    return response;
-}, function (error) {
-    // console.dir(error);
-    return Promise.reject(error);
-});
+// unauthorizedInstance.interceptors.response.use(function (response) {
+//     return response;
+// }, function (error) {
+//     // console.dir(error);
+//     return Promise.reject(error);
+// });
 
 
 //-----------------------------------------------------------------------\\

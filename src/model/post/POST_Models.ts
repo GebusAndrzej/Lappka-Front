@@ -20,3 +20,16 @@ export interface POST_Pet {
     birthDay: Date;
     shelterAddress: Address;
 }
+
+export interface POST_registerUser {
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string
+}
+
+export interface POST_login {
+    email: string,
+    password: string
+}

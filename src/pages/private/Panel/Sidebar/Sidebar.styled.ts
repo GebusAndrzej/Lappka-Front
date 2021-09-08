@@ -60,7 +60,7 @@ export const ButtonBox = styled.div`
     height: 100%;
     padding-bottom: 60px;
 
-    & a:last-child{
+    & *:last-child{
         margin-top: auto;
     }
 
@@ -164,6 +164,59 @@ export const Close = styled.div`
     width:20px;
     height:20px;
 
+`;
+
+export const LogoutButton = styled.button`
+    cursor: pointer;
+    display:block;
+    background-color: ${props => props.theme.colors.bg1};
+    border:none;
+    padding:0;
+    width:214px;
+    height:45px;
+    align-items: center;
+    text-align:center;
+    text-decoration: none;
+    color:${props => props.theme.colors.gray};
+    border-radius: 5px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    display:flex;
+    justify-content: flex-start;
+    transition-duration:.3s;
+
+    user-select:none;
+
+    @media (max-width: ${props => props.theme.break.tablet}) {
+        color:white;
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+
+    & figure {
+        display:flex;
+        align-items: center;
+        justify-content: center;
+        margin:10px;
+
+        svg {
+            path{
+                fill:${props => props.theme.colors.gray};
+                @media (max-width: ${props => props.theme.break.tablet}) {
+                    fill:white;
+                }
+            }
+            ellipse{
+                @media (max-width: ${props => props.theme.break.tablet}) {
+                    stroke:white;
+                }
+            }
+        }
+    }
 `;
 
 

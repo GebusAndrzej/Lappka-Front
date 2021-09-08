@@ -14,10 +14,14 @@ import PetList from './components/PetList';
 // import { DateInput } from '../components/DateInput';
 // import ReactDatePicker from 'react-datepicker';
 import { CustomDatePicker } from '../components/Inputs.styled';
+import { useAppSelector } from '../../../../app/hooks';
+import { getTokenInfo, getUserInfo } from '../../../../features/auth/authSlice';
 
 
 function Dashboard(): JSX.Element {
     const [startDate, setStartDate] = useState(new Date());
+    const tokenInfo = useAppSelector(getTokenInfo)
+    const userInfo = useAppSelector(getUserInfo)
 
     return (
         <>
@@ -50,6 +54,9 @@ function Dashboard(): JSX.Element {
                 </Bar>
 
                 <Item variant="chart">
+                    <pre>
+                        {JSON.stringify(userInfo, null, 2)}
+                    </pre>
                     <ViewGraph></ViewGraph>
                 </Item>
 

@@ -85,7 +85,7 @@ export const Avatar = styled.figure`
 
     & img {
         position: relative;
-        max-height: 50px;
+        max-height: 40px;
     }
 
     @media (max-width: ${props => props.theme.break.tablet}) {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonBox, Fixed, Hr, Logo, Nav, Close } from './Sidebar.styled'
+import { ButtonBox, Fixed, Hr, Logo, Nav, Close, Button, LogoutButton } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
 import { ReactComponent as SVG_Dashboard } from '../../../../assets/svg/dashboard.svg';
@@ -9,6 +9,9 @@ import { ReactComponent as SVG_Volounteering } from '../../../../assets/svg/volo
 import { ReactComponent as SVG_Logout } from '../../../../assets/svg/logout.svg';
 import { ReactComponent as SVG_Close } from '../../../../assets/svg/close.svg';
 import { Avatar, Company, Name, UserBox } from '../TitleBar/TitleBar.styled';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { getUserInfo, logout } from '../../../../features/auth/authSlice';
+import { useHistory } from 'react-router';
 
 interface Props {
     state: string;
@@ -17,6 +20,15 @@ interface Props {
 }
 
 function Sidebar(props: Props): JSX.Element {
+    const userInfo = useAppSelector(getUserInfo)
+    const dispatch = useAppDispatch()
+    const history = useHistory()
+
+    function handleLogout() {
+        console.log("logout")
+        dispatch(logout())
+        history.push("/login")
+    }
 
     return (
         <Fixed className={props.state}>
@@ -37,7 +49,7 @@ function Sidebar(props: Props): JSX.Element {
                         </Avatar>
 
                         <div>
-                            <Name>Robert G.</Name>
+                            <Name>{userInfo?.firstName} {userInfo?.lastName}.</Name>
                             <Company>nazwa firmy</Company>
                         </div>
                     </UserBox>
@@ -47,8 +59,14 @@ function Sidebar(props: Props): JSX.Element {
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska"></ButtonNavLink>
 
-                    <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink>
+                    {/* <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink> */}
 
+                    <LogoutButton onClick={() => handleLogout()}>
+                        <figure>
+                            <SVG_Logout />
+                        </figure>
+                        Wyloguj Się
+                    </LogoutButton>
                 </ButtonBox>
 
             </Nav>

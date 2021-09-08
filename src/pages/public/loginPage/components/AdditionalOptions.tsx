@@ -12,6 +12,7 @@ const Wrapper = styled.div`
 `;
 const RememberMe = styled.input`
         color: gray;
+        cursor: pointer;
 `;
 const Span = styled.span`
     font-family: Ubuntu;
@@ -21,6 +22,7 @@ const Span = styled.span`
     line-height: 22px;
     color: gray;
     opacity: 0.7;
+    cursor: pointer;
 `;
 
 interface TSProps {

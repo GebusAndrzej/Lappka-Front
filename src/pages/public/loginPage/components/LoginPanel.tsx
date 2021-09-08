@@ -11,6 +11,12 @@ import AdditionalOptions from './AdditionalOptions';
 import { SubmitButton } from './SubmitButton';
 // import SocialInput from './SocialInput';
 import { useHistory } from 'react-router-dom';
+import { POST_login } from '../../../../model/post/POST_Models';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
+import { getLoginState, login } from '../../../../features/auth/authSlice';
+import LoadingComponent from '../../../private/Panel/components/LoadingComponent';
+import { showSnackbar } from '../../../components/Snackbar';
+import { useSnackbar } from 'notistack';
 
 
 const Form1 = styled(Form)`
@@ -57,19 +63,44 @@ interface TSProps {
 
 const LoginPanel = (props: TSProps): JSX.Element => {
     const history = useHistory()
+    const dispatch = useAppDispatch()
+    const loginState = useAppSelector(getLoginState)
+    const { enqueueSnackbar } = useSnackbar()
+
+
     return (
 
         <Formik
             initialValues={{
-                login: '',
+                email: '',
                 password: '',
             }}
             validationSchema={Yup.object({
+                email: Yup.string().email("Podaj właściwy adres email").required("Pole wymagane"),
+                password: Yup.string().required("Wymagane")
             })}
-            onSubmit={values => {
-                // alert(JSON.stringify(values, null, 2));
-                history.push("/dashboard")
-                console.log(values);
+            onSubmit={async values => {
+                const user: POST_login = values
+                try {
+                    const res = await dispatch(login(user))
+                    // console.log(res);
+
+                    if (`${res.type}` == "auth/login/fulfilled") {
+                        console.log("Sukces");
+
+                        showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
+                        history.push("/dashboard")
+                    }
+                    else {
+                        console.log("Error");
+                        showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
+                    }
+                }
+                catch (e) {
+                    console.log("catch");
+
+                    console.log(e);
+                }
 
             }}
         >
@@ -77,13 +108,18 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                 <Logo src="/assets/Homepage/logo.webp" alt="Logo" aria-label="Logo" />
                 <Title value="Zaloguj się do aplikacji" />
 
-                <TextInput name="login" placeholder="Login lub e-mail" svg={SVG_LOGINICON}></TextInput>
-                <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                {loginState == "loading" ? <LoadingComponent></LoadingComponent>
+                    :
+                    <>
+                        <TextInput name="email" placeholder="Login lub e-mail" svg={SVG_LOGINICON}></TextInput>
+                        <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                    </>
+                }
+
 
                 <AdditionalOptions name="RememberMe" ></AdditionalOptions>
                 <SubmitButton type="submit">Zaloguj się</SubmitButton>
 
-                {/* <SocialInput value="zaloguj"></SocialInput> */}
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
             </Form1>
         </Formik>

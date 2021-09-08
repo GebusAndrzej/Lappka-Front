@@ -4,6 +4,7 @@ import styled from 'styled-components';
 export const ClearLink = styled(Link)`
     text-decoration:none;
     color: gray;
+    cursor: pointer;
 `;
 
 export const Button = styled.button`
@@ -28,7 +29,7 @@ export const Button = styled.button`
     text-transform: uppercase;
     cursor: pointer;
     word-wrap: break-word;
-
+    cursor: pointer;
 
     @media(max-width: ${props => props.theme.break.mobile}){
             width: 100%;

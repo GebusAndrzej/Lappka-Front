@@ -85,7 +85,7 @@ const SignButton = styled.button`
     font-weight: bold;
     font-size: 16px;
     color: white;
-
+    cursor: pointer;
 `;
 
 const ReturnButton = styled.button`
@@ -105,6 +105,7 @@ const ReturnButton = styled.button`
     padding: 0px;
     display: block;
     margin: 0 auto;
+    cursor: pointer;
     svg{
         position: relative;
         top: 7px;
