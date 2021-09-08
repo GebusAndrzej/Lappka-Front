@@ -37,7 +37,8 @@ function RouterComponent(): JSX.Element {
 
             />
             <PrivateRoute path="/pets/add-pet"
-                exact role={Roles.user}
+                exact
+                role={Roles.user}
                 component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj zwierzaka" child={<AddPet />} />}
 
             />
@@ -52,19 +53,19 @@ function RouterComponent(): JSX.Element {
 
             {/* Shelters */}
             <PrivateRoute path="/shelters"
-                exact role={Roles.user}
+                exact role={Roles.admin}
                 component={() => <Wrapper title="Schroniska" child={<Shelters />} />}
 
             />
             <PrivateRoute path="/shelters/add"
                 exact
-                role={Roles.user}
+                role={Roles.admin}
                 component={() => <Wrapper title="Schroniska" child={<AddShelter />} subTitle="Dodaj schronisko" />}
 
             />
             <PrivateRoute path="/shelters/edit/:id"
                 exact
-                role={Roles.user}
+                role={Roles.admin}
                 component={() => <Wrapper title="Schroniska" child={<EditShelter />} subTitle="Edytuj schronisko" />}
 
             />
