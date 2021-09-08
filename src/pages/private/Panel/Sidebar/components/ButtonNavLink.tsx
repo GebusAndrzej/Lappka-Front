@@ -9,7 +9,6 @@ interface Props {
 }
 
 export default function ButtonNavLink(props: Props): JSX.Element {
-
     return (
         <Button
             to={props.to}

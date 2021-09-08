@@ -3,8 +3,9 @@ import axiosRetry from 'axios-retry';
 
 export const endpoints = {
     shelters: "http://10.10.10.38:5001/api/shelter",
+    auth: "http://10.10.10.38:5001/api/auth",
+    users: "http://10.10.10.38:5001/api/user",
     pets: "http://10.10.10.38:5002/api/shelter/pet",
-    auth: "http://10.10.10.38:5001/api/auth"
 }
 
 //-------------------------------------------------------------------------\\
