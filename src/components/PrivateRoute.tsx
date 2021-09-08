@@ -11,8 +11,6 @@ export type ProtectedRouteProps = {
 
 export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.Element {
     const user = useAppSelector(getUserInfo)
-    console.log(props);
-
 
     if (user) {
         //logged user

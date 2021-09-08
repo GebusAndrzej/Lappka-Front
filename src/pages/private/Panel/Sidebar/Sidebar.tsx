@@ -12,6 +12,7 @@ import { Avatar, Company, Name, UserBox } from '../TitleBar/TitleBar.styled';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUserInfo, logout } from '../../../../features/auth/authSlice';
 import { useHistory } from 'react-router';
+import { Roles } from '../../../../model/Const';
 
 interface Props {
     state: string;
@@ -53,11 +54,11 @@ function Sidebar(props: Props): JSX.Element {
                             <Company>nazwa firmy</Company>
                         </div>
                     </UserBox>
-                    <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard"></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości"></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt"></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat"></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska"></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard" role={Roles.user}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt" role={Roles.user}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat" role={Roles.user}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska" role={Roles.admin}></ButtonNavLink>
 
                     {/* <ButtonNavLink svg={SVG_Logout} to="/" name="Wyloguj Się"></ButtonNavLink> */}
 

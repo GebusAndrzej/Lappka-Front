@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import { Roles } from '../model/Const'
@@ -16,6 +16,7 @@ import PrivateRoute from './PrivateRoute'
 
 
 function RouterComponent(): JSX.Element {
+
     return (
         <BrowserRouter>
             <Route path="/" exact component={Home} />
