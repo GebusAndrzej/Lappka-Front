@@ -13,7 +13,7 @@ import { SubmitButton } from './SubmitButton';
 import { useHistory } from 'react-router-dom';
 import { POST_login } from '../../../../model/post/POST_Models';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getLoginState, login } from '../../../../features/auth/authSlice';
+import { getLoginState, getUserInfo, login } from '../../../../features/auth/authSlice';
 import LoadingComponent from '../../../private/Panel/components/LoadingComponent';
 import { showSnackbar } from '../../../components/Snackbar';
 import { useSnackbar } from 'notistack';
@@ -66,7 +66,9 @@ const LoginPanel = (props: TSProps): JSX.Element => {
     const dispatch = useAppDispatch()
     const loginState = useAppSelector(getLoginState)
     const { enqueueSnackbar } = useSnackbar()
+    const user = useAppSelector(getUserInfo)
 
+    if (user) history.push("/dashboard")
 
     return (
 

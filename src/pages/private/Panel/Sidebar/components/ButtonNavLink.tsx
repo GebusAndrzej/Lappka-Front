@@ -1,4 +1,7 @@
 import React, { FunctionComponent } from 'react'
+import { useAppSelector } from '../../../../../app/hooks'
+import { getUserInfo } from '../../../../../features/auth/authSlice'
+import { Roles } from '../../../../../model/Const'
 import { Button } from '../Sidebar.styled'
 
 interface Props {
@@ -6,23 +9,28 @@ interface Props {
     to: string;
     svg?: FunctionComponent;
     exact?: boolean;
+    role?: string;
 }
 
 export default function ButtonNavLink(props: Props): JSX.Element {
-    return (
-        <Button
-            to={props.to}
-            exact={props.exact ?? true}
-        >
-            <figure>
-                {props.svg ?
-                    <props.svg />
-                    :
-                    false
-                }
+    const user = useAppSelector(getUserInfo)
 
-            </figure>
-            {props.name}
-        </Button>
-    )
+    if ((user?.role == props.role) || (user?.role == Roles.admin))
+        return (
+            <Button
+                to={props.to}
+                exact={props.exact ?? true}
+            >
+                <figure>
+                    {props.svg ?
+                        <props.svg />
+                        :
+                        false
+                    }
+
+                </figure>
+                {props.name}
+            </Button>
+        )
+    return <></>
 }

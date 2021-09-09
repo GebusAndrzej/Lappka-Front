@@ -1,8 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { endpoints, AxiosUnauthorized } from '../../app/axiosConfig'
-import { useAppDispatch } from '../../app/hooks';
+import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
+import localStorageService, { readToken, saveToken } from '../localStorageService';
 
 interface auth {
     accessToken: string,
@@ -76,8 +76,47 @@ export const login = createAsyncThunk(
             const response = await AxiosUnauthorized.post(endpoints.auth + "/signin", user)
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
+            const id = token.id
+            // console.log(token.sub);
+
+            saveToken(response.data.refreshToken)
+
+
+            const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
+
+            thunkAPI.dispatch(fetchUserInfo(idTest))
+            return response.data;
+        }
+        catch (e) {
+            console.log(e);
+            return thunkAPI.rejectWithValue({ error: e });
+        }
+    }
+)
+
+export const fetchUserInfo = createAsyncThunk(
+    'auth/fetchUserInfo',
+    async (id: string, thunkAPI) => {
+        try {
+            const response = await AxiosAuthorized.get<User>(endpoints.users + `/${id}`)
+            return response.data;
+        }
+        catch (e) {
+            console.log(e);
+            return thunkAPI.rejectWithValue({ error: e });
+        }
+    }
+)
+
+export const refreshAuth = createAsyncThunk(
+    'auth/refreshAuth',
+    async (refreshToken: string, thunkAPI) => {
+        try {
+            const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
+
+            const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
             // const id = token.id
-            console.log(token);
+            console.log(token.sub);
 
             const id = "9b8d13da-158f-4689-9fba-68f6e724db68"
 
@@ -91,22 +130,6 @@ export const login = createAsyncThunk(
     }
 )
 
-export const fetchUserInfo = createAsyncThunk(
-    'auth/fetchUserInfo',
-    async (id: string, thunkAPI) => {
-
-        console.log(id);
-
-        try {
-            const response = await AxiosUnauthorized.get<User>(endpoints.users + `/${id}`)
-            return response.data;
-        }
-        catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue({ error: e });
-        }
-    }
-)
 
 // slice
 
@@ -131,6 +154,7 @@ export const authSlice = createSlice({
             .addCase(register.rejected, (state) => {
                 state.registerState = "failed"
             })
+
             //login
             .addCase(login.pending, (state) => {
                 state.loginState = "loading"
@@ -140,23 +164,35 @@ export const authSlice = createSlice({
                 state.auth = action.payload //get whole payload
                 const token = action.payload.accessToken
                 state.tokenInfo = JSON.parse(atob(token.split('.')[1]));    //parse info inside token
+            })
 
-                // const dispatch = useAppDispatch()
-                // dispatch(fetchUserInfo("9b8d13da-158f-4689-9fba-68f6e724db68"))
+            //refresh
+            .addCase(refreshAuth.rejected, (state) => {
+                state.loginState = "failed"
+            })
+            .addCase(refreshAuth.pending, (state) => {
+                state.loginState = "loading"
+            })
+            .addCase(refreshAuth.fulfilled, (state, action) => {
+                state.loginState = "idle"
+                state.auth = action.payload //get whole payload
+                const token = action.payload.accessToken
+                state.tokenInfo = JSON.parse(atob(token.split('.')[1]));    //parse info inside token
             })
             .addCase(login.rejected, (state) => {
                 state.loginState = "failed"
             })
+
             //user
-            .addCase(fetchUserInfo.pending, (state) => {
-                //
-            })
+            // .addCase(fetchUserInfo.pending, (state) => {
+            //     //
+            // })
             .addCase(fetchUserInfo.fulfilled, (state, action) => {
                 state.user = action.payload
             })
-            .addCase(fetchUserInfo.rejected, (state) => {
-                //state.registerState = "failed"
-            })
+        // .addCase(fetchUserInfo.rejected, (state) => {
+        //     //state.registerState = "failed"
+        // })
     }
 })
 
