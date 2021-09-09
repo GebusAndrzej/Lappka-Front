@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
-import localStorageService, { readToken, saveToken } from '../localStorageService';
+import localStorageService, { readToken, saveToken, deleteToken } from '../localStorageService';
 
 interface auth {
     accessToken: string,
@@ -140,6 +140,7 @@ export const authSlice = createSlice({
     reducers: {
         logout(state) {
             state.user = initialState.user
+            deleteToken()
         }
     },
     extraReducers: (builder) => {

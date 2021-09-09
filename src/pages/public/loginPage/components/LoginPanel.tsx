@@ -88,10 +88,12 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                     // console.log(res);
 
                     if (`${res.type}` == "auth/login/fulfilled") {
-                        console.log("Sukces");
+                        // console.log("zalogowano");
 
                         showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
-                        history.push("/dashboard")
+                        // history.push("/dashboard")
+                        location.replace("/dashboard")
+
                     }
                     else {
                         console.log("Error");

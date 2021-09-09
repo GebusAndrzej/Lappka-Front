@@ -11,6 +11,10 @@ export function readToken(): string | null {
     return token ?? null
 }
 
+export function deleteToken(): void {
+    localStorage.removeItem("refreshToken")
+}
+
 function LocalStorageService(): JSX.Element {
     const dispatch = useAppDispatch()
 

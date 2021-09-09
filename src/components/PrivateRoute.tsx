@@ -1,9 +1,11 @@
-import React from 'react'
-import { Route, RouteProps } from 'react-router';
+import React, { useEffect, useState } from 'react'
+import { Route, RouteProps, useHistory } from 'react-router';
 import { Redirect } from 'react-router-dom';
-import { useAppSelector } from '../app/hooks';
-import { getUserInfo } from '../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { getUserInfo, refreshAuth, User } from '../features/auth/authSlice';
+import { readToken } from '../features/localStorageService';
 import { Roles } from '../model/Const';
+import LoadingComponent from '../pages/private/Panel/components/LoadingComponent';
 
 export type ProtectedRouteProps = {
     role: string
@@ -11,26 +13,60 @@ export type ProtectedRouteProps = {
 
 export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.Element {
     const user = useAppSelector(getUserInfo)
+    const history = useHistory()
+    const [isLoading, setIsLoading] = useState(true)
+    const dispatch = useAppDispatch()
 
-    if (user) {
-        //logged user
+    useEffect(() => {
+        const checkUserStatus = async () => {
+            const token = readToken()
+            console.log(user);
 
-        if (user?.role == props.role) {
-            //roles match
-            return <Route {...props} />
+            if (!token) {
+                history.push("/")
+                return;
+            }
+
+            //login
+            dispatch(refreshAuth(token)).then((x) => {
+                console.log(x);
+                checkRole(x.payload)
+            })
         }
-        else if (user?.role == Roles.admin) {
-            //admin user
-            return <Route {...props} />
-        }
-        else {
-            //user enter on protected route
-            return <Route {...props}><Redirect to="/" /></Route>
-        }
+        function checkRole(user: User | null) {
+            console.log("Checking role");
+            console.log(user);
 
 
+            if (!user) {
+                history.push("/")
+                return;
+            }
+
+            if (user?.role == props.role) {
+                //roles match
+                console.log("roles match");
+            }
+            else if (user?.role == Roles.admin) {
+                console.log("admin user");
+
+                //admin user
+            }
+            else {
+                console.log("no permission")
+                history.push("/dashboard")
+                return;
+            }
+
+            setIsLoading(false)
+        }
+
+        checkUserStatus()
+    }, [])
+
+
+    if (isLoading) {
+        return <></>
     }
-    else {
-        return <Redirect to={{ pathname: "/" }} />;
-    }
+    return <Route {...props}></Route>
 }
