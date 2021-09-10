@@ -1,6 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
-import { Pet } from '../../../../../model/Shelter';
+import { Pet } from '../../../../../model/Model';
 
 const Card = styled.div`
     display:flex;

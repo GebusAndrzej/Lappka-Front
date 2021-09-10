@@ -30,7 +30,7 @@ function Wrapper(props: Props): JSX.Element {
                 {props.child ?
                     props.child
                     :
-                    <div>panel</div>}
+                    <div>W budowie</div>}
 
 
             </Container>

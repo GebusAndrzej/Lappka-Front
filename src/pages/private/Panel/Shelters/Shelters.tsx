@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
 import { deleteShelter, fetchShelters, getShelters, getSheltersStatus } from '../../../../features/shelters/shelterSlice'
 import { Bar, Title } from '../Dashboard/Dashboard.styled'
-import { Shelter } from '../../../../model/Shelter'
+import { Shelter } from '../../../../model/Model'
 import { useHistory } from 'react-router'
 import { Button, ClearLink } from '../components/Button'
 

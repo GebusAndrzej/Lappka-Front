@@ -1,8 +1,9 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
+import { Shelter } from '../../model/Model';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
-import localStorageService, { readToken, saveToken, deleteToken } from '../localStorageService';
+import { saveToken, deleteToken } from '../localStorageService';
 
 interface auth {
     accessToken: string,
@@ -40,17 +41,21 @@ export interface User {
 interface InitialState {
     registerState: "idle" | "loading" | "failed"
     loginState: "idle" | "loading" | "failed"
-    auth: auth | null
+    userActiveShelterState: "idle" | "loading" | "failed"
     tokenInfo: Token | null
+    auth: auth | null
     user: User | null
+    userActiveShelter: Shelter | null
 }
 
 const initialState: InitialState = {
     registerState: "idle",
     loginState: "idle",
-    auth: null,
+    userActiveShelterState: "idle",
     tokenInfo: null,
-    user: null
+    auth: null,
+    user: null,
+    userActiveShelter: null
 }
 
 // async operations
@@ -206,6 +211,10 @@ export const getRegisterState = (state: RootState): string => {
 export const getLoginState = (state: RootState): string => {
     return state.auth.loginState
 }
+export const getUserActiveShelterState = (state: RootState): string | null => {
+    return state.auth.userActiveShelterState
+}
+
 
 export const getTokenInfo = (state: RootState): Token | null => {
     return state.auth.tokenInfo
@@ -213,6 +222,11 @@ export const getTokenInfo = (state: RootState): Token | null => {
 export const getUserInfo = (state: RootState): User | null => {
     return state.auth.user
 }
+export const getUserActiveShelter = (state: RootState): Shelter | null => {
+    return state.auth.userActiveShelter
+}
+
+
 
 
 export default authSlice.reducer

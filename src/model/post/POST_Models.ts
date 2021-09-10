@@ -1,4 +1,4 @@
-import { Address, GeoLocation } from "../Shelter";
+import { Address, GeoLocation } from "../Model";
 
 type NewType = Address;
 
