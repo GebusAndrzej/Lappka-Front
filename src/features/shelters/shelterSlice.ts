@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { Shelter } from '../../model/Shelter';
+import { Shelter } from '../../model/Model';
 import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 
 interface InitialState {

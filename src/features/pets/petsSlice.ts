@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { Pet } from '../../model/Shelter';
+import { Pet } from '../../model/Model';
 import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
 

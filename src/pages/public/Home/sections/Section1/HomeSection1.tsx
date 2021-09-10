@@ -1,11 +1,15 @@
 import React from 'react'
+import { useAppSelector } from '../../../../../app/hooks'
+import { getUserInfo } from '../../../../../features/auth/authSlice'
 import { Section } from "../../components/HomeSection.styled"
 import { Grid, H2, Wrapper, Center, Img1, Img2, Img3, BGBox, Container, Sub, RightSide, Button, Logo, ButtonContainer, P, MainLogo, LoginButton } from './HomeSection1.styled'
 
 function HomeSection1(): JSX.Element {
+    const user = useAppSelector(getUserInfo)
+
     return (
         <Section>
-            <LoginButton to="/login">Zaloguj Się</LoginButton>
+            <LoginButton to="/login">{user ? "Dashboard" : "Zaloguj Się"}</LoginButton>
             <RightSide>
                 <BGBox></BGBox>
                 <Img1 src="/assets/Homepage/img1.svg" />

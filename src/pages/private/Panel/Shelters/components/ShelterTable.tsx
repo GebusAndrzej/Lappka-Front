@@ -9,7 +9,7 @@ import TablePagination from '@material-ui/core/TablePagination';
 import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import IconButton from '@material-ui/core/IconButton';
-import { Shelter } from '../../../../../model/Shelter';
+import { Shelter } from '../../../../../model/Model';
 import { TableHead } from '@material-ui/core';
 
 import { Icon } from '../Shelters.styled'

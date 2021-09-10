@@ -15,13 +15,19 @@ import PetList from './components/PetList';
 // import ReactDatePicker from 'react-datepicker';
 import { CustomDatePicker } from '../components/Inputs.styled';
 import { useAppSelector } from '../../../../app/hooks';
-import { getTokenInfo, getUserInfo } from '../../../../features/auth/authSlice';
+import { getTokenInfo, getUserActiveShelter, getUserInfo } from '../../../../features/auth/authSlice';
+import NoShelterComponent from '../components/NoShelterComponent';
 
 
 function Dashboard(): JSX.Element {
     const [startDate, setStartDate] = useState(new Date());
     const tokenInfo = useAppSelector(getTokenInfo)
+    const userShelter = useAppSelector(getUserActiveShelter)
     const userInfo = useAppSelector(getUserInfo)
+
+    if (!userShelter) {
+        return <NoShelterComponent></NoShelterComponent>
+    }
 
     return (
         <>

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Route } from 'react-router'
 import { BrowserRouter } from 'react-router-dom'
 import { Roles } from '../model/Const'
@@ -52,6 +52,22 @@ function RouterComponent(): JSX.Element {
 
             />
 
+            {/* Messages */}
+            <PrivateRoute path="/messages"
+                exact
+                role={Roles.user}
+                component={() => <Wrapper title="Wiadomości" child={<MessagesComponent />} />}
+
+            />
+            <PrivateRoute path="/messages/:id"
+                exact
+                role={Roles.user}
+                component={() => <Wrapper title="Wiadomości" child={<MessagesComponent />} />}
+
+            />
+
+
+            {/*  ==================== Admin Routes ==================== */}
             {/* Shelters */}
             <PrivateRoute path="/shelters"
                 exact role={Roles.admin}
@@ -68,20 +84,6 @@ function RouterComponent(): JSX.Element {
                 exact
                 role={Roles.admin}
                 component={() => <Wrapper title="Schroniska" child={<EditShelter />} subTitle="Edytuj schronisko" />}
-
-            />
-
-            {/* Messages */}
-            <PrivateRoute path="/messages"
-                exact
-                role={Roles.user}
-                component={() => <Wrapper title="Wiadomości" child={<MessagesComponent />} />}
-
-            />
-            <PrivateRoute path="/messages/:id"
-                exact
-                role={Roles.user}
-                component={() => <Wrapper title="Wiadomości" child={<MessagesComponent />} />}
 
             />
 
