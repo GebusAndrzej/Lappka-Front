@@ -1,11 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { Route, RouteProps, useHistory } from 'react-router';
-import { Redirect } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../app/hooks';
 import { getUserInfo, refreshAuth, User } from '../features/auth/authSlice';
 import { readToken } from '../features/localStorageService';
 import { Roles } from '../model/Const';
-import LoadingComponent from '../pages/private/Panel/components/LoadingComponent';
 
 export type ProtectedRouteProps = {
     role: string
@@ -20,7 +18,6 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
     useEffect(() => {
         const checkUserStatus = async () => {
             const token = readToken()
-            console.log(user);
 
             if (!token) {
                 history.push("/")
@@ -29,13 +26,13 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
 
             //login
             dispatch(refreshAuth(token)).then((x) => {
-                console.log(x);
+                console.log(x.payload);
                 checkRole(x.payload)
             })
         }
         function checkRole(user: User | null) {
-            console.log("Checking role");
-            console.log(user);
+            // console.log("Checking role");
+            // console.log(user);
 
 
             if (!user) {
@@ -45,17 +42,18 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
 
             if (user?.role == props.role) {
                 //roles match
-                console.log("roles match");
+                // console.log("roles match");
             }
             else if (user?.role == Roles.admin) {
-                console.log("admin user");
+                // console.log("admin user");
 
                 //admin user
             }
             else {
                 console.log("no permission")
-                history.push("/dashboard")
-                return;
+                location.replace("/dashboard")
+                return
+
             }
 
             setIsLoading(false)

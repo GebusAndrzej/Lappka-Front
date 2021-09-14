@@ -1,5 +1,6 @@
 import { CircularProgress } from '@material-ui/core';
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../../app/hooks';
 import { getUserActiveShelterState } from '../../../../features/auth/authSlice';
@@ -11,6 +12,7 @@ const Wrapper = styled.div`
     display:flex;
     align-items: center;
     justify-content: center;
+    flex-direction: column;
 `;
 
 function NoShelterComponent() {
@@ -18,7 +20,7 @@ function NoShelterComponent() {
     if (userShelterState == "loading")
         return (<Wrapper><CircularProgress></CircularProgress></Wrapper>)
     else if (userShelterState == "idle")
-        return (<Wrapper>Najpierw dołącz do schroniska TUTAJ</Wrapper>)
+        return (<Wrapper><h2>Najpierw dołącz do schroniska</h2><Link to="/shelter-apply">Zobacz listę schronisk</Link></Wrapper>)
     return (
         <Wrapper>
             <CircularProgress />
