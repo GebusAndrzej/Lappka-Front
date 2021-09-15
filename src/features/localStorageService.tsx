@@ -1,7 +1,5 @@
-import React, { useEffect } from 'react'
-import { useAppDispatch } from '../app/hooks'
-import { refreshAuth } from './auth/authSlice'
 
+//refresh token
 export function saveToken(token: string): void {
     localStorage.setItem("refreshToken", token)
 }
@@ -15,22 +13,16 @@ export function deleteToken(): void {
     localStorage.removeItem("refreshToken")
 }
 
-function LocalStorageService(): JSX.Element {
-    const dispatch = useAppDispatch()
-
-
-
-    useEffect(() => {
-        const token = readToken()
-        if (token) {
-            const res = dispatch(refreshAuth(token))
-        }
-    }, [])
-
-
-    return (
-        <></>
-    )
+//access token
+export function saveAccessToken(token: string): void {
+    localStorage.setItem('accessToken', token)
 }
 
-export default LocalStorageService
+export function readAccessToken(): string | null {
+    const token = localStorage.getItem("accessToken")
+    return token ?? null
+}
+
+export function deleteAccessToken(): void {
+    localStorage.removeItem("accessToken")
+}

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { deleteShelter, fetchShelters, getShelters, getSheltersStatus } from '../../../../features/shelters/shelterSlice'
+import { deleteShelter, fetchShelters, getAllShelters, getAllSheltersStatus } from '../../../../features/shelters/shelterSlice'
 import { Bar, Title } from '../Dashboard/Dashboard.styled'
 import { Shelter } from '../../../../model/Model'
 import { useHistory } from 'react-router'
@@ -11,8 +11,8 @@ import { useSnackbar, OptionsObject } from 'notistack';
 import ShelterTable from './components/ShelterTable'
 
 function Shelters(): JSX.Element {
-    const shelters = useAppSelector(getShelters)
-    const sheltersStatus = useAppSelector(getSheltersStatus)
+    const shelters = useAppSelector(getAllShelters)
+    const sheltersStatus = useAppSelector(getAllSheltersStatus)
 
     const dispatch = useAppDispatch()
     const history = useHistory()

@@ -3,7 +3,7 @@ import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosCo
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Model';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
-import { saveToken, deleteToken } from '../localStorageService';
+import { saveToken, deleteToken, deleteAccessToken, saveAccessToken } from '../localStorageService';
 
 interface auth {
     accessToken: string,
@@ -86,7 +86,7 @@ export const login = createAsyncThunk(
             const id = token.sub
 
             saveToken(response.data.refreshToken)
-            // const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
+            saveAccessToken(response.data.accessToken)
 
             //fetch user info 
             thunkAPI.dispatch(fetchUserInfo(id))
@@ -127,6 +127,9 @@ export const refreshAuth = createAsyncThunk(
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
             const id = token.sub
 
+            saveToken(response.data.refreshToken)
+            saveAccessToken(response.data.accessToken)
+
             //fetch user info
             thunkAPI.dispatch(fetchUserInfo(id))
             //TODO fetch user shelters
@@ -151,11 +154,12 @@ export const authSlice = createSlice({
         logout(state) {
             state.user = initialState.user
             deleteToken()
+            deleteAccessToken()
         }
     },
     extraReducers: (builder) => {
         builder
-            //register
+            //REGISTER
             .addCase(register.pending, (state) => {
                 state.registerState = "loading"
             })
@@ -166,7 +170,7 @@ export const authSlice = createSlice({
                 state.registerState = "failed"
             })
 
-            //login
+            //LOGIN
             .addCase(login.pending, (state) => {
                 state.loginState = "loading"
             })
@@ -177,7 +181,7 @@ export const authSlice = createSlice({
                 state.tokenInfo = JSON.parse(atob(token.split('.')[1]));    //parse info inside token
             })
 
-            //refresh
+            //REFRESH
             .addCase(refreshAuth.rejected, (state) => {
                 state.loginState = "failed"
             })
@@ -194,7 +198,7 @@ export const authSlice = createSlice({
                 state.loginState = "failed"
             })
 
-            //user
+            //USER INFO
             // .addCase(fetchUserInfo.pending, (state) => {
             //     //
             // })
