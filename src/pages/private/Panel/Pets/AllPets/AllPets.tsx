@@ -4,6 +4,8 @@ import { fetchPets, getPets } from '../../../../../features/pets/petsSlice'
 import PetCardComponent from '../components/PetCardComponent'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
+import { getUserActiveShelter } from '../../../../../features/auth/authSlice'
+import NoShelterComponent from '../../components/NoShelterComponent'
 
 const Container = styled.div`
     display:flex;
@@ -30,11 +32,16 @@ const AddPetButton = styled(Link)`
 
 function AllPets(): JSX.Element {
     const pets = useAppSelector(getPets)
+    const shelter = useAppSelector(getUserActiveShelter)
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(fetchPets())
     }, [])
+
+    if (!shelter) {
+        return <NoShelterComponent></NoShelterComponent>
+    }
 
     return (
         <Container>

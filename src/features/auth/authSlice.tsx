@@ -78,18 +78,21 @@ export const login = createAsyncThunk(
     'auth/login',
     async (user: POST_login, thunkAPI) => {
         try {
+            // console.log("Login");
+
             const response = await AxiosUnauthorized.post(endpoints.auth + "/signin", user)
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
-            const id = token.id
-            // console.log(token.sub);
+            const id = token.sub
 
             saveToken(response.data.refreshToken)
+            // const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
+
+            //fetch user info 
+            thunkAPI.dispatch(fetchUserInfo(id))
+            //TODO fetch user shelters
 
 
-            const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
-
-            thunkAPI.dispatch(fetchUserInfo(idTest))
             return response.data;
         }
         catch (e) {
@@ -117,15 +120,17 @@ export const refreshAuth = createAsyncThunk(
     'auth/refreshAuth',
     async (refreshToken: string, thunkAPI) => {
         try {
+            // console.log(`Refreshing user for token: ${refreshToken}`);
+
             const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
-            // const id = token.id
-            console.log(token.sub);
+            const id = token.sub
 
-            const id = "9b8d13da-158f-4689-9fba-68f6e724db68"
-
+            //fetch user info
             thunkAPI.dispatch(fetchUserInfo(id))
+            //TODO fetch user shelters
+
             return response.data;
         }
         catch (e) {
@@ -196,9 +201,9 @@ export const authSlice = createSlice({
             .addCase(fetchUserInfo.fulfilled, (state, action) => {
                 state.user = action.payload
             })
-        // .addCase(fetchUserInfo.rejected, (state) => {
-        //     //state.registerState = "failed"
-        // })
+            .addCase(fetchUserInfo.rejected, (state) => {
+                state.user = null
+            })
     }
 })
 

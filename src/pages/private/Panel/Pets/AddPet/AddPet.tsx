@@ -71,9 +71,9 @@ function AddPet(): JSX.Element {
 
 
                 try {
+                    //TODO Add shelter info
                     const res = await dispatch(addPet(values))
 
-                    // console.dir(res.payload);
                     if (`${res.payload}`.match(/^2..$/)) {
                         console.log("Sukces");
 

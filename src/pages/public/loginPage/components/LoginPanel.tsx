@@ -7,9 +7,7 @@ import TextInput from './TextInput';
 import { Logo } from '../LoginPage.styled';
 import { ReactComponent as SVG_LOGINICON } from '../../../../assets/svg/loginIcon.svg';
 import { ReactComponent as SVG_PASSICON } from '../../../../assets/svg/passwordIcon.svg';
-import AdditionalOptions from './AdditionalOptions';
 import { SubmitButton } from './SubmitButton';
-// import SocialInput from './SocialInput';
 import { useHistory } from 'react-router-dom';
 import { POST_login } from '../../../../model/post/POST_Models';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
@@ -92,7 +90,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
 
                         showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
                         // history.push("/dashboard")
-                        location.replace("/dashboard")
+                        // location.replace("/dashboard")
 
                     }
                     else {
@@ -121,7 +119,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                 }
 
 
-                <AdditionalOptions name="RememberMe" ></AdditionalOptions>
+                {/* <AdditionalOptions name="RememberMe" ></AdditionalOptions> */}
                 <SubmitButton type="submit">Zaloguj się</SubmitButton>
 
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
