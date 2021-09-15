@@ -3,7 +3,7 @@ import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosCo
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Model';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
-import { saveToken, deleteToken } from '../localStorageService';
+import { saveToken, deleteToken, deleteAccessToken, saveAccessToken } from '../localStorageService';
 
 interface auth {
     accessToken: string,
@@ -46,6 +46,7 @@ interface InitialState {
     auth: auth | null
     user: User | null
     userActiveShelter: Shelter | null
+    userActiveShelters: Shelter[] | null
 }
 
 const initialState: InitialState = {
@@ -55,7 +56,8 @@ const initialState: InitialState = {
     tokenInfo: null,
     auth: null,
     user: null,
-    userActiveShelter: null
+    userActiveShelter: null,
+    userActiveShelters: null
 }
 
 // async operations
@@ -86,12 +88,38 @@ export const login = createAsyncThunk(
             const id = token.sub
 
             saveToken(response.data.refreshToken)
-            // const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
+            saveAccessToken(response.data.accessToken)
 
-            //fetch user info 
+            //fetch user info and shelters
             thunkAPI.dispatch(fetchUserInfo(id))
-            //TODO fetch user shelters
+            thunkAPI.dispatch(fetchUserShelters())
 
+            return response.data;
+        }
+        catch (e) {
+            console.log(e);
+            return thunkAPI.rejectWithValue({ error: e });
+        }
+    }
+)
+
+export const refreshAuth = createAsyncThunk(
+    'auth/refreshAuth',
+    async (refreshToken: string, thunkAPI) => {
+        try {
+            // console.log(`Refreshing user for token: ${refreshToken}`);
+
+            const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
+
+            const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
+            const id = token.sub
+
+            saveToken(response.data.refreshToken)
+            saveAccessToken(response.data.accessToken)
+
+            //fetch user info and shelters
+            thunkAPI.dispatch(fetchUserInfo(id))
+            thunkAPI.dispatch(fetchUserShelters())
 
             return response.data;
         }
@@ -116,21 +144,11 @@ export const fetchUserInfo = createAsyncThunk(
     }
 )
 
-export const refreshAuth = createAsyncThunk(
-    'auth/refreshAuth',
-    async (refreshToken: string, thunkAPI) => {
+export const fetchUserShelters = createAsyncThunk(
+    'auth/fetchUserShelters',
+    async (_, thunkAPI) => {
         try {
-            // console.log(`Refreshing user for token: ${refreshToken}`);
-
-            const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
-
-            const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
-            const id = token.sub
-
-            //fetch user info
-            thunkAPI.dispatch(fetchUserInfo(id))
-            //TODO fetch user shelters
-
+            const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters + `/user`)
             return response.data;
         }
         catch (e) {
@@ -141,7 +159,7 @@ export const refreshAuth = createAsyncThunk(
 )
 
 
-// slice
+// SLICE
 
 export const authSlice = createSlice({
     name: 'auth',
@@ -151,11 +169,12 @@ export const authSlice = createSlice({
         logout(state) {
             state.user = initialState.user
             deleteToken()
+            deleteAccessToken()
         }
     },
     extraReducers: (builder) => {
         builder
-            //register
+            // ==================== REGISTER ==================== 
             .addCase(register.pending, (state) => {
                 state.registerState = "loading"
             })
@@ -166,7 +185,7 @@ export const authSlice = createSlice({
                 state.registerState = "failed"
             })
 
-            //login
+            // ==================== LOGIN ==================== 
             .addCase(login.pending, (state) => {
                 state.loginState = "loading"
             })
@@ -177,7 +196,7 @@ export const authSlice = createSlice({
                 state.tokenInfo = JSON.parse(atob(token.split('.')[1]));    //parse info inside token
             })
 
-            //refresh
+            // ==================== REFRESH ==================== 
             .addCase(refreshAuth.rejected, (state) => {
                 state.loginState = "failed"
             })
@@ -194,7 +213,7 @@ export const authSlice = createSlice({
                 state.loginState = "failed"
             })
 
-            //user
+            // ==================== USER INFO ==================== 
             // .addCase(fetchUserInfo.pending, (state) => {
             //     //
             // })
@@ -204,9 +223,23 @@ export const authSlice = createSlice({
             .addCase(fetchUserInfo.rejected, (state) => {
                 state.user = null
             })
+
+            // ==================== USER SHELTERS ==================== 
+            .addCase(fetchUserShelters.pending, (state) => {
+                state.userActiveShelterState = "loading"
+            })
+            .addCase(fetchUserShelters.fulfilled, (state, action) => {
+                state.userActiveShelters = action.payload
+                state.userActiveShelter = action.payload[0]
+                state.userActiveShelterState = "idle"
+            })
+            .addCase(fetchUserShelters.rejected, (state) => {
+                state.userActiveShelterState = "failed"
+            })
     }
 })
 
+// actions
 export const { logout } = authSlice.actions;
 
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks'
-import { fetchShelters, getShelters, getSheltersStatus } from '../../../../features/shelters/shelterSlice'
+import { fetchShelters, getAllShelters, getAllSheltersStatus } from '../../../../features/shelters/shelterSlice'
 import { Title } from '../Dashboard/Dashboard.styled'
 
 import LoadingComponent from '../components/LoadingComponent'
@@ -8,8 +8,8 @@ import { useSnackbar, OptionsObject } from 'notistack';
 import ShelterApplyTableComponent from './components/SheltersApplyTableComponent'
 
 function ShelterApply(): JSX.Element {
-    const shelters = useAppSelector(getShelters)
-    const sheltersStatus = useAppSelector(getSheltersStatus)
+    const shelters = useAppSelector(getAllShelters)
+    const sheltersStatus = useAppSelector(getAllSheltersStatus)
 
     const dispatch = useAppDispatch()
     const { enqueueSnackbar } = useSnackbar();

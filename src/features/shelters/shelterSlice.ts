@@ -123,10 +123,10 @@ export const shelterSlice = createSlice({
 export const { setShelter } = shelterSlice.actions;
 
 
-export const getShelters = (state: RootState): Shelter[] | null => {
+export const getAllShelters = (state: RootState): Shelter[] | null => {
     return state.shelters.shelters
 }
-export const getSheltersStatus = (state: RootState): string => {
+export const getAllSheltersStatus = (state: RootState): string => {
     return state.shelters.sheltersStatus
 }
 
