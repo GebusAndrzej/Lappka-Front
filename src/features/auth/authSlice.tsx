@@ -88,7 +88,11 @@ export const login = createAsyncThunk(
             saveToken(response.data.refreshToken)
             // const idTest = "9b8d13da-158f-4689-9fba-68f6e724db68"
 
+            //fetch user info 
             thunkAPI.dispatch(fetchUserInfo(id))
+            //TODO fetch user shelters
+
+
             return response.data;
         }
         catch (e) {
@@ -123,7 +127,10 @@ export const refreshAuth = createAsyncThunk(
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
             const id = token.sub
 
+            //fetch user info
             thunkAPI.dispatch(fetchUserInfo(id))
+            //TODO fetch user shelters
+
             return response.data;
         }
         catch (e) {
