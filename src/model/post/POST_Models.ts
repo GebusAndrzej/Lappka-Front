@@ -9,6 +9,8 @@ export interface POST_Shelter {
     geoLocation: GeoLocation;
     phoneNumber: string;
     email: string;
+    Photo?: string;
+    BankNumber?: string;
 }
 
 export interface POST_Pet {

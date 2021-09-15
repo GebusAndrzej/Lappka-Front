@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Model';
-import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
+import { endpoints, AxiosAuthorized, AxiosUnauthorized } from '../../app/axiosConfig'
+import { POST_Shelter } from '../../model/post/POST_Models';
 
 interface InitialState {
     shelters: Array<Shelter> | null,
@@ -27,7 +28,7 @@ export const fetchShelters = createAsyncThunk(
     'shelter/fetchShelters',
     async () => {
         try {
-            const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters)
+            const response = await AxiosUnauthorized.get<Shelter[]>(endpoints.shelters)
             return response.data;
         }
         catch (e) {
@@ -40,7 +41,7 @@ export const fetchShelters = createAsyncThunk(
 export const fetchShelter = createAsyncThunk(
     'shelter/fetchShelter',
     async (id: string) => {
-        const response = await AxiosUnauthorized.get<Shelter>(endpoints.shelters + `/${id}`)
+        const response = await AxiosAuthorized.get<Shelter>(endpoints.shelters + `/${id}`)
         return response.data;
     }
 );
@@ -48,7 +49,7 @@ export const fetchShelter = createAsyncThunk(
 export const updateShelter = createAsyncThunk(
     'shelters/updateShelter',
     async (shelter: any) => {
-        const response = await AxiosUnauthorized.put(
+        const response = await AxiosAuthorized.put(
             endpoints.shelters + `/${shelter.id}`,
             shelter
         )
@@ -58,8 +59,8 @@ export const updateShelter = createAsyncThunk(
 
 export const addShelter = createAsyncThunk(
     'shelters/addShelter',
-    async (shelter: Shelter) => {
-        const response = await AxiosUnauthorized.post(
+    async (shelter: POST_Shelter) => {
+        const response = await AxiosAuthorized.post(
             endpoints.shelters,
             shelter
         )
@@ -75,7 +76,27 @@ export const deleteShelter = createAsyncThunk(
     }
 )
 
-// slice
+export const applyToShelter = createAsyncThunk(
+    'shelters/applyToShelter',
+    async (id: string) => {
+        try {
+            const formData = new FormData();
+            formData.append("ShelterId", id)
+            const body = { "ShelterId": id }
+
+            const response = await AxiosAuthorized.post(endpoints.applications, formData, { headers: { 'Content+Type': 'multipart/form-data', 'Content-Type': 'multipart/form-data' } })
+            return response.status
+        }
+        catch (err: any) {
+            console.error("Error response:");
+            // console.error(err.response.data);
+            // console.log(err.response.data)
+            return err.response.data
+            // console.error(err.response.status);  // ***
+            // console.error(err.response.headers); // ***
+        }
+    }
+)
 
 export const shelterSlice = createSlice({
     name: 'shelters',

@@ -80,8 +80,6 @@ export const login = createAsyncThunk(
     'auth/login',
     async (user: POST_login, thunkAPI) => {
         try {
-            // console.log("Login");
-
             const response = await AxiosUnauthorized.post(endpoints.auth + "/signin", user)
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
@@ -107,8 +105,6 @@ export const refreshAuth = createAsyncThunk(
     'auth/refreshAuth',
     async (refreshToken: string, thunkAPI) => {
         try {
-            // console.log(`Refreshing user for token: ${refreshToken}`);
-
             const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
@@ -151,9 +147,8 @@ export const fetchUserShelters = createAsyncThunk(
             const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters + `/user`)
             return response.data;
         }
-        catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue({ error: e });
+        catch (e: any) {
+            return thunkAPI.rejectWithValue({ error: e.error });
         }
     }
 )
@@ -167,7 +162,12 @@ export const authSlice = createSlice({
 
     reducers: {
         logout(state) {
-            state.user = initialState.user
+            console.log("clearing");
+            state.auth = null
+            state.tokenInfo = null
+            state.user = null
+            state.userActiveShelter = null
+            state.userActiveShelters = null
             deleteToken()
             deleteAccessToken()
         }
@@ -229,8 +229,8 @@ export const authSlice = createSlice({
                 state.userActiveShelterState = "loading"
             })
             .addCase(fetchUserShelters.fulfilled, (state, action) => {
-                state.userActiveShelters = action.payload
-                state.userActiveShelter = action.payload[0]
+                state.userActiveShelters = action.payload ?? null
+                state.userActiveShelter = action.payload[0] ?? null
                 state.userActiveShelterState = "idle"
             })
             .addCase(fetchUserShelters.rejected, (state) => {

@@ -90,7 +90,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
 
                         showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
                         // history.push("/dashboard")
-                        // location.replace("/dashboard")
+                        location.replace("/dashboard")
 
                     }
                     else {

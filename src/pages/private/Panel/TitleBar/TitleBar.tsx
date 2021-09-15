@@ -4,7 +4,7 @@ import { useAppSelector } from '../../../../app/hooks';
 // import { Avatar, Company, IconBox, Name, SubTitle, Title, Titlebar, UserBox, Titlebox } from './TitleBar.styled'
 import { ReactComponent as SVG_Burger } from '../../../../assets/svg/burger.svg';
 import { ReactComponent as SVG_Notification } from '../../../../assets/svg/notification.svg';
-import { getUserInfo } from '../../../../features/auth/authSlice';
+import { getUserActiveShelter, getUserInfo } from '../../../../features/auth/authSlice';
 import { Avatar, Burger, Company, IconBox, Name, Title, Titlebar, UserBox, SubTitle, Titlebox } from './TitleBar.styled'
 
 interface Props {
@@ -15,6 +15,7 @@ interface Props {
 
 export default function TitleBar(props: Props): JSX.Element {
     const userInfo = useAppSelector(getUserInfo)
+    const userShelter = useAppSelector(getUserActiveShelter)
 
     function MenuToggle() {
         props.toggle()
@@ -42,7 +43,7 @@ export default function TitleBar(props: Props): JSX.Element {
 
                 <div>
                     <Name>{userInfo?.firstName} {userInfo?.lastName.substr(0, 1)}.</Name>
-                    <Company>nazwa firmy</Company>
+                    <Company>{JSON.stringify(userShelter)}</Company>
                 </div>
             </UserBox>
 

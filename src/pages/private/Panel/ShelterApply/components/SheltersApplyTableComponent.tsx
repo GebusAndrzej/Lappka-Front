@@ -14,10 +14,52 @@ import { Shelter } from '../../../../../model/Model';
 import { TableHead } from '@material-ui/core';
 
 import styled from 'styled-components'
+import { useAppDispatch } from '../../../../../app/hooks';
+import { applyToShelter } from '../../../../../features/shelters/shelterSlice';
+import { showSnackbar } from '../../../../components/Snackbar';
+import { useSnackbar } from 'notistack';
 
 const THeader = styled(TableCell)`
     background-color: ${props => props.theme.colors.green};
     color:white;
+`;
+const ApplyButton = styled.button`
+    padding: 15px 20px;
+    background-color: white;
+    border:none;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.2);
+    border-radius: 5px;
+    user-select:none;
+    cursor: pointer;
+    position: relative;
+
+    :before{
+        content: '';
+        position: absolute;
+        bottom:0;
+        left:0;
+        border-radius: 5px;
+        width:100%;
+        height:0%;
+        background-color: ${props => props.theme.colors.green};
+        transition-duration: .2s;
+        color:white;
+    }
+
+    :active{
+        background-color: ${props => props.theme.colors.bg1};
+    }
+    :hover {
+        :before{
+            content: 'Wyślij prośbę o dołączenie';
+            height:100%;
+            color:white;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+
+        }
+    }
 `;
 
 
@@ -88,6 +130,30 @@ function create(shelter: Shelter) {
 }
 
 export default function ShelterApplyTableComponent(props: Props): JSX.Element {
+    const dispatch = useAppDispatch();
+    const { enqueueSnackbar } = useSnackbar();
+
+    async function Apply(id: string) {
+        try {
+            const res = await dispatch(applyToShelter(id))
+
+            if (`${res.payload}`.match(/^2..$/)) {
+                showSnackbar(enqueueSnackbar, null, "Pomyślnie złożono aplikację", "success")
+            }
+            else {
+                if (res.payload.code == "application_for_shelter_owner_already_made")
+                    showSnackbar(enqueueSnackbar, null, "Już złożyłeś tu aplikację", "error")
+                else {
+                    showSnackbar(enqueueSnackbar, null, "Coś poszło nie tak", "error")
+                }
+            }
+        }
+        catch (e) {
+            console.log(e);
+
+        }
+    }
+
 
     const rows = props.shelters.map(x => create(x))
 
@@ -144,7 +210,7 @@ export default function ShelterApplyTableComponent(props: Props): JSX.Element {
                                 {row.phoneNumber}
                             </TableCell>
                             <TableCell style={{ textAlign: "right" }}>
-                                <button>Wyślij prośbę o dołączenie</button>
+                                <ApplyButton onClick={() => Apply(row.id)}>Wyślij prośbę o dołączenie {row.id}</ApplyButton>
                             </TableCell>
                         </TableRow>
                     ))}

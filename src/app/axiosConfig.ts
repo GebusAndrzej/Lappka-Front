@@ -9,6 +9,7 @@ export const endpoints = {
     auth: baseurl + ":5001/api/auth",
     users: baseurl + ":5001/api/user",
     pets: baseurl + ":5002/api/shelter/pet",
+    applications: baseurl + ":5001/api/application",
 }
 
 //-------------------------------------------------------------------------\\

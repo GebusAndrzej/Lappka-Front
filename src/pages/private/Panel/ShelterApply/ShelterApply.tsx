@@ -6,6 +6,7 @@ import { Title } from '../Dashboard/Dashboard.styled'
 import LoadingComponent from '../components/LoadingComponent'
 import { useSnackbar, OptionsObject } from 'notistack';
 import ShelterApplyTableComponent from './components/SheltersApplyTableComponent'
+import { showSnackbar } from '../../../components/Snackbar'
 
 function ShelterApply(): JSX.Element {
     const shelters = useAppSelector(getAllShelters)
@@ -17,35 +18,13 @@ function ShelterApply(): JSX.Element {
     useEffect(() => {
         dispatch(fetchShelters()).then(e => {
             if (!e.payload) {
-                errorSnackbar("Brak połączenia z serwerem")
+                showSnackbar(enqueueSnackbar, null, "Błąd połączenia z serwerem", "error")
 
             }
         })
     }, [])
 
-    //snackbar on success editing
-    const successSnackbar = () => {
-        const x: OptionsObject = {
-            variant: 'success',
-            anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center'
-            },
-        }
-        enqueueSnackbar('Usunięto ', x);
-    }
 
-    //snackbar on success editing
-    const errorSnackbar = (m?: string) => {
-        const x: OptionsObject = {
-            variant: 'error',
-            anchorOrigin: {
-                vertical: 'bottom',
-                horizontal: 'center'
-            },
-        }
-        enqueueSnackbar(`Wystąpił błąd ${m ? `: ${m}` : ""}`, x);
-    };
 
 
     if (shelters == null) {
