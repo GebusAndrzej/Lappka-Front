@@ -30,3 +30,11 @@ export interface GeoLocation {
     latitude: string;
     longitude: string;
 }
+
+export interface ShelterApplication {
+    id: string;
+    userId: string;
+    shelterId: string;
+    status: number;
+    creationDate: Date;
+}

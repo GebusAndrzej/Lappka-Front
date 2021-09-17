@@ -6,6 +6,7 @@ import Dashboard from '../pages/private/Panel/Dashboard/Dashboard'
 import MessagesComponent from '../pages/private/Panel/Messages/MessagesComponent'
 import AddPet from '../pages/private/Panel/Pets/AddPet/AddPet'
 import AllPets from '../pages/private/Panel/Pets/AllPets/AllPets'
+import ReviewShelterApplicationcomponent from '../pages/private/Panel/ReviewShelterApplication/ReviewShelterApplicationcomponent'
 import ShelterApply from '../pages/private/Panel/ShelterApply/ShelterApply'
 import AddShelter from '../pages/private/Panel/Shelters/AddShelter/AddShelter'
 import EditShelter from '../pages/private/Panel/Shelters/EditShelter/EditShelter'
@@ -83,20 +84,35 @@ function RouterComponent(): JSX.Element {
                 <PrivateRoute path="/shelters"
                     exact role={Roles.admin}
                     component={() => <Wrapper title="Schroniska" child={<Shelters />} />}
-
                 />
                 <PrivateRoute path="/shelters/add"
                     exact
                     role={Roles.admin}
                     component={() => <Wrapper title="Schroniska" child={<AddShelter />} subTitle="Dodaj schronisko" />}
-
                 />
                 <PrivateRoute path="/shelters/edit/:id"
                     exact
                     role={Roles.admin}
                     component={() => <Wrapper title="Schroniska" child={<EditShelter />} subTitle="Edytuj schronisko" />}
+                />
+                <PrivateRoute path="/applications/"
+                    exact
+                    role={Roles.admin}
+                    component={() => <Wrapper title="Schroniska" child={<ReviewShelterApplicationcomponent />} subTitle="Zobacz Aplikacje" />}
 
                 />
+                <PrivateRoute path="/applications/:id"
+                    exact
+                    role={Roles.admin}
+                    component={() => <Wrapper title="Schroniska" child={<ReviewShelterApplicationcomponent />} subTitle="Zobacz Aplikacje" />}
+
+                />
+
+
+
+
+                <Route path="/" component={Home} />
+
             </Switch>
         </BrowserRouter>
     )

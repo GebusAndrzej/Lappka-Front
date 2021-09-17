@@ -66,7 +66,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
     const { enqueueSnackbar } = useSnackbar()
     const user = useAppSelector(getUserInfo)
 
-    if (user) history.push("/dashboard")
+    if (user) location.replace("/dashboard")
 
     return (
 

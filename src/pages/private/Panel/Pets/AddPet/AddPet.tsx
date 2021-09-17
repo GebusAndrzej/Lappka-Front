@@ -17,10 +17,13 @@ import { PetsValidation } from '../PetsValidation';
 import LoadingComponent from '../../components/LoadingComponent';
 import { OptionsObject, useSnackbar } from 'notistack';
 import { useHistory } from 'react-router-dom';
+import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
+import { POST_Pet } from '../../../../../model/post/POST_Models';
 
 function AddPet(): JSX.Element {
     const dispatch = useAppDispatch();
     const addingPetStatus = useAppSelector(getAddingPetStatus)
+    const userShelter = useAppSelector(getUserActiveShelter)
     const { enqueueSnackbar } = useSnackbar()
     const history = useHistory()
 
@@ -64,15 +67,17 @@ function AddPet(): JSX.Element {
                 Color: '',
                 Weight: '',
                 Sterilization: '',
-                Description: ''
+                Description: '',
+                ShelterId: userShelter?.id ?? "",
+                address: Object.assign({ name: userShelter?.name ?? "" }, userShelter?.address) ?? { name: "", street: "", zipCode: "", city: "" },
+                geoLocation: userShelter?.geoLocation ?? { longitude: "0", latitude: "1" }
             }}
             validationSchema={PetsValidation}
             onSubmit={async values => {
-
+                const pet: POST_Pet = values
 
                 try {
-                    //TODO Add shelter info
-                    const res = await dispatch(addPet(values))
+                    const res = await dispatch(addPet(pet))
 
                     if (`${res.payload}`.match(/^2..$/)) {
                         console.log("Sukces");

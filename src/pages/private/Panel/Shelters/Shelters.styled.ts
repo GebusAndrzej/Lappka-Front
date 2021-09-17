@@ -25,6 +25,7 @@ export const Icon = styled.button<{ color?: "green" | "red" }>`
         `}
     }
 
+
 `;
 
 export const TD = styled.td`

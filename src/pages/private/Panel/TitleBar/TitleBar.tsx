@@ -43,7 +43,8 @@ export default function TitleBar(props: Props): JSX.Element {
 
                 <div>
                     <Name>{userInfo?.firstName} {userInfo?.lastName.substr(0, 1)}.</Name>
-                    <Company>{JSON.stringify(userShelter)}</Company>
+                    {/* <Company>{JSON.stringify(userShelter)}</Company> */}
+                    <Company>{userShelter?.name ?? "Brak schroniska"}</Company>
                 </div>
             </UserBox>
 

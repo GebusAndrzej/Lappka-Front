@@ -210,7 +210,7 @@ export default function ShelterApplyTableComponent(props: Props): JSX.Element {
                                 {row.phoneNumber}
                             </TableCell>
                             <TableCell style={{ textAlign: "right" }}>
-                                <ApplyButton onClick={() => Apply(row.id)}>Wyślij prośbę o dołączenie {row.id}</ApplyButton>
+                                <ApplyButton onClick={() => Apply(row.id)}>Wyślij prośbę o dołączenie</ApplyButton>
                             </TableCell>
                         </TableRow>
                     ))}

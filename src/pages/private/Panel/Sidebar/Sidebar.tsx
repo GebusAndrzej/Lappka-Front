@@ -58,6 +58,7 @@ function Sidebar(props: Props): JSX.Element {
                     <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt" role={Roles.user}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat" role={Roles.user}></ButtonNavLink>
+
                     <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska" role={Roles.admin}></ButtonNavLink>
 
 

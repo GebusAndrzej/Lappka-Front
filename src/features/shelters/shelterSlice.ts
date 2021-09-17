@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
-import { Shelter } from '../../model/Model';
+import { Shelter, ShelterApplication } from '../../model/Model';
 import { endpoints, AxiosAuthorized, AxiosUnauthorized } from '../../app/axiosConfig'
 import { POST_Shelter } from '../../model/post/POST_Models';
 
@@ -8,9 +8,12 @@ interface InitialState {
     shelters: Array<Shelter> | null,
     sheltersStatus: 'idle' | 'loading' | 'failed',
     sheltersUpdateTime: number,
+
     shelter: Shelter | null,
     shelterStatus: 'idle' | 'loading' | 'failed',
-    shelterUpdateTime: number
+    shelterUpdateTime: number,
+
+    allApplications: ShelterApplication[] | null
 }
 
 const initialState: InitialState = {
@@ -19,7 +22,8 @@ const initialState: InitialState = {
     sheltersUpdateTime: 0,
     shelter: null,
     shelterStatus: 'idle',
-    shelterUpdateTime: 0
+    shelterUpdateTime: 0,
+    allApplications: null,
 }
 
 // async operations
@@ -87,16 +91,59 @@ export const applyToShelter = createAsyncThunk(
             const response = await AxiosAuthorized.post(endpoints.applications, formData, { headers: { 'Content+Type': 'multipart/form-data', 'Content-Type': 'multipart/form-data' } })
             return response.status
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catch (err: any) {
             console.error("Error response:");
-            // console.error(err.response.data);
-            // console.log(err.response.data)
             return err.response.data
             // console.error(err.response.status);  // ***
             // console.error(err.response.headers); // ***
         }
     }
 )
+
+export const fetchAllShelterApplications = createAsyncThunk(
+    'shelters/fetchAllApplications',
+    async () => {
+        try {
+            const response = await AxiosAuthorized.get<ShelterApplication[]>(endpoints.applications)
+            return response.data;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (err: any) {
+            return err.response.data
+        }
+    }
+)
+
+export const acceptShelterApplication = createAsyncThunk(
+    'shelters/acceptShelterApplication',
+    async (id: string) => {
+        try {
+            const response = await AxiosAuthorized.patch(`${endpoints.applications}/${id}/Accept`, { id: id })
+            return response.status;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (err: any) {
+            return err.response.data
+        }
+    }
+)
+
+export const declineShelterApplication = createAsyncThunk(
+    'shelters/declineShelterApplication',
+    async (id: string) => {
+        try {
+            const response = await AxiosAuthorized.patch(`${endpoints.applications}/${id}/Decline`, { id: id })
+            return response.status;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (err: any) {
+            return err.response.data
+        }
+    }
+)
+
+// ---------------------------------------------------------------------------------
 
 export const shelterSlice = createSlice({
     name: 'shelters',
@@ -138,6 +185,16 @@ export const shelterSlice = createSlice({
             .addCase(fetchShelter.rejected, (state) => {
                 state.shelterStatus = "failed"
             })
+            // shelter applications
+            .addCase(fetchAllShelterApplications.pending, (state) => {
+                // state.shelterStatus = "loading"
+            })
+            .addCase(fetchAllShelterApplications.fulfilled, (state, action) => {
+                state.allApplications = action.payload ?? null
+            })
+            .addCase(fetchAllShelterApplications.rejected, (state) => {
+                // state.shelterStatus = "failed"
+            })
     }
 })
 
@@ -149,6 +206,9 @@ export const getAllShelters = (state: RootState): Shelter[] | null => {
 }
 export const getAllSheltersStatus = (state: RootState): string => {
     return state.shelters.sheltersStatus
+}
+export const getAllShelterApplications = (state: RootState): ShelterApplication[] | null => {
+    return state.shelters.allApplications
 }
 
 export const getShelter = (state: RootState): Shelter | null => {

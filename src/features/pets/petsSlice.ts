@@ -1,7 +1,8 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Pet } from '../../model/Model';
-import { endpoints, AxiosUnauthorized, AxiosAuthorized } from '../../app/axiosConfig'
+import { endpoints, AxiosAuthorized } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
+import { POST_Pet } from '../../model/post/POST_Models';
 
 
 interface InitialState {
@@ -31,31 +32,33 @@ export const fetchPets = createAsyncThunk(
 
 export const addPet = createAsyncThunk(
     'pets/addPet',
-    async (pet: any) => {
+    async (pet: POST_Pet) => {
         const formData = new FormData();
+        const temp_bday = pet.BirthDay || new Date()
 
         formData.append("Name", pet.Name)
         formData.append("Sex", pet.Sex)
         formData.append("Race", pet.Race)
         formData.append("Species", pet.Species)
         formData.append("MainPhoto", pet.MainPhoto)
-        const bday = ((pet.BirthDay.getMonth() > 8) ? (pet.BirthDay.getMonth() + 1) : ('0' + (pet.BirthDay.getMonth() + 1))) + '-' + ((pet.BirthDay.getDate() > 9) ? pet.BirthDay.getDate() : ('0' + pet.BirthDay.getDate())) + '-' + pet.BirthDay.getFullYear()
+
+        const bday = ((temp_bday.getMonth() > 8) ? (temp_bday.getMonth() + 1) : ('0' + (temp_bday.getMonth() + 1))) + '-' + ((temp_bday.getDate() > 9) ? temp_bday.getDate() : ('0' + temp_bday.getDate())) + '-' + temp_bday.getFullYear()
         formData.append("BirthDay", bday)
         formData.append("Color", pet.Color)
         formData.append("Weight", pet.Weight)
-        formData.append("Description", pet.Description)
         formData.append("Sterilization", pet.Sterilization)
+        formData.append("ShelterId", pet.ShelterId)
 
+        formData.append("ShelterAddress.Name", pet.address.name)
+        formData.append("ShelterAddress.City", pet.address.city)
+        formData.append("ShelterAddress.Street", pet.address.street)
 
-        formData.append("ShelterAddress.Name", pet.Name)
-        formData.append("ShelterAddress.City", pet.Name)
-        formData.append("ShelterAddress.Street", pet.Name)
+        formData.append("ShelterAddress.GeoLocation.Latitude", pet.geoLocation.latitude)
+        formData.append("ShelterAddress.GeoLocation.Longitude", pet.geoLocation.longitude)
 
-        formData.append("ShelterAddress.GeoLocation.Latitude", "12")
-        formData.append("ShelterAddress.GeoLocation.Longitude", "14")
+        formData.append("Description", pet.Description)
 
-
-        const response = await AxiosUnauthorized.post(
+        const response = await AxiosAuthorized.post(
             endpoints.pets,
             formData,
             {

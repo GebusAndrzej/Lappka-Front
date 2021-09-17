@@ -4,6 +4,7 @@ import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Model';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
 import { saveToken, deleteToken, deleteAccessToken, saveAccessToken } from '../localStorageService';
+import { fetchShelter } from '../shelters/shelterSlice';
 
 interface auth {
     accessToken: string,
@@ -145,6 +146,12 @@ export const fetchUserShelters = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters + `/user`)
+
+            //Fetch active shelter info
+            thunkAPI.dispatch(fetchShelter(response.data[0].id)).then(x => {
+                thunkAPI.dispatch(setActiveShelter(x.payload))
+            })
+
             return response.data;
         }
         catch (e: any) {
@@ -170,6 +177,10 @@ export const authSlice = createSlice({
             state.userActiveShelters = null
             deleteToken()
             deleteAccessToken()
+        },
+        setActiveShelter(state, action) {
+            console.log("setting shelter");
+            state.userActiveShelter = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -240,7 +251,7 @@ export const authSlice = createSlice({
 })
 
 // actions
-export const { logout } = authSlice.actions;
+export const { logout, setActiveShelter } = authSlice.actions;
 
 
 export const getRegisterState = (state: RootState): string => {
