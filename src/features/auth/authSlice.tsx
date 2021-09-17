@@ -4,6 +4,7 @@ import { RootState } from '../../app/store';
 import { Shelter } from '../../model/Model';
 import { POST_login, POST_registerUser } from '../../model/post/POST_Models';
 import { saveToken, deleteToken, deleteAccessToken, saveAccessToken } from '../localStorageService';
+import { fetchShelter } from '../shelters/shelterSlice';
 
 interface auth {
     accessToken: string,
@@ -80,8 +81,6 @@ export const login = createAsyncThunk(
     'auth/login',
     async (user: POST_login, thunkAPI) => {
         try {
-            // console.log("Login");
-
             const response = await AxiosUnauthorized.post(endpoints.auth + "/signin", user)
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
@@ -107,8 +106,6 @@ export const refreshAuth = createAsyncThunk(
     'auth/refreshAuth',
     async (refreshToken: string, thunkAPI) => {
         try {
-            // console.log(`Refreshing user for token: ${refreshToken}`);
-
             const response = await AxiosUnauthorized.post(endpoints.auth + "/use", { token: refreshToken })
 
             const token = JSON.parse(atob(response.data.accessToken.split('.')[1]));    //parse info inside token
@@ -149,11 +146,16 @@ export const fetchUserShelters = createAsyncThunk(
     async (_, thunkAPI) => {
         try {
             const response = await AxiosAuthorized.get<Shelter[]>(endpoints.shelters + `/user`)
+
+            //Fetch active shelter info
+            thunkAPI.dispatch(fetchShelter(response.data[0].id)).then(x => {
+                thunkAPI.dispatch(setActiveShelter(x.payload))
+            })
+
             return response.data;
         }
-        catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue({ error: e });
+        catch (e: any) {
+            return thunkAPI.rejectWithValue({ error: e.error });
         }
     }
 )
@@ -167,9 +169,18 @@ export const authSlice = createSlice({
 
     reducers: {
         logout(state) {
-            state.user = initialState.user
+            console.log("clearing");
+            state.auth = null
+            state.tokenInfo = null
+            state.user = null
+            state.userActiveShelter = null
+            state.userActiveShelters = null
             deleteToken()
             deleteAccessToken()
+        },
+        setActiveShelter(state, action) {
+            console.log("setting shelter");
+            state.userActiveShelter = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -229,8 +240,8 @@ export const authSlice = createSlice({
                 state.userActiveShelterState = "loading"
             })
             .addCase(fetchUserShelters.fulfilled, (state, action) => {
-                state.userActiveShelters = action.payload
-                state.userActiveShelter = action.payload[0]
+                state.userActiveShelters = action.payload ?? null
+                state.userActiveShelter = action.payload[0] ?? null
                 state.userActiveShelterState = "idle"
             })
             .addCase(fetchUserShelters.rejected, (state) => {
@@ -240,7 +251,7 @@ export const authSlice = createSlice({
 })
 
 // actions
-export const { logout } = authSlice.actions;
+export const { logout, setActiveShelter } = authSlice.actions;
 
 
 export const getRegisterState = (state: RootState): string => {

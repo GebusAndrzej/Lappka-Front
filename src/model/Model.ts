@@ -1,10 +1,12 @@
 export interface Shelter {
-    id?: string;
+    id: string;
     name: string;
     address: Address;
     geoLocation: GeoLocation;
     phoneNumber: string;
     email: string;
+    photoId?: string;
+    bankNumber: string;
 }
 
 export interface Pet {
@@ -27,4 +29,12 @@ export interface Address {
 export interface GeoLocation {
     latitude: string;
     longitude: string;
+}
+
+export interface ShelterApplication {
+    id: string;
+    userId: string;
+    shelterId: string;
+    status: number;
+    creationDate: Date;
 }

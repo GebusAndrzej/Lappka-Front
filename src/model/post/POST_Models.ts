@@ -1,24 +1,30 @@
 import { Address, GeoLocation } from "../Model";
 
-type NewType = Address;
-
 export interface POST_Shelter {
     id?: string;
     name: string;
-    address: NewType;
+    address: Address;
     geoLocation: GeoLocation;
     phoneNumber: string;
     email: string;
+    Photo?: string;
+    BankNumber?: string;
 }
-
 export interface POST_Pet {
     id?: string;
-    name: string;
-    sex: number;
-    mainPhotoPath: string;
-    race: string;
-    birthDay: Date;
-    shelterAddress: Address;
+    Name: string;
+    Sex: string;
+    Race: string;
+    Species: string;
+    MainPhoto: string;
+    BirthDay: Date | null;
+    Color: string;
+    Weight: string;
+    Sterilization: string;
+    Description: string;
+    ShelterId: string;
+    address: Address & { name: string };
+    geoLocation: GeoLocation;
 }
 
 export interface POST_registerUser {

@@ -2,13 +2,14 @@ import axios from 'axios';
 import axiosRetry from 'axios-retry';
 import { readAccessToken } from '../features/localStorageService';
 
-const baseurl = "http://10.10.10.38"
+export const baseurl = "http://10.10.10.38"
 
 export const endpoints = {
     shelters: baseurl + ":5001/api/shelter",
     auth: baseurl + ":5001/api/auth",
     users: baseurl + ":5001/api/user",
     pets: baseurl + ":5002/api/shelter/pet",
+    applications: baseurl + ":5001/api/application",
 }
 
 //-------------------------------------------------------------------------\\

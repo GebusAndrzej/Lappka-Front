@@ -59,6 +59,7 @@ function Shelters(): JSX.Element {
 
     async function handleDeleteShelter(shelter: Shelter) {
         console.log(shelter);
+        //TODO Add confirmation text on dialog 
         try {
             const res = await dispatch(deleteShelter(shelter.id || ""))
             console.log(res)

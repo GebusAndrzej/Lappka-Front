@@ -61,7 +61,8 @@ function Dashboard(): JSX.Element {
 
                 <Item variant="chart">
                     <pre>
-                        {JSON.stringify(userInfo, null, 2)}
+                        {/* {JSON.stringify(userInfo, null, 2)} */}
+                        {JSON.stringify(userShelter, null, 2)}
                     </pre>
                     <ViewGraph></ViewGraph>
                 </Item>
