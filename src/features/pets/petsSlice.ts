@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { Pet } from '../../model/Model';
-import { endpoints, AxiosAuthorized } from '../../app/axiosConfig'
+import { endpoints, AxiosAuthorized, baseurl } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
 import { POST_Pet } from '../../model/post/POST_Models';
 
@@ -22,10 +22,18 @@ const initialState: InitialState = {
 
 // async operations
 
-export const fetchPets = createAsyncThunk(
-    'pets/fetchPets',
+export const fetchAllPets = createAsyncThunk(
+    'pets/fetchAllPets',
     async () => {
         const response = await AxiosAuthorized.get<Pet[]>(endpoints.pets)
+        return response.data;
+    }
+)
+
+export const fetchShelterPets = createAsyncThunk(
+    'pets/fetchShelterPets',
+    async (id: string) => {
+        const response = await AxiosAuthorized.get<Pet[]>(baseurl + `:5002/api/shelter/${id}/pet`)
         return response.data;
     }
 )
@@ -81,17 +89,32 @@ export const petsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
-            .addCase(fetchPets.pending, (state) => {
+            //fetch All pets
+            .addCase(fetchAllPets.pending, (state) => {
                 state.petsStatus = "loading"
             })
-            .addCase(fetchPets.fulfilled, (state, action) => {
+            .addCase(fetchAllPets.fulfilled, (state, action) => {
                 state.pets = action.payload
                 state.petsStatus = "idle"
                 state.petsUpdateTime = Date.now()
             })
-            .addCase(fetchPets.rejected, (state) => {
+            .addCase(fetchAllPets.rejected, (state) => {
                 state.petsStatus = "failed"
             })
+
+            //fetch shelter pets
+            .addCase(fetchShelterPets.pending, (state) => {
+                state.petsStatus = "loading"
+            })
+            .addCase(fetchShelterPets.fulfilled, (state, action) => {
+                state.pets = action.payload
+                state.petsStatus = "idle"
+                state.petsUpdateTime = Date.now()
+            })
+            .addCase(fetchShelterPets.rejected, (state) => {
+                state.petsStatus = "failed"
+            })
+
             //adding pet
             .addCase(addPet.pending, (state) => {
                 state.addingPetState = "loading"

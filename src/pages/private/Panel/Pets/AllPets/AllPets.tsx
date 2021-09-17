@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
-import { fetchPets, getPets } from '../../../../../features/pets/petsSlice'
+import { fetchAllPets, fetchShelterPets, getPets } from '../../../../../features/pets/petsSlice'
 import PetCardComponent from '../components/PetCardComponent'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -36,7 +36,8 @@ function AllPets(): JSX.Element {
     const dispatch = useAppDispatch()
 
     useEffect(() => {
-        dispatch(fetchPets())
+        if (shelter)
+            dispatch(fetchShelterPets(shelter.id))
     }, [])
 
     if (!shelter) {
