@@ -4,7 +4,9 @@ import React, { useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import { useAppDispatch } from '../../../../../app/hooks';
 import { addShelter } from '../../../../../features/shelters/shelterSlice';
+import { POST_Shelter } from '../../../../../model/post/POST_Models';
 import { Button } from '../../components/Button';
+import FileInput from '../../components/FileInput';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 import { ShelterValidation } from '../SheltersValidation';
@@ -44,8 +46,6 @@ function AddShelter(): JSX.Element {
             <Formik
                 initialValues={{
                     Name: '',
-                    Email: '',
-                    phoneNumber: '',
                     address: {
                         street: '',
                         zipCode: '',
@@ -54,14 +54,18 @@ function AddShelter(): JSX.Element {
                     geoLocation: {
                         latitude: '',
                         longitude: ''
-                    }
+                    },
+                    Email: '',
+                    phoneNumber: '',
+                    Photo: '',
+                    BankNumber: ''
                 }}
                 validationSchema={ShelterValidation}
                 onSubmit={async values => {
-                    // alert(JSON.stringify(values, null, 2));
-                    // console.log(values)
+                    const Shelter: POST_Shelter = values
+
                     try {
-                        const res = await dispatch(addShelter({ ...values, name: values.Name, email: values.Email }))
+                        const res = await dispatch(addShelter(Shelter))
                         // console.log(res);
                         if (`${res.payload}`.match(/^2..$/)) {
                             successSnackbar()
@@ -92,6 +96,14 @@ function AddShelter(): JSX.Element {
 
                         <GridItem>
                             <TextInput name="phoneNumber" label="Telefon" />
+                        </GridItem>
+
+                        <GridItem>
+                            <TextInput name="BankNumber" label="numer konta bankowego"></TextInput>
+                        </GridItem>
+
+                        <GridItem>
+                            <FileInput name="Photo" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
                         </GridItem>
 
                     </GridContainer>

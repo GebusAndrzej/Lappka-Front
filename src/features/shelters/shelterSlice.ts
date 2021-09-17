@@ -63,12 +63,39 @@ export const updateShelter = createAsyncThunk(
 
 export const addShelter = createAsyncThunk(
     'shelters/addShelter',
-    async (shelter: POST_Shelter) => {
-        const response = await AxiosAuthorized.post(
-            endpoints.shelters,
-            shelter
-        )
-        return response.status
+    async (shelter: POST_Shelter, thunkApi) => {
+
+        try {
+            const formData = new FormData()
+            formData.append("Name", shelter.Name)
+
+            formData.append("Address.Street", shelter.address.street)
+            formData.append("Address.ZipCode", shelter.address.zipCode)
+            formData.append("Address.City", shelter.address.city)
+
+            formData.append("GeoLocation.Latitude", shelter.geoLocation.latitude)
+            formData.append("GeoLocation.Longitude", shelter.geoLocation.longitude)
+
+            formData.append("Email", shelter.Email)
+            formData.append("phoneNumber", shelter.phoneNumber)
+            formData.append("Photo", shelter.Photo)
+            formData.append("BankNumber", shelter.BankNumber)
+
+            const response = await AxiosAuthorized.post(
+                endpoints.shelters,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            )
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
     }
 )
 

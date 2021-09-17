@@ -2,13 +2,13 @@ import { Address, GeoLocation } from "../Model";
 
 export interface POST_Shelter {
     id?: string;
-    name: string;
+    Name: string;
     address: Address;
     geoLocation: GeoLocation;
+    Email: string;
     phoneNumber: string;
-    email: string;
-    Photo?: string;
-    BankNumber?: string;
+    Photo: string;
+    BankNumber: string;
 }
 export interface POST_Pet {
     id?: string;
