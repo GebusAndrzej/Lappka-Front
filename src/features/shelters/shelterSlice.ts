@@ -3,6 +3,7 @@ import { RootState } from '../../app/store';
 import { Shelter, ShelterApplication } from '../../model/Model';
 import { endpoints, AxiosAuthorized, AxiosUnauthorized } from '../../app/axiosConfig'
 import { POST_Shelter } from '../../model/post/POST_Models';
+import { PATCH_Shelter } from '../../model/patch/PATCH_Models';
 
 interface InitialState {
     shelters: Array<Shelter> | null,
@@ -52,12 +53,20 @@ export const fetchShelter = createAsyncThunk(
 
 export const updateShelter = createAsyncThunk(
     'shelters/updateShelter',
-    async (shelter: any) => {
-        const response = await AxiosAuthorized.put(
-            endpoints.shelters + `/${shelter.id}`,
-            shelter
-        )
-        return response.status
+    async (shelter: PATCH_Shelter) => {
+
+        try {
+            const response = await AxiosAuthorized.patch(
+                endpoints.shelters + `/${shelter.id}`,
+                shelter
+            )
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+
     }
 )
 
