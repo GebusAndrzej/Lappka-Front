@@ -8,7 +8,8 @@ import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
 import { useSnackbar, OptionsObject } from 'notistack';
 import LoadingComponent from '../../components/LoadingComponent';
-import { ShelterValidation } from '../SheltersValidation';
+import { PATCH_ShelterValidation } from '../SheltersValidation';
+import { PATCH_Shelter } from '../../../../../model/patch/PATCH_Models';
 
 interface RouteParams {
     id: string
@@ -63,24 +64,29 @@ function EditShelter(): JSX.Element {
             <Formik
                 enableReinitialize={true}
                 initialValues={{
-                    Name: shelter?.name,
-                    Email: shelter?.email,
-                    phoneNumber: shelter?.phoneNumber,
+                    name: shelter?.name,
                     address: {
                         street: shelter?.address.street,
                         zipCode: shelter?.address.zipCode,
                         city: shelter?.address.city
                     },
                     geoLocation: {
-                        latitude: shelter?.geoLocation.latitude,
-                        longitude: shelter?.geoLocation.longitude
-                    }
+                        latitude: `${shelter?.geoLocation.latitude}`,
+                        longitude: `${shelter?.geoLocation.longitude}`
+                    },
+                    email: shelter?.email,
+                    phoneNumber: shelter?.phoneNumber,
+                    bankNumber: shelter.bankNumber || ''
                 }}
-                validationSchema={ShelterValidation}
+                validationSchema={PATCH_ShelterValidation}
                 onSubmit={async values => {
 
+                    const tempshelter: PATCH_Shelter = values
+                    tempshelter.id = shelter.id
+                    console.log(tempshelter);
+
                     try {
-                        const res = await dispatch(updateShelter({ ...values, id: shelter?.id }))
+                        const res = await dispatch(updateShelter(tempshelter))
 
                         // console.dir(res.payload);
                         if (`${res.payload}`.match(/^2..$/)) {
@@ -101,16 +107,20 @@ function EditShelter(): JSX.Element {
                     <GridContainer>
 
                         <GridItem>
-                            <TextInput name="Name" label="Nazwa"></TextInput>
+                            <TextInput name="name" label="Nazwa"></TextInput>
                         </GridItem>
 
                         <GridItem>
-                            <TextInput name="Email" type="text" label="Email" />
+                            <TextInput name="email" type="text" label="Email" />
                         </GridItem>
 
                         <GridItem>
                             <TextInput name="phoneNumber" label="Telefon" />
                         </GridItem>
+                        {/* 
+                        <GridItem>
+                            <TextInput name="bankNumber" label="numer konta bankowego"></TextInput>
+                        </GridItem> */}
 
                     </GridContainer>
 

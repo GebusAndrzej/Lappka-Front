@@ -179,8 +179,8 @@ export const authSlice = createSlice({
             deleteAccessToken()
         },
         setActiveShelter(state, action) {
-            console.log("setting shelter");
             state.userActiveShelter = action.payload
+            state.userActiveShelterState = "idle"
         }
     },
     extraReducers: (builder) => {

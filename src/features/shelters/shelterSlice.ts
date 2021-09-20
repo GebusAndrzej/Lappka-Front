@@ -3,6 +3,7 @@ import { RootState } from '../../app/store';
 import { Shelter, ShelterApplication } from '../../model/Model';
 import { endpoints, AxiosAuthorized, AxiosUnauthorized } from '../../app/axiosConfig'
 import { POST_Shelter } from '../../model/post/POST_Models';
+import { PATCH_Shelter } from '../../model/patch/PATCH_Models';
 
 interface InitialState {
     shelters: Array<Shelter> | null,
@@ -52,23 +53,58 @@ export const fetchShelter = createAsyncThunk(
 
 export const updateShelter = createAsyncThunk(
     'shelters/updateShelter',
-    async (shelter: any) => {
-        const response = await AxiosAuthorized.put(
-            endpoints.shelters + `/${shelter.id}`,
-            shelter
-        )
-        return response.status
+    async (shelter: PATCH_Shelter) => {
+
+        try {
+            const response = await AxiosAuthorized.patch(
+                endpoints.shelters + `/${shelter.id}`,
+                shelter
+            )
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+
     }
 )
 
 export const addShelter = createAsyncThunk(
     'shelters/addShelter',
-    async (shelter: POST_Shelter) => {
-        const response = await AxiosAuthorized.post(
-            endpoints.shelters,
-            shelter
-        )
-        return response.status
+    async (shelter: POST_Shelter, thunkApi) => {
+
+        try {
+            const formData = new FormData()
+            formData.append("Name", shelter.Name)
+
+            formData.append("Address.Street", shelter.address.street)
+            formData.append("Address.ZipCode", shelter.address.zipCode)
+            formData.append("Address.City", shelter.address.city)
+
+            formData.append("GeoLocation.Latitude", shelter.geoLocation.latitude)
+            formData.append("GeoLocation.Longitude", shelter.geoLocation.longitude)
+
+            formData.append("Email", shelter.Email)
+            formData.append("phoneNumber", shelter.phoneNumber)
+            formData.append("Photo", shelter.Photo)
+            formData.append("BankNumber", shelter.BankNumber)
+
+            const response = await AxiosAuthorized.post(
+                endpoints.shelters,
+                formData,
+                {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                }
+            )
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
     }
 )
 

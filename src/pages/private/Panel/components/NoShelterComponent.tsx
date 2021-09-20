@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { useAppSelector } from '../../../../app/hooks';
 import { getUserActiveShelterState } from '../../../../features/auth/authSlice';
-import LoadingComponent from './LoadingComponent';
 
 const Wrapper = styled.div`
     width:100%;
@@ -15,16 +14,14 @@ const Wrapper = styled.div`
     flex-direction: column;
 `;
 
-function NoShelterComponent() {
+function NoShelterComponent(): JSX.Element {
     const userShelterState = useAppSelector(getUserActiveShelterState)
     if (userShelterState == "loading")
         return (<Wrapper><CircularProgress></CircularProgress></Wrapper>)
     else if (userShelterState == "idle")
         return (<Wrapper><h2>Najpierw dołącz do schroniska</h2><Link to="/shelter-apply">Zobacz listę schronisk</Link></Wrapper>)
     return (
-        <Wrapper>
-            <CircularProgress />
-        </Wrapper>
+        <Wrapper><h2>Najpierw dołącz do schroniska</h2><Link to="/shelter-apply">Zobacz listę schronisk</Link></Wrapper>
     )
 }
 
