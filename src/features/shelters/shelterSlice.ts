@@ -15,6 +15,8 @@ interface InitialState {
     shelterUpdateTime: number,
 
     allApplications: ShelterApplication[] | null
+    shelterPhotoChangeState: 'idle' | 'loading' | 'failed',
+
 }
 
 const initialState: InitialState = {
@@ -25,6 +27,7 @@ const initialState: InitialState = {
     shelterStatus: 'idle',
     shelterUpdateTime: 0,
     allApplications: null,
+    shelterPhotoChangeState: "idle"
 }
 
 // async operations
@@ -112,6 +115,16 @@ export const deleteShelter = createAsyncThunk(
     'shelters/deleteShelter',
     async (id: string) => {
         const response = await AxiosAuthorized.delete(endpoints.shelters + `/${id}`)
+        return response.status
+    }
+)
+
+export const updateShelterPhoto = createAsyncThunk(
+    'shelters/deleteShelter',
+    async (shelter: { id: string, photo: string }) => {
+        const formData = new FormData()
+        formData.append("Photo", shelter.photo)
+        const response = await AxiosAuthorized.patch(endpoints.shelters + `/${shelter.id}/photo`, formData, { headers: { 'Content-Type': ",multipart/form-data" } })
         return response.status
     }
 )
@@ -221,6 +234,7 @@ export const shelterSlice = createSlice({
             .addCase(fetchShelter.rejected, (state) => {
                 state.shelterStatus = "failed"
             })
+
             // shelter applications
             .addCase(fetchAllShelterApplications.pending, (state) => {
                 // state.shelterStatus = "loading"
@@ -230,6 +244,17 @@ export const shelterSlice = createSlice({
             })
             .addCase(fetchAllShelterApplications.rejected, (state) => {
                 // state.shelterStatus = "failed"
+            })
+
+            //photo change
+            .addCase(updateShelterPhoto.pending, (state) => {
+                state.shelterPhotoChangeState = "loading"
+            })
+            .addCase(updateShelterPhoto.fulfilled, (state, action) => {
+                state.shelterPhotoChangeState = "idle"
+            })
+            .addCase(updateShelterPhoto.rejected, (state) => {
+                state.shelterPhotoChangeState = "failed"
             })
     }
 })
@@ -252,6 +277,10 @@ export const getShelter = (state: RootState): Shelter | null => {
 }
 export const getShelterStatus = (state: RootState): string => {
     return state.shelters.shelterStatus
+}
+
+export const getShelterPhotoChangeStatus = (state: RootState): string => {
+    return state.shelters.shelterPhotoChangeState
 }
 
 
