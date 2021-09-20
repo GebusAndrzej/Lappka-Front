@@ -117,7 +117,7 @@ function AddPet(): JSX.Element {
                     </GridItem>
 
                     <GridItem>
-                        <FileInput name="MainPhoto" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
+                        <FileInput name="MainPhoto" label="Dodaj zdjęcie / galerię" type="file" accept="image/*" />
                     </GridItem>
 
                 </GridContainer>
