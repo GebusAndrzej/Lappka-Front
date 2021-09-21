@@ -5,8 +5,15 @@ import { PetListContainer, PetTable } from './PetList.styled'
 
 import { ReactComponent as SVG_Edit } from '../../../../../assets/svg/edit.svg';
 import { ReactComponent as SVG_Delete } from '../../../../../assets/svg/delete.svg';
+import { Pet } from '../../../../../model/Model';
+import { useHistory } from 'react-router';
 
-function PetList(): JSX.Element {
+interface Props {
+    pets: Pet[]
+}
+
+function PetList(props: Props): JSX.Element {
+    const history = useHistory()
     return (
         <PetListContainer>
             <Title>Karty Zwierząt</Title>
@@ -25,18 +32,18 @@ function PetList(): JSX.Element {
                 </thead>
                 <tbody>
                     {
-                        [1, 2, 3].map(x => {
+                        props.pets.map(x => {
                             return (
-                                <tr key={x}>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
-                                    <td>a{x}</td>
+                                <tr key={x.id}>
+                                    <td>{x.name}</td>
+                                    <td>{x.sex}</td>
+                                    <td>{x.birthDay}</td>
+                                    <td>{x.sex}</td>
+                                    <td>{x.sex}</td>
+                                    <td>{x.sex}</td>
+                                    <td>{x.sex}</td>
                                     <td>
-                                        <Icon color="green">
+                                        <Icon color="green" onClick={() => history.push(`/pets/edit/${x.id}`)}>
                                             <SVG_Edit />
                                         </Icon>
                                         <Icon color="red">

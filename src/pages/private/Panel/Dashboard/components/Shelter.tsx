@@ -2,20 +2,27 @@ import React from 'react'
 import { ShelterTitle, ShelterWrapper, Location, LocationText, ShelterSummaryBox } from './Shelter.styled'
 import { ReactComponent as SVG_Location } from '../../../../../assets/svg/location.svg';
 import { Title, Value } from '../Dashboard.styled';
+import { useAppSelector } from '../../../../../app/hooks';
+import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
 
 
 function Shelter(): JSX.Element {
+    const userShelter = useAppSelector(getUserActiveShelter)
     return (
         <ShelterWrapper>
             <figure>
-                <img src="/assets/mock/shelterlogo.png" />
+                {userShelter?.photoId == "00000000-0000-0000-0000-000000000000" ?
+                    <img src="/assets/mock/shelterlogo.png" />
+                    :
+                    <img src={"http://10.10.10.38:5003/api/files/" + userShelter?.photoId + "?bucketName=2"} />
+                }
             </figure>
-            <ShelterTitle>Psiaki Adopciaki z Psiej Wioski</ShelterTitle>
+            <ShelterTitle>{userShelter?.name}</ShelterTitle>
 
             <Location>
                 <SVG_Location />
                 <LocationText>
-                    Rzeszów, ul. Krakowska 12
+                    {userShelter?.address.city} ul.{userShelter?.address.street}
                 </LocationText>
             </Location>
 

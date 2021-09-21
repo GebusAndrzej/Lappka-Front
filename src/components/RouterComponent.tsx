@@ -52,7 +52,13 @@ function RouterComponent(): JSX.Element {
                 <PrivateRoute path="/pets/add-pet"
                     exact
                     role={Roles.user}
-                    component={() => <Wrapper title="Dodaj Kartę" subTitle="Dodaj zwierzaka" child={<AddPet />} />}
+                    component={() => <Wrapper title="Karty Zwierząt" subTitle="Dodaj zwierzaka" child={<AddPet />} />}
+
+                />
+                <PrivateRoute path="/pets/edit/:id"
+                    exact
+                    role={Roles.user}
+                    component={() => <Wrapper title="Karty Zwierząt" subTitle="Edytuj" child={<AddPet />} />}
 
                 />
 

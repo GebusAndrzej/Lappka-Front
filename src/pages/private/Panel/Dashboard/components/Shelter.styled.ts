@@ -43,10 +43,11 @@ export const LocationText = styled.span`
 `;
 
 export const ShelterSummaryBox = styled.div`
-    margin-top:25px;
+    margin-top:15px;
     display:grid;
     grid-template-columns: 1fr 1fr;
     width:100%;
+    margin-bottom: 10px;
     
     div {
         display: flex;
