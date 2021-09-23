@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Bar, Grid, Item, ItemWrapper } from './Dashboard.styled'
 
 import { ReactComponent as SVG_Refresh } from '../../../../assets/svg/refresh.svg';
@@ -14,20 +14,29 @@ import PetList from './components/PetList';
 // import { DateInput } from '../components/DateInput';
 // import ReactDatePicker from 'react-datepicker';
 import { CustomDatePicker } from '../components/Inputs.styled';
-import { useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getTokenInfo, getUserActiveShelter, getUserInfo } from '../../../../features/auth/authSlice';
 import NoShelterComponent from '../components/NoShelterComponent';
+import { fetchShelterPets, getPets } from '../../../../features/pets/petsSlice';
 
 
 function Dashboard(): JSX.Element {
     const [startDate, setStartDate] = useState(new Date());
-    const tokenInfo = useAppSelector(getTokenInfo)
+    const dispatch = useAppDispatch()
     const userShelter = useAppSelector(getUserActiveShelter)
-    const userInfo = useAppSelector(getUserInfo)
+
+    // const tokenInfo = useAppSelector(getTokenInfo)
+    const pets = useAppSelector(getPets)
+    // const userInfo = useAppSelector(getUserInfo)
 
     if (!userShelter) {
         return <NoShelterComponent></NoShelterComponent>
     }
+
+    useEffect(() => {
+        if (userShelter)
+            dispatch(fetchShelterPets(userShelter.id))
+    }, [])
 
     return (
         <>
@@ -73,7 +82,7 @@ function Dashboard(): JSX.Element {
 
                 <Bar variant="full-width">
                     <ItemWrapper variant="full-width">
-                        <PetList></PetList>
+                        <PetList pets={pets}></PetList>
                     </ItemWrapper>
                 </Bar>
             </Grid>

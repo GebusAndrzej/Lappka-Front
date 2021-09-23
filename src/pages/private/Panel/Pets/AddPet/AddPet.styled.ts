@@ -20,7 +20,7 @@ export const GridContainer = styled.div`
     }
 `;
 
-export const GridItem = styled.div<{ background?: string, colspan?: string }>`
+export const GridItem = styled.div<{ background?: string, colspan?: string, variant?: "flex-row" }>`
     /* background: ${props => props.background || "white"}; */
     width: 100%;
     /* height: 56px; */
@@ -36,6 +36,14 @@ export const GridItem = styled.div<{ background?: string, colspan?: string }>`
         @media(max-width: ${props => props.theme.break.tablet}){
             grid-column: span 1;
         }
+    `}
+
+    ${props => props.variant == "flex-row" && css`
+        display:flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        flex-wrap: wrap;
+        gap: 10px
     `}
 `;
 

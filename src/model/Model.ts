@@ -10,14 +10,22 @@ export interface Shelter {
 }
 
 export interface Pet {
-    id?: string;
+    description: string;
+    shelterId: string;
+    shelterAddress: Address;
+    distance: null;
+    id: string;
+    userId: string;
     name: string;
     sex: number;
+    species: number;
     race: string;
-    species: string;
     mainPhotoId: string;
+    photoIds: string[];
     birthDay: Date;
-    shelterAddress: Address;
+    color: string;
+    weight: number;
+    sterilization: boolean;
 }
 
 export interface Address {
