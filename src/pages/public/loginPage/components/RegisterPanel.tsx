@@ -8,9 +8,9 @@ import TextInput from './TextInput';
 import { ReactComponent as SVG_LOGINICON } from '../../../../assets/svg/loginIcon.svg';
 import { ReactComponent as SVG_PASSICON } from '../../../../assets/svg/passwordIcon.svg';
 import { SubmitButton } from './SubmitButton';
-import { POST_registerUser } from '../../../../model/post/POST_Models';
+import { POST_login, POST_registerUser } from '../../../../model/post/POST_Models';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getRegisterState, register } from '../../../../features/auth/authSlice';
+import { getRegisterState, login, register } from '../../../../features/auth/authSlice';
 import { showSnackbar } from '../../../components/Snackbar';
 import { useSnackbar } from 'notistack';
 import LoadingComponent from '../../../private/Panel/components/LoadingComponent';
@@ -83,13 +83,6 @@ const RegisterPanel = (props: TSProps): JSX.Element => {
         setFormPage(x);
     }
 
-    function onSuccess() {
-        useEffect(() => {
-            console.log("handle success");
-        }, [])
-
-    }
-
 
     return (
         <Formik
@@ -114,24 +107,38 @@ const RegisterPanel = (props: TSProps): JSX.Element => {
 
                 try {
                     const res = await dispatch(register(user))
-                    console.log(res);
 
                     if (`${res.payload}`.match(/^2..$/)) {
-                        console.log("Sukces");
+                        showSnackbar(enqueueSnackbar, null, "Pomyslnie zarejstrowano", "success")
 
-                        showSnackbar(enqueueSnackbar, onSuccess, "Pomyslnie zarejstrowano", "success")
+                        //login after register
+                        const login_user: POST_login = values
+                        const res2 = await dispatch(login(login_user))
+
+                        if (`${res2.type}` == "auth/login/fulfilled") {
+                            showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
+                            location.replace("/dashboard")
+
+                        }
+                        else {
+                            console.log("Error");
+                            showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
+                        }
+
                     }
                     else {
-                        console.log("Error");
+                        if (res.payload.code == "email_is_taken") {
+                            showSnackbar(enqueueSnackbar, null, "Konto z tym emailem uż istnieje", "error")
 
-                        showSnackbar(enqueueSnackbar, onSuccess, "Wystąpił błąd", "error")
-                        // errorSnackbar()
+                        }
+                        else {
+                            showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
+                            console.log(res.payload);
+                        }
                     }
                 }
                 catch (e) {
-                    console.log("catch");
-
-                    console.log(e);
+                    console.error(e);
                 }
 
             }}
