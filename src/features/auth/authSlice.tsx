@@ -65,14 +65,14 @@ const initialState: InitialState = {
 
 export const register = createAsyncThunk(
     'auth/register',
-    async (user: POST_registerUser, thunkAPI) => {
+    async (user: POST_registerUser) => {
         try {
             const response = await AxiosUnauthorized.post(endpoints.auth + "/signup", user)
             return response.status;
         }
-        catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue({ error: e });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
         }
     }
 )
@@ -154,6 +154,7 @@ export const fetchUserShelters = createAsyncThunk(
 
             return response.data;
         }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
         catch (e: any) {
             return thunkAPI.rejectWithValue({ error: e.error });
         }
@@ -181,7 +182,7 @@ export const authSlice = createSlice({
         setActiveShelter(state, action) {
             state.userActiveShelter = action.payload
             state.userActiveShelterState = "idle"
-        }
+        },
     },
     extraReducers: (builder) => {
         builder

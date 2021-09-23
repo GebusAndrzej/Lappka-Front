@@ -8,7 +8,6 @@ import { Logo } from '../LoginPage.styled';
 import { ReactComponent as SVG_LOGINICON } from '../../../../assets/svg/loginIcon.svg';
 import { ReactComponent as SVG_PASSICON } from '../../../../assets/svg/passwordIcon.svg';
 import { SubmitButton } from './SubmitButton';
-import { useHistory } from 'react-router-dom';
 import { POST_login } from '../../../../model/post/POST_Models';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getLoginState, getUserInfo, login } from '../../../../features/auth/authSlice';
@@ -60,7 +59,6 @@ interface TSProps {
 }
 
 const LoginPanel = (props: TSProps): JSX.Element => {
-    const history = useHistory()
     const dispatch = useAppDispatch()
     const loginState = useAppSelector(getLoginState)
     const { enqueueSnackbar } = useSnackbar()
@@ -83,15 +81,10 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                 const user: POST_login = values
                 try {
                     const res = await dispatch(login(user))
-                    // console.log(res);
 
                     if (`${res.type}` == "auth/login/fulfilled") {
-                        // console.log("zalogowano");
-
                         showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
-                        // history.push("/dashboard")
                         location.replace("/dashboard")
-
                     }
                     else {
                         console.log("Error");
@@ -118,8 +111,6 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                     </>
                 }
 
-
-                {/* <AdditionalOptions name="RememberMe" ></AdditionalOptions> */}
                 <SubmitButton type="submit">Zaloguj się</SubmitButton>
 
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
