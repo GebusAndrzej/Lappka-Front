@@ -25,9 +25,9 @@ function Dashboard(): JSX.Element {
     const dispatch = useAppDispatch()
     const userShelter = useAppSelector(getUserActiveShelter)
 
-    const tokenInfo = useAppSelector(getTokenInfo)
+    // const tokenInfo = useAppSelector(getTokenInfo)
     const pets = useAppSelector(getPets)
-    const userInfo = useAppSelector(getUserInfo)
+    // const userInfo = useAppSelector(getUserInfo)
 
     if (!userShelter) {
         return <NoShelterComponent></NoShelterComponent>

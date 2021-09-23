@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { Link } from 'react-router-dom'
 import { getUserActiveShelter } from '../../../../../features/auth/authSlice'
 import NoShelterComponent from '../../components/NoShelterComponent'
+import LoadingComponent from '../../components/LoadingComponent'
 
 const Container = styled.div`
     display:flex;
@@ -46,9 +47,14 @@ function AllPets(): JSX.Element {
 
     return (
         <Container>
-            {pets.map(x => {
-                return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
-            })}
+            {pets ?
+                pets.map(x => {
+                    return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
+                })
+                :
+                <LoadingComponent></LoadingComponent>
+            }
+
 
             <AddPetButton to="/pets/add-pet">
                 Dodaj Zwierzaka

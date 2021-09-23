@@ -6,6 +6,7 @@ import Dashboard from '../pages/private/Panel/Dashboard/Dashboard'
 import MessagesComponent from '../pages/private/Panel/Messages/MessagesComponent'
 import AddPet from '../pages/private/Panel/Pets/AddPet/AddPet'
 import AllPets from '../pages/private/Panel/Pets/AllPets/AllPets'
+import EditPet from '../pages/private/Panel/Pets/EditPet/EditPet'
 import ReviewShelterApplicationcomponent from '../pages/private/Panel/ReviewShelterApplication/ReviewShelterApplicationcomponent'
 import ShelterApply from '../pages/private/Panel/ShelterApply/ShelterApply'
 import AddShelter from '../pages/private/Panel/Shelters/AddShelter/AddShelter'
@@ -58,7 +59,7 @@ function RouterComponent(): JSX.Element {
                 <PrivateRoute path="/pets/edit/:id"
                     exact
                     role={Roles.user}
-                    component={() => <Wrapper title="Karty Zwierząt" subTitle="Edytuj" child={<AddPet />} />}
+                    component={() => <Wrapper title="Karty Zwierząt" subTitle="Edytuj" child={<EditPet />} />}
 
                 />
 

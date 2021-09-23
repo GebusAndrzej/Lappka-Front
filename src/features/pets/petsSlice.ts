@@ -3,6 +3,7 @@ import { Pet } from '../../model/Model';
 import { endpoints, AxiosAuthorized, baseurl } from '../../app/axiosConfig'
 import { RootState } from '../../app/store';
 import { POST_Pet } from '../../model/post/POST_Models';
+import { PATCH_Pet } from '../../model/patch/PATCH_Models';
 
 
 interface InitialState {
@@ -11,13 +12,25 @@ interface InitialState {
     petsUpdateTime: number
     addingPetState: 'idle' | 'loading' | 'failed'
 
+    pet: Pet | null;
+    petStatus: 'idle' | 'loading' | 'failed',
+
+    petMainPhotoChangeState: 'idle' | 'loading' | 'failed',
+    petMultiplePhotosState: 'idle' | 'loading' | 'failed',
+
 }
 
 const initialState: InitialState = {
     pets: [],
     petsStatus: "idle",
     petsUpdateTime: 0,
-    addingPetState: "idle"
+    addingPetState: "idle",
+
+    pet: null,
+    petStatus: "idle",
+
+    petMainPhotoChangeState: "idle",
+    petMultiplePhotosState: "idle"
 }
 
 // async operations
@@ -25,8 +38,28 @@ const initialState: InitialState = {
 export const fetchAllPets = createAsyncThunk(
     'pets/fetchAllPets',
     async () => {
-        const response = await AxiosAuthorized.get<Pet[]>(endpoints.pets)
-        return response.data;
+        try {
+            const response = await AxiosAuthorized.get<Pet[]>(endpoints.pets)
+            return response.data;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+    }
+)
+
+export const fetchPet = createAsyncThunk(
+    'pets/fetchPet',
+    async (id: string) => {
+        try {
+            const response = await AxiosAuthorized.get<Pet>(endpoints.pets + `/${id}`)
+            return response.data;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data;
+        }
     }
 )
 
@@ -79,6 +112,93 @@ export const addPet = createAsyncThunk(
     }
 )
 
+export const updatePetMainPhoto = createAsyncThunk(
+    'pets/updatePetMainPhoto',
+    async (pet: { id: string, photo: string }) => {
+        try {
+            const formData = new FormData()
+            formData.append("File", pet.photo)
+            const response = await AxiosAuthorized.patch(endpoints.pets + `/${pet.id}/photo`, formData, { headers: { 'Content-Type': ",multipart/form-data" } })
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+    }
+)
+
+export const addMultiplePhotos = createAsyncThunk(
+    'pets/addMultiplePhotos',
+    async (pet: { id: string, photo: string }) => {
+        try {
+            const formData = new FormData()
+            Array.prototype.map.call(pet.photo, p => {
+                formData.append("Photos", p)
+            })
+            const response = await AxiosAuthorized.post(endpoints.pets + `/${pet.id}/photo`, formData, { headers: { 'Content-Type': ",multipart/form-data" } })
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+    }
+)
+
+export const deletePetPhoto = createAsyncThunk(
+    'pets/deletePetPhoto',
+    async (props: { petId: string, photoId: string }) => {
+        try {
+            const response = await AxiosAuthorized.delete(
+                endpoints.pets + `/${props.petId}/photo`,
+                { data: { id: props.photoId } }
+            )
+            return response.status
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
+        }
+    }
+)
+
+export const updatePet = createAsyncThunk(
+    'pets/updatePet',
+    async (pet: PATCH_Pet) => {
+        try {
+            //delete after update
+            const formData = new FormData()
+            for (const [k, v] of Object.entries(pet)) {
+                formData.append(k, v);
+            }
+            const temp_bday = pet.DateOfBirth || new Date()
+
+            const bday = ((temp_bday.getMonth() > 8) ? (temp_bday.getMonth() + 1) : ('0' + (temp_bday.getMonth() + 1))) + '-' + ((temp_bday.getDate() > 9) ? temp_bday.getDate() : ('0' + temp_bday.getDate())) + '-' + temp_bday.getFullYear()
+            formData.set("DateOfBirth", bday)
+            formData.set("ShelterAddress.Name", pet.ShelterAddress.city)
+            formData.set("ShelterAddress.City", pet.ShelterAddress.city)
+            formData.set("ShelterAddress.Street", pet.ShelterAddress.street)
+
+            formData.set("ShelterAddress.GeoLocation.Latitude", "1")
+            formData.set("ShelterAddress.GeoLocation.Longitude", "2")
+            // end
+
+            //TODO when server update, change it to app/json
+            const response = await AxiosAuthorized.patch(
+                endpoints.pets + `/${pet.id}`,
+                formData)
+            return response.status;
+        }
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data;
+        }
+    }
+)
+
+
+
 // slice
 
 export const petsSlice = createSlice({
@@ -125,6 +245,41 @@ export const petsSlice = createSlice({
             .addCase(addPet.rejected, (state) => {
                 state.addingPetState = "failed"
             })
+
+            //fetch one pet
+            .addCase(fetchPet.pending, (state) => {
+                state.petStatus = "loading"
+                state.pet = null
+            })
+            .addCase(fetchPet.fulfilled, (state, action) => {
+                state.petStatus = "idle"
+                state.pet = action.payload
+            })
+            .addCase(fetchPet.rejected, (state) => {
+                state.petStatus = "failed"
+            })
+
+            //update main photo
+            .addCase(updatePetMainPhoto.pending, (state) => {
+                state.petMainPhotoChangeState = "loading"
+            })
+            .addCase(updatePetMainPhoto.fulfilled, (state) => {
+                state.petMainPhotoChangeState = "idle"
+            })
+            .addCase(updatePetMainPhoto.rejected, (state) => {
+                state.petMainPhotoChangeState = "failed"
+            })
+
+            //multiple photos
+            .addCase(addMultiplePhotos.pending, (state) => {
+                state.petMultiplePhotosState = "loading"
+            })
+            .addCase(addMultiplePhotos.fulfilled, (state) => {
+                state.petMultiplePhotosState = "idle"
+            })
+            .addCase(addMultiplePhotos.rejected, (state) => {
+                state.petMultiplePhotosState = "failed"
+            })
     }
 })
 
@@ -132,13 +287,25 @@ export const getPets = (state: RootState): Pet[] => {
     return state.pets.pets
 }
 
+export const getPet = (state: RootState): Pet | null => {
+    return state.pets.pet
+}
+
 export const getAddingPetStatus = (state: RootState): string => {
     return state.pets.addingPetState
 }
 
-// export const getPets = (state: RootState): Shelter | null => {
-//     return state.shelters.shelter
-// }
+export const getPetStatus = (state: RootState): string => {
+    return state.pets.petStatus
+}
+
+export const getMainPhotoStatus = (state: RootState): string => {
+    return state.pets.petMainPhotoChangeState
+}
+
+export const getUpdatePhotosStatus = (state: RootState): string => {
+    return state.pets.petMultiplePhotosState
+}
 
 
 export default petsSlice.reducer
