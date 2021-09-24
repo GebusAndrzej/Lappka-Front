@@ -85,6 +85,14 @@ function RouterComponent(): JSX.Element {
 
                 />
 
+                {/* Edit own shelter */}
+                <PrivateRoute path="/shelter/edit/"
+                    exact
+                    role={Roles.user}
+                    component={() => <Wrapper title="Wiadomości" child={<EditShelter />} />}
+
+                />
+
 
                 {/*  ==================== Admin Routes ==================== */}
                 {/* Shelters */}
