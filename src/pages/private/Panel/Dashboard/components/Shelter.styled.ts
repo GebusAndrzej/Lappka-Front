@@ -5,6 +5,8 @@ export const ShelterWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
+    max-width: 250px;
+    min-height:400px;
 
     figure{
         display:flex;
@@ -12,7 +14,8 @@ export const ShelterWrapper = styled.div`
         align-items: center;
         margin: 16px;
         img {
-            max-width:55%;
+            max-width:100%;
+            border-radius: 5px;
         }
     }
 

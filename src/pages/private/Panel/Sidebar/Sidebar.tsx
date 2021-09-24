@@ -1,5 +1,5 @@
 import React from 'react'
-import { ButtonBox, Fixed, Hr, Logo, Nav, Close, Button, LogoutButton } from './Sidebar.styled'
+import { ButtonBox, Fixed, Hr, Logo, Nav, Close, LogoutButton } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
 import { ReactComponent as SVG_Dashboard } from '../../../../assets/svg/dashboard.svg';
@@ -51,7 +51,7 @@ function Sidebar(props: Props): JSX.Element {
 
                         <div>
                             <Name>{userInfo?.firstName} {userInfo?.lastName}.</Name>
-                            <Company>nazwa firmy</Company>
+                            <Company></Company>
                         </div>
                     </UserBox>
                     <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard" role={Roles.user}></ButtonNavLink>

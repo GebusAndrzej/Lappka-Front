@@ -175,10 +175,14 @@ export default function ShelterTable(props: Props): JSX.Element {
                                     <SVG_Edit />
                                 </Icon>
 
-                                <ConfirmDialog confirmationText={"Usunąć " + row.name + "?"} onAccept={() => (props.delete(row))} component={({ handleShowModal }: any) =>
-                                    <Icon color="red" onClick={handleShowModal}>
-                                        <SVG_Delete />
-                                    </Icon>}
+                                <ConfirmDialog
+                                    confirmationText={"Usunąć " + row.name + "?"}
+                                    onAccept={() => (props.delete(row))}
+                                    validationText={row.name}
+                                    component={({ handleShowModal }: any) =>
+                                        <Icon color="red" onClick={handleShowModal}>
+                                            <SVG_Delete />
+                                        </Icon>}
                                 />
                             </TableCell>
                         </TableRow>

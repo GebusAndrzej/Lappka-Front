@@ -51,7 +51,6 @@ export const IconBox = styled.div`
 export const UserBox = styled.div<{ location?: "sidebar" }>`
     min-width:130px;
     min-height: 35px;
-    display:flex;
     margin-right: 120px;
     display: flex;
     justify-content: center;

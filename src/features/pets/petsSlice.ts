@@ -9,6 +9,7 @@ import { PATCH_Pet } from '../../model/patch/PATCH_Models';
 interface InitialState {
     pets: Array<Pet>,
     petsStatus: 'idle' | 'loading' | 'failed',
+
     petsUpdateTime: number
     addingPetState: 'idle' | 'loading' | 'failed'
 
@@ -297,6 +298,10 @@ export const getAddingPetStatus = (state: RootState): string => {
 
 export const getPetStatus = (state: RootState): string => {
     return state.pets.petStatus
+}
+
+export const getPetsStatus = (state: RootState): string => {
+    return state.pets.petsStatus
 }
 
 export const getMainPhotoStatus = (state: RootState): string => {

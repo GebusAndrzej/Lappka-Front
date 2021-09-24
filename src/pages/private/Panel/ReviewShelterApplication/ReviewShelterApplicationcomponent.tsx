@@ -42,7 +42,7 @@ function ReviewShelterApplicationcomponent(): JSX.Element {
         dispatch(declineShelterApplication(id))
             .then((res) => {
                 if (`${res.payload}`.match(/^2..$/)) {
-                    showSnackbar(enqueueSnackbar, null, "Odrzucono aaplikację", "success")
+                    showSnackbar(enqueueSnackbar, null, "Odrzucono aplikację", "success")
                 }
                 else {
                     showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")

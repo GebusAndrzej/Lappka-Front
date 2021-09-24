@@ -15,7 +15,7 @@ import PetList from './components/PetList';
 // import ReactDatePicker from 'react-datepicker';
 import { CustomDatePicker } from '../components/Inputs.styled';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getTokenInfo, getUserActiveShelter, getUserInfo } from '../../../../features/auth/authSlice';
+import { getUserActiveShelter } from '../../../../features/auth/authSlice';
 import NoShelterComponent from '../components/NoShelterComponent';
 import { fetchShelterPets, getPets } from '../../../../features/pets/petsSlice';
 
@@ -25,18 +25,17 @@ function Dashboard(): JSX.Element {
     const dispatch = useAppDispatch()
     const userShelter = useAppSelector(getUserActiveShelter)
 
-    // const tokenInfo = useAppSelector(getTokenInfo)
     const pets = useAppSelector(getPets)
-    // const userInfo = useAppSelector(getUserInfo)
 
     if (!userShelter) {
         return <NoShelterComponent></NoShelterComponent>
     }
 
     useEffect(() => {
-        if (userShelter)
+        if (userShelter) {
             dispatch(fetchShelterPets(userShelter.id))
-    }, [])
+        }
+    }, [userShelter])
 
     return (
         <>
@@ -69,10 +68,6 @@ function Dashboard(): JSX.Element {
                 </Bar>
 
                 <Item variant="chart">
-                    <pre>
-                        {/* {JSON.stringify(userInfo, null, 2)} */}
-                        {JSON.stringify(userShelter, null, 2)}
-                    </pre>
                     <ViewGraph></ViewGraph>
                 </Item>
 
