@@ -14,7 +14,7 @@ import SelectInput from '../../components/SelectInput';
 import TextArea from '../../components/TextArea';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../AddPet/AddPet.styled';
-import { PetsValidation, PetsValidation_PATCH } from '../PetsValidation';
+import { PetsValidation_PATCH } from '../PetsValidation';
 import LoadingComponent from '../../components/LoadingComponent';
 import { CircularProgress } from '@material-ui/core';
 import { showSnackbar } from '../../../../components/Snackbar';

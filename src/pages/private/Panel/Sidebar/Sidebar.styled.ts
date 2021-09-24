@@ -60,7 +60,7 @@ export const ButtonBox = styled.div`
     height: 100%;
     padding-bottom: 60px;
 
-    & *:last-child{
+    &>*:last-child{
         margin-top: auto;
     }
 
@@ -195,6 +195,7 @@ export const LogoutButton = styled.button`
         color:white;
         font-size: 1.3rem;
         margin-bottom: 10px;
+        background-color: ${props => props.theme.colors.green};
     }
 
     & figure {
@@ -218,6 +219,4 @@ export const LogoutButton = styled.button`
         }
     }
 `;
-
-
 

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
-import { fetchAllPets, fetchShelterPets, getPets } from '../../../../../features/pets/petsSlice'
+import { fetchShelterPets, getPets, getPetsStatus } from '../../../../../features/pets/petsSlice'
 import PetCardComponent from '../components/PetCardComponent'
 import styled from 'styled-components'
 import { Link } from 'react-router-dom'
@@ -33,6 +33,7 @@ const AddPetButton = styled(Link)`
 
 function AllPets(): JSX.Element {
     const pets = useAppSelector(getPets)
+    const petsStatus = useAppSelector(getPetsStatus)
     const shelter = useAppSelector(getUserActiveShelter)
     const dispatch = useAppDispatch()
 
@@ -47,13 +48,18 @@ function AllPets(): JSX.Element {
 
     return (
         <Container>
-            {pets ?
-                pets.map(x => {
-                    return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
-                })
-                :
+            {petsStatus == "loading" ?
                 <LoadingComponent></LoadingComponent>
+                :
+                pets ?
+                    pets.map(x => {
+                        return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
+                    })
+                    :
+                    <LoadingComponent></LoadingComponent>
             }
+
+
 
 
             <AddPetButton to="/pets/add-pet">
