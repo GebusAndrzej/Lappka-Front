@@ -23,6 +23,7 @@ import * as Yup from 'yup'
 import { useSnackbar } from 'notistack';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { PATCH_Pet } from '../../../../../model/patch/PATCH_Models';
+import { baseurl } from '../../../../../app/axiosConfig';
 
 interface RouteParams {
     id: string
@@ -112,7 +113,7 @@ function EditPet(): JSX.Element {
                                     <Thumbnail>
                                         {pet?.mainPhotoId ?
                                             <>
-                                                <img src={"http://10.10.10.38:5003/api/files/" + pet?.mainPhotoId + "?bucketName=0"} />
+                                                <img src={baseurl + ":5003/api/files/" + pet?.mainPhotoId + "?bucketName=0"} />
                                             </>
                                             :
                                             false
@@ -179,7 +180,7 @@ function EditPet(): JSX.Element {
                                     {pet?.photoIds.length || 0 > 0 ?
                                         pet.photoIds.map(id =>
                                             <Thumbnail key={id}>
-                                                <img src={"http://10.10.10.38:5003/api/files/" + id + "?bucketName=0"} />
+                                                <img src={baseurl + ":5003/api/files/" + id + "?bucketName=0"} />
                                                 <ConfirmDialog
                                                     confirmationText="Usuąć zdjęcie?"
                                                     onAccept={() => handlePhotoDelete(pet.id, id)}

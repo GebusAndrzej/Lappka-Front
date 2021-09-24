@@ -16,6 +16,7 @@ import { Thumbnail } from '../../Pets/EditPet/EditPet.styled';
 import * as Yup from 'yup';
 import { CircularProgress } from '@material-ui/core';
 import { showSnackbar } from '../../../../components/Snackbar';
+import { baseurl } from '../../../../../app/axiosConfig';
 
 
 interface RouteParams {
@@ -111,7 +112,7 @@ function EditShelter(): JSX.Element {
                         <GridContainer>
                             <GridItem>
                                 <Thumbnail>
-                                    <img src={"http://10.10.10.38:5003/api/files/" + shelter.photoId + "?bucketName=2"} />
+                                    <img src={baseurl + ":5003/api/files/" + shelter.photoId + "?bucketName=2"} />
                                 </Thumbnail>
                             </GridItem>
                             <GridItem>
@@ -186,10 +187,10 @@ function EditShelter(): JSX.Element {
                         <GridItem>
                             <TextInput name="phoneNumber" label="Telefon" />
                         </GridItem>
-                        {/* 
+
                         <GridItem>
                             <TextInput name="bankNumber" label="numer konta bankowego"></TextInput>
-                        </GridItem> */}
+                        </GridItem>
 
                     </GridContainer>
 

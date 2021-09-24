@@ -4,6 +4,7 @@ import { ReactComponent as SVG_Location } from '../../../../../assets/svg/locati
 import { Title, Value } from '../Dashboard.styled';
 import { useAppSelector } from '../../../../../app/hooks';
 import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
+import { baseurl } from '../../../../../app/axiosConfig';
 
 
 function Shelter(): JSX.Element {
@@ -14,7 +15,7 @@ function Shelter(): JSX.Element {
                 {userShelter?.photoId == "00000000-0000-0000-0000-000000000000" ?
                     <img src="/assets/mock/shelterlogo.png" />
                     :
-                    <img src={"http://10.10.10.38:5003/api/files/" + userShelter?.photoId + "?bucketName=2"} />
+                    <img src={`${baseurl}:5003/api/files/${userShelter?.photoId}?bucketName=2`} />
                 }
             </figure>
             <ShelterTitle>{userShelter?.name}</ShelterTitle>
