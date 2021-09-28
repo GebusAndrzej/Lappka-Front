@@ -51,12 +51,12 @@ function AllPets(): JSX.Element {
             {petsStatus == "loading" ?
                 <LoadingComponent></LoadingComponent>
                 :
-                pets ?
+                pets.length > 0 ?
                     pets.map(x => {
                         return <PetCardComponent key={x.id} pet={x}></PetCardComponent>
                     })
                     :
-                    <LoadingComponent></LoadingComponent>
+                    <div>Brak zwierzaków</div>
             }
 
 
