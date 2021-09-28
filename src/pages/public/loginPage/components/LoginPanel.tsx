@@ -79,23 +79,31 @@ const LoginPanel = (props: TSProps): JSX.Element => {
             })}
             onSubmit={async values => {
                 const user: POST_login = values
+
                 try {
                     const res = await dispatch(login(user))
 
-                    if (`${res.type}` == "auth/login/fulfilled") {
+                    if (`${res.payload}`.match(/^2..$/)) {
                         showSnackbar(enqueueSnackbar, null, "Zalogowano", "success")
                         location.replace("/dashboard")
                     }
                     else {
-                        console.log("Error");
-                        showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
+                        if (res.payload.code == "invalid_credentials") {
+                            showSnackbar(enqueueSnackbar, null, "Nieprawidłowe dane logowania", "error")
+
+                        }
+                        else {
+                            showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
+                            console.log(res.payload);
+                        }
                     }
+
                 }
                 catch (e) {
-                    console.log("catch");
-
-                    console.log(e);
+                    console.error(e)
                 }
+
+
 
             }}
         >
@@ -108,10 +116,10 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                     <>
                         <TextInput name="email" placeholder="Login lub e-mail" svg={SVG_LOGINICON}></TextInput>
                         <TextInput name="password" placeholder="Hasło" type="password" svg={SVG_PASSICON}></TextInput>
+                        <SubmitButton type="submit">Zaloguj się</SubmitButton>
                     </>
                 }
 
-                <SubmitButton type="submit">Zaloguj się</SubmitButton>
 
                 <Footer><a href="">Regulamin</a> &ensp;&ensp; <a href="">Polityka Prywatności</a></Footer>
             </Form1>
