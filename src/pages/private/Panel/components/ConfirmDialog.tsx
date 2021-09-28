@@ -1,7 +1,6 @@
 import React, { ReactChild, useState } from "react"
 
 import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
@@ -44,11 +43,11 @@ const ValidationText = styled.div`
     color:red;
 `
 
-interface Props {
-    onAccept: () => void,
-    component: ReactChild,
-    confirmationText: string,
-}
+// interface Props {
+//     onAccept: () => void,
+//     component: ReactChild,
+//     confirmationText: string,
+// }
 
 export const ConfirmDialog = ({ onAccept, component, confirmationText, validationText = null }: any): JSX.Element => {
     const [isShowing, setIsShowing] = useState(false)

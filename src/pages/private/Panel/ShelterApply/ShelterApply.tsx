@@ -4,7 +4,7 @@ import { fetchShelters, getAllShelters, getAllSheltersStatus } from '../../../..
 import { Title } from '../Dashboard/Dashboard.styled'
 
 import LoadingComponent from '../components/LoadingComponent'
-import { useSnackbar, OptionsObject } from 'notistack';
+import { useSnackbar } from 'notistack';
 import ShelterApplyTableComponent from './components/SheltersApplyTableComponent'
 import { showSnackbar } from '../../../components/Snackbar'
 

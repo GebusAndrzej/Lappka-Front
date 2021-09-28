@@ -75,7 +75,7 @@ export const updateShelter = createAsyncThunk(
 
 export const addShelter = createAsyncThunk(
     'shelters/addShelter',
-    async (shelter: POST_Shelter, thunkApi) => {
+    async (shelter: POST_Shelter) => {
 
         try {
             const formData = new FormData()
@@ -232,13 +232,13 @@ export const shelterSlice = createSlice({
             })
 
             // shelter applications
-            .addCase(fetchAllShelterApplications.pending, (state) => {
+            .addCase(fetchAllShelterApplications.pending, () => {
                 // state.shelterStatus = "loading"
             })
             .addCase(fetchAllShelterApplications.fulfilled, (state, action) => {
                 state.allApplications = action.payload ?? null
             })
-            .addCase(fetchAllShelterApplications.rejected, (state) => {
+            .addCase(fetchAllShelterApplications.rejected, () => {
                 // state.shelterStatus = "failed"
             })
 
@@ -246,7 +246,7 @@ export const shelterSlice = createSlice({
             .addCase(updateShelterPhoto.pending, (state) => {
                 state.shelterPhotoChangeState = "loading"
             })
-            .addCase(updateShelterPhoto.fulfilled, (state, action) => {
+            .addCase(updateShelterPhoto.fulfilled, (state) => {
                 state.shelterPhotoChangeState = "idle"
             })
             .addCase(updateShelterPhoto.rejected, (state) => {
@@ -257,7 +257,7 @@ export const shelterSlice = createSlice({
             .addCase(updateShelter.pending, (state) => {
                 state.shelterUpdateState = "loading"
             })
-            .addCase(updateShelter.fulfilled, (state, action) => {
+            .addCase(updateShelter.fulfilled, (state) => {
                 state.shelterUpdateState = "idle"
             })
             .addCase(updateShelter.rejected, (state) => {

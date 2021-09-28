@@ -4,7 +4,7 @@ import { ReactComponent as SVG_Location } from '../../../../../assets/svg/locati
 import { Title, Value } from '../Dashboard.styled';
 import { useAppSelector } from '../../../../../app/hooks';
 import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
-import { baseurl, microServices } from '../../../../../app/axiosConfig';
+import { microServices } from '../../../../../app/axiosConfig';
 
 
 function Shelter(): JSX.Element {
