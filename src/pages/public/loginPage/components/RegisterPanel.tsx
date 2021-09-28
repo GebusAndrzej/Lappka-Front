@@ -97,7 +97,7 @@ const RegisterPanel = (props: TSProps): JSX.Element => {
             validationSchema={Yup.object({
                 username: Yup.string().required("Wymagane"),
                 email: Yup.string().required("Wymagane").email("Podaj prawidłowy email"),
-                password: Yup.string().required("Wymagane").min(4, "Co najmniej 4 znaki"),
+                password: Yup.string().required("Wymagane").min(5, "Co najmniej 5 znaki"),
                 repeatPassword: Yup.string().oneOf([Yup.ref('password'), null], "Hasła się nie zgadzają").required('Wymagane'),
                 firstName: Yup.string().required("Wymagane"),
                 lastName: Yup.string().required("Wymagane"),

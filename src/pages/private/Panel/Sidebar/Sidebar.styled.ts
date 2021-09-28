@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Fixed = styled.div`
     grid-area: sidebar;
@@ -147,7 +147,7 @@ export const Button = styled(NavLink)`
     }
 `;
 
-export const Hr = styled.hr`
+export const Hr = styled.hr<{ variant?: "green" }>`
     width:100%;
     border-top: 1px solid ${props => props.theme.colors.bg1};
     margin-bottom: 30px;
@@ -155,6 +155,10 @@ export const Hr = styled.hr`
     @media (max-width: ${props => props.theme.break.tablet}){
         display:none;
     }
+
+    ${(props => props.variant == "green" && css`
+        border-top: 1px solid ${props => props.theme.colors.green};
+    `)}
 `;
 
 export const Close = styled.div`
