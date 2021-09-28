@@ -158,7 +158,7 @@ export default function ShelterTable(props: Props): JSX.Element {
                         ? rows.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                         : rows
                     ).map((row) => (
-                        <TableRow key={row.name}>
+                        <TableRow key={row.id}>
                             <TableCell component="th" scope="row">
                                 {row.name}
                             </TableCell>
@@ -168,6 +168,7 @@ export default function ShelterTable(props: Props): JSX.Element {
                             <TableCell>
                                 {row.phoneNumber}
                             </TableCell>
+
                             <TableCell style={lastCellStyle}>
                                 <Applications to={"/applications/" + row.id}>Zobacz zgłoszenia</Applications>
 

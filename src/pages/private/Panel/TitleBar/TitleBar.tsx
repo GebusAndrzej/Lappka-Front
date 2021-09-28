@@ -1,4 +1,5 @@
 import React from 'react'
+import { microServices } from '../../../../app/axiosConfig';
 import { useAppSelector } from '../../../../app/hooks';
 
 // import { Avatar, Company, IconBox, Name, SubTitle, Title, Titlebar, UserBox, Titlebox } from './TitleBar.styled'
@@ -38,7 +39,10 @@ export default function TitleBar(props: Props): JSX.Element {
 
             <UserBox>
                 <Avatar>
-                    <img src={userInfo?.photoId != "00000000-0000-0000-0000-000000000000" ? userInfo?.photoId : "/assets/mock/avatar-generic.jpg"} />
+                    <img src={(userInfo?.photoId != "00000000-0000-0000-0000-000000000000") && (userInfo?.photoId) ?
+                        microServices.files + "/" + userInfo?.photoId + "?bucketName=0"
+                        :
+                        "/assets/mock/avatar-generic.jpg"} />
                 </Avatar>
 
                 <div>

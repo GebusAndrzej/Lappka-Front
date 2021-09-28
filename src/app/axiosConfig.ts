@@ -4,12 +4,19 @@ import { readAccessToken } from '../features/localStorageService';
 
 export const baseurl = "http://10.10.10.38"
 
+export const microServices = {
+    identity: baseurl + ":5001/api/identity",
+    pets: baseurl + ":5002/api/pets",
+    files: baseurl + ":5003/api/files",
+    communication: baseurl + "5004/api/communication"
+}
+
 export const endpoints = {
-    shelters: baseurl + ":5001/api/shelter",
-    auth: baseurl + ":5001/api/auth",
-    users: baseurl + ":5001/api/user",
-    pets: baseurl + ":5002/api/shelter/pet",
-    applications: baseurl + ":5001/api/application",
+    shelters: microServices.identity + "/shelter",
+    users: microServices.identity + "/user",
+    auth: microServices.identity + "/auth",
+    applications: microServices.identity + "/application",
+    pets: microServices.pets + "/shelter/pet",
 }
 
 //-------------------------------------------------------------------------\\

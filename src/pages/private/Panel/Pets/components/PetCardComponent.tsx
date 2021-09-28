@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import styled from 'styled-components'
-import { baseurl } from '../../../../../app/axiosConfig';
+import { microServices } from '../../../../../app/axiosConfig';
 import { Pet } from '../../../../../model/Model';
 
 const Card = styled.div`
@@ -76,11 +76,10 @@ function PetCardComponent(props: Props): JSX.Element {
 
     return (
         <Card>
-            <Image src={baseurl + ":5003/api/files/" + props.pet.mainPhotoId + "?bucketName=0"} />
+            <Image src={microServices.files + "/" + props.pet.mainPhotoPath + "?bucketName=0"} />
             <Info>
                 <h3>{props.pet.name}</h3>
                 <p>{date.toISOString().split('T')[0]}</p>
-                {/* <p>{props.pet.id}</p> */}
                 <BottomBar>
 
                     <EditButton to={"pets/edit/" + props.pet.id}>Edytuj</EditButton>

@@ -12,10 +12,11 @@ interface InitialState {
 
     shelter: Shelter | null,
     shelterStatus: 'idle' | 'loading' | 'failed',
-    shelterUpdateTime: number,
 
     allApplications: ShelterApplication[] | null
     shelterPhotoChangeState: 'idle' | 'loading' | 'failed',
+
+    shelterUpdateState: 'idle' | 'loading' | 'failed',
 
 }
 
@@ -25,9 +26,9 @@ const initialState: InitialState = {
     sheltersUpdateTime: 0,
     shelter: null,
     shelterStatus: 'idle',
-    shelterUpdateTime: 0,
     allApplications: null,
-    shelterPhotoChangeState: "idle"
+    shelterPhotoChangeState: "idle",
+    shelterUpdateState: "idle"
 }
 
 // async operations
@@ -40,7 +41,6 @@ export const fetchShelters = createAsyncThunk(
             return response.data;
         }
         catch (e) {
-            // console.log(e);
             return null
         }
     }
@@ -133,11 +133,9 @@ export const applyToShelter = createAsyncThunk(
     'shelters/applyToShelter',
     async (id: string) => {
         try {
-            const formData = new FormData();
-            formData.append("ShelterId", id)
             const body = { "ShelterId": id }
 
-            const response = await AxiosAuthorized.post(endpoints.applications, formData, { headers: { 'Content+Type': 'multipart/form-data', 'Content-Type': 'multipart/form-data' } })
+            const response = await AxiosAuthorized.post(endpoints.applications, body)
             return response.status
         }
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -202,7 +200,6 @@ export const shelterSlice = createSlice({
         setShelter: (state, action: PayloadAction<Shelter>) => {
             state.shelter = action.payload
             state.shelterStatus = 'idle'
-            state.shelterUpdateTime = Date.now()
         },
     },
     extraReducers: (builder) => {
@@ -228,7 +225,6 @@ export const shelterSlice = createSlice({
             .addCase(fetchShelter.fulfilled, (state, action) => {
                 state.shelter = action.payload
                 state.shelterStatus = "idle"
-                state.shelterUpdateTime = Date.now()
 
             })
             .addCase(fetchShelter.rejected, (state) => {
@@ -256,6 +252,17 @@ export const shelterSlice = createSlice({
             .addCase(updateShelterPhoto.rejected, (state) => {
                 state.shelterPhotoChangeState = "failed"
             })
+
+            //update shelter info
+            .addCase(updateShelter.pending, (state) => {
+                state.shelterUpdateState = "loading"
+            })
+            .addCase(updateShelter.fulfilled, (state, action) => {
+                state.shelterUpdateState = "idle"
+            })
+            .addCase(updateShelter.rejected, (state) => {
+                state.shelterUpdateState = "failed"
+            })
     }
 })
 
@@ -282,6 +289,11 @@ export const getShelterStatus = (state: RootState): string => {
 export const getShelterPhotoChangeStatus = (state: RootState): string => {
     return state.shelters.shelterPhotoChangeState
 }
+
+export const getUpdateShelterStatus = (state: RootState): string => {
+    return state.shelters.shelterUpdateState
+}
+
 
 
 export default shelterSlice.reducer

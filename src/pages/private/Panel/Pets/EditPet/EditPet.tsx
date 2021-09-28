@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
-import { addMultiplePhotos, deletePetPhoto, fetchPet, getMainPhotoStatus, getPet, getPetStatus, getUpdatePhotosStatus, updatePet, updatePetMainPhoto } from '../../../../../features/pets/petsSlice';
+import { addMultiplePhotos, deletePetPhoto, fetchPet, getMainPhotoStatus, getPet, getPetStatus, getPetUpdatestate, getUpdatePhotosStatus, updatePet, updatePetMainPhoto } from '../../../../../features/pets/petsSlice';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
 
@@ -23,7 +23,7 @@ import * as Yup from 'yup'
 import { useSnackbar } from 'notistack';
 import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { PATCH_Pet } from '../../../../../model/patch/PATCH_Models';
-import { baseurl } from '../../../../../app/axiosConfig';
+import { microServices } from '../../../../../app/axiosConfig';
 
 interface RouteParams {
     id: string
@@ -31,14 +31,15 @@ interface RouteParams {
 
 function EditPet(): JSX.Element {
     const { id } = useParams<RouteParams>();
-    const pet = useAppSelector(getPet)
-    const userShelter = useAppSelector(getUserActiveShelter)
     const dispatch = useAppDispatch();
     const { enqueueSnackbar } = useSnackbar()
 
+    const userShelter = useAppSelector(getUserActiveShelter)
+    const pet = useAppSelector(getPet)
     const petStatus = useAppSelector(getPetStatus)
     const mainPhotoStatus = useAppSelector(getMainPhotoStatus)
     const multiplePhotosStatus = useAppSelector(getUpdatePhotosStatus)
+    const petUpdateStatus = useAppSelector(getPetUpdatestate)
 
     async function handlePhotoDelete(petId: string, photoId: string) {
         try {
@@ -111,9 +112,9 @@ function EditPet(): JSX.Element {
                             <GridContainer>
                                 <GridItem variant="flex-row">
                                     <Thumbnail>
-                                        {pet?.mainPhotoId ?
+                                        {pet?.mainPhotoPath ?
                                             <>
-                                                <img src={baseurl + ":5003/api/files/" + pet?.mainPhotoId + "?bucketName=0"} />
+                                                <img src={microServices.files + "/" + pet?.mainPhotoPath + "?bucketName=0"} />
                                             </>
                                             :
                                             false
@@ -177,10 +178,10 @@ function EditPet(): JSX.Element {
                             </Title>
                             <GridContainer>
                                 <GridItem variant="flex-row">
-                                    {pet?.photoIds.length || 0 > 0 ?
-                                        pet.photoIds.map(id =>
+                                    {pet?.photoPaths?.length || 0 > 0 ?
+                                        pet.photoPaths.map(id =>
                                             <Thumbnail key={id}>
-                                                <img src={baseurl + ":5003/api/files/" + id + "?bucketName=0"} />
+                                                <img src={microServices.files + "/" + id + "?bucketName=0"} />
                                                 <ConfirmDialog
                                                     confirmationText="Usuąć zdjęcie?"
                                                     onAccept={() => handlePhotoDelete(pet.id, id)}
@@ -248,54 +249,62 @@ function EditPet(): JSX.Element {
                 }}
             >
                 <Form>
-                    <Title>Informacje</Title>
 
-                    <GridContainer>
+                    {petUpdateStatus == "idle" ?
+                        <>
+                            <Title>Informacje</Title>
 
-                        <GridItem>
-                            <SelectInput name="Species" label="Wybierz gatunek zwierzaka" map={petSpecies}></SelectInput>
-                        </GridItem>
+                            <GridContainer>
 
-                        <GridItem>
-                            <TextInput name="Race" label="Rasa"></TextInput>
-                        </GridItem>
+                                <GridItem>
+                                    <SelectInput name="Species" label="Wybierz gatunek zwierzaka" map={petSpecies}></SelectInput>
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="Name" type="text" label="Imię zwierzaka" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="Race" label="Rasa"></TextInput>
+                                </GridItem>
 
-                        <GridItem>
-                            <SelectInput name="Sex" label="Wybierz płeć" map={petSexes}></SelectInput>
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="Name" type="text" label="Imię zwierzaka" />
+                                </GridItem>
 
-                    </GridContainer>
+                                <GridItem>
+                                    <SelectInput name="Sex" label="Wybierz płeć" map={petSexes}></SelectInput>
+                                </GridItem>
 
-                    <Title>Podstawowe informacje</Title>
+                            </GridContainer>
 
-                    <GridContainer>
+                            <Title>Podstawowe informacje</Title>
 
-                        <GridItem>
-                            <DateInput name="DateOfBirth" label="Data Urodzenia"></DateInput>
-                        </GridItem>
+                            <GridContainer>
 
-                        <GridItem>
-                            <TextInput name="Color" label="Umaszczenie"></TextInput>
-                        </GridItem>
+                                <GridItem>
+                                    <DateInput name="DateOfBirth" label="Data Urodzenia"></DateInput>
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="Weight" type="text" label="Waga (w kg)" svg={SVG_Weight} />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="Color" label="Umaszczenie"></TextInput>
+                                </GridItem>
 
-                        <GridItem>
-                            <SelectInput name="Sterilization" label="Czy zwierzak jest wysterylizowany?" map={petSterilization}></SelectInput>
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="Weight" type="text" label="Waga (w kg)" svg={SVG_Weight} />
+                                </GridItem>
 
-                        <GridItem colspan="2">
-                            <TextArea name="Description" label="Opis"></TextArea>
-                        </GridItem>
+                                <GridItem>
+                                    <SelectInput name="Sterilization" label="Czy zwierzak jest wysterylizowany?" map={petSterilization}></SelectInput>
+                                </GridItem>
 
-                    </GridContainer>
-                    <Button type="submit">Zapisz zmiany</Button>
+                                <GridItem colspan="2">
+                                    <TextArea name="Description" label="Opis"></TextArea>
+                                </GridItem>
+
+                            </GridContainer>
+                            <Button type="submit">Zapisz zmiany</Button>
+                        </>
+                        :
+                        <LoadingComponent></LoadingComponent>
+                    }
+
                 </Form>
             </Formik>
         </>

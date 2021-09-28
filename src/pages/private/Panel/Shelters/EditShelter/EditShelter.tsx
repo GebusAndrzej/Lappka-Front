@@ -2,7 +2,7 @@ import { Form, Formik } from 'formik'
 import React, { useEffect } from 'react'
 import { useHistory, useParams } from 'react-router-dom';
 import { useAppSelector, useAppDispatch } from '../../../../../app/hooks';
-import { fetchShelter, getShelter, getShelterPhotoChangeStatus, updateShelter, updateShelterPhoto } from '../../../../../features/shelters/shelterSlice';
+import { fetchShelter, fetchShelters, getShelter, getShelterPhotoChangeStatus, getUpdateShelterStatus, updateShelter, updateShelterPhoto } from '../../../../../features/shelters/shelterSlice';
 import { Button } from '../../components/Button';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../../Pets/AddPet/AddPet.styled';
@@ -16,7 +16,7 @@ import { Thumbnail } from '../../Pets/EditPet/EditPet.styled';
 import * as Yup from 'yup';
 import { CircularProgress } from '@material-ui/core';
 import { showSnackbar } from '../../../../components/Snackbar';
-import { baseurl } from '../../../../../app/axiosConfig';
+import { microServices } from '../../../../../app/axiosConfig';
 
 
 interface RouteParams {
@@ -28,6 +28,7 @@ function EditShelter(): JSX.Element {
     const history = useHistory()
 
     const changePhotoStatus = useAppSelector(getShelterPhotoChangeStatus)
+    const updateStatus = useAppSelector(getUpdateShelterStatus)
     const dispatch = useAppDispatch()
     const { enqueueSnackbar } = useSnackbar();
 
@@ -112,7 +113,7 @@ function EditShelter(): JSX.Element {
                         <GridContainer>
                             <GridItem>
                                 <Thumbnail>
-                                    <img src={baseurl + ":5003/api/files/" + shelter.photoId + "?bucketName=2"} />
+                                    <img src={microServices.files + "/" + shelter.photoPath + "?bucketName=2"} />
                                 </Thumbnail>
                             </GridItem>
                             <GridItem>
@@ -159,8 +160,10 @@ function EditShelter(): JSX.Element {
 
                         // console.dir(res.payload);
                         if (`${res.payload}`.match(/^2..$/)) {
-                            successSnackbar()
                             dispatch(fetchUserShelters())
+                            dispatch(fetchShelters())
+                            dispatch(fetchShelter(id))
+                            successSnackbar()
                         }
                         else {
                             errorSnackbar()
@@ -172,61 +175,69 @@ function EditShelter(): JSX.Element {
                 }}
             >
                 <Form>
-                    <Title>Informacje</Title>
+                    {updateStatus == "idle" ?
+                        <>
+                            <Title>Informacje</Title>
 
-                    <GridContainer>
+                            <GridContainer>
 
-                        <GridItem>
-                            <TextInput name="name" label="Nazwa"></TextInput>
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="name" label="Nazwa"></TextInput>
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="email" type="text" label="Email" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="email" type="text" label="Email" />
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="phoneNumber" label="Telefon" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="phoneNumber" label="Telefon" />
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="bankNumber" label="numer konta bankowego"></TextInput>
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="bankNumber" label="numer konta bankowego"></TextInput>
+                                </GridItem>
 
-                    </GridContainer>
+                            </GridContainer>
 
-                    <Title>Adres</Title>
+                            <Title>Adres</Title>
 
-                    <GridContainer>
+                            <GridContainer>
 
-                        <GridItem>
-                            <TextInput name="address.street" label="Ulica" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="address.street" label="Ulica" />
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="address.city" label="Miasto" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="address.city" label="Miasto" />
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="address.zipCode" label="Kod Pocztowy" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="address.zipCode" label="Kod Pocztowy" />
+                                </GridItem>
 
-                    </GridContainer>
+                            </GridContainer>
 
-                    <Title>Geolokalizacja</Title>
+                            <Title>Geolokalizacja</Title>
 
-                    <GridContainer>
+                            <GridContainer>
 
-                        <GridItem>
-                            <TextInput name="geoLocation.latitude" label="Szer. Geograficzna" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="geoLocation.latitude" label="Szer. Geograficzna" />
+                                </GridItem>
 
-                        <GridItem>
-                            <TextInput name="geoLocation.longitude" label="Wys. Geograficzna" />
-                        </GridItem>
+                                <GridItem>
+                                    <TextInput name="geoLocation.longitude" label="Wys. Geograficzna" />
+                                </GridItem>
 
-                    </GridContainer>
+                            </GridContainer>
 
-                    <Button type="submit">Zapisz</Button>
+                            <Button type="submit">Zapisz</Button>
+
+                        </>
+                        :
+                        <LoadingComponent></LoadingComponent>
+                    }
+
                 </Form>
 
             </Formik>

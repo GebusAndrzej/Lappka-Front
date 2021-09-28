@@ -87,7 +87,11 @@ function Shelters(): JSX.Element {
             <div style={{ marginBottom: "10px" }}>
                 <Title>Schroniska</Title>
 
-                <ShelterTable shelters={shelters} edit={edit} delete={handleDeleteShelter} ></ShelterTable>
+                {sheltersStatus == "idle" ?
+                    <ShelterTable shelters={shelters} edit={edit} delete={handleDeleteShelter} ></ShelterTable>
+                    :
+                    <LoadingComponent></LoadingComponent>
+                }
 
                 <Bar variant="date">
                     <ClearLink to="/shelters/add" >
