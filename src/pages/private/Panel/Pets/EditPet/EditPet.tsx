@@ -3,27 +3,24 @@ import React, { useEffect } from 'react'
 import { useParams } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../../../../../app/hooks'
 import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
-import { addMultiplePhotos, deletePetPhoto, fetchPet, getMainPhotoStatus, getPet, getPetStatus, getPetUpdatestate, getUpdatePhotosStatus, updatePet, updatePetMainPhoto } from '../../../../../features/pets/petsSlice';
+import { fetchPet, getPet, getPetStatus, getPetUpdatestate, updatePet } from '../../../../../features/pets/petsSlice';
 import { petSexes, petSpecies, petSterilization } from '../../../../../model/SelectOptions';
 import { ReactComponent as SVG_Weight } from '../../../../../assets/svg/weight.svg';
 
 import { Button } from '../../components/Button';
 import { DateInput } from '../../components/DateInput';
-import FileInput from '../../components/FileInput';
 import SelectInput from '../../components/SelectInput';
 import TextArea from '../../components/TextArea';
 import TextInput from '../../components/TextInput';
 import { GridContainer, GridItem, Title } from '../AddPet/AddPet.styled';
 import { PetsValidation_PATCH } from '../PetsValidation';
 import LoadingComponent from '../../components/LoadingComponent';
-import { CircularProgress } from '@material-ui/core';
 import { showSnackbar } from '../../../../components/Snackbar';
-import { Thumbnail } from './EditPet.styled';
-import * as Yup from 'yup'
 import { useSnackbar } from 'notistack';
-import { ConfirmDialog } from '../../components/ConfirmDialog';
 import { PATCH_Pet } from '../../../../../model/patch/PATCH_Models';
-import { microServices } from '../../../../../app/axiosConfig';
+import EditPet_ChangeMainPhotoComponent from './components/EditPet_ChangeMainPhotoComponent';
+import EditPet_ManageMultiplePhotosComponent from './components/EditPet_ManageMultiplePhotosComponent';
+import { Hr } from '../../Sidebar/Sidebar.styled';
 
 interface RouteParams {
     id: string
@@ -37,26 +34,9 @@ function EditPet(): JSX.Element {
     const userShelter = useAppSelector(getUserActiveShelter)
     const pet = useAppSelector(getPet)
     const petStatus = useAppSelector(getPetStatus)
-    const mainPhotoStatus = useAppSelector(getMainPhotoStatus)
-    const multiplePhotosStatus = useAppSelector(getUpdatePhotosStatus)
     const petUpdateStatus = useAppSelector(getPetUpdatestate)
 
-    async function handlePhotoDelete(petId: string, photoId: string) {
-        try {
-            const res = await dispatch(deletePetPhoto({ petId: petId, photoId: photoId }))
-            if (`${res.payload}`.match(/^2..$/)) {
-                dispatch(fetchPet(id))
 
-                showSnackbar(enqueueSnackbar, null, "Usunięto zdjęcie", "success")
-            }
-            else {
-                showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
-            }
-        }
-        catch (e) {
-            console.error(e)
-        }
-    }
 
 
     useEffect(() => {
@@ -73,141 +53,15 @@ function EditPet(): JSX.Element {
     return (
         <>
             {/* Change main photo */}
-            <Formik
-                enableReinitialize={true}
-                initialValues={{
-                    id: pet.id,
-                    photo: "",
-                }}
-                validationSchema={Yup.object({
-                    id: Yup.string().required("Wymagane"),
-                    photo: Yup.string().required("Wymagane")
-                })}
-                onSubmit={async (values) => {
-                    //update main photo
-                    try {
-                        const res = await dispatch(updatePetMainPhoto(values))
+            <EditPet_ChangeMainPhotoComponent></EditPet_ChangeMainPhotoComponent>
 
-                        if (`${res.payload}`.match(/^2..$/)) {
-                            dispatch(fetchPet(id))
-
-                            showSnackbar(enqueueSnackbar, null, "Zmieniono zdjęcie", "success")
-                        }
-                        else {
-                            showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
-
-                        }
-                    }
-                    catch (e) {
-                        console.error(e)
-                    }
-                }}
-            >
-                {id ?
-                    mainPhotoStatus == "idle" ?
-                        <Form>
-                            <Title>
-                                Zmień zdjęcie główne
-                            </Title>
-                            <GridContainer>
-                                <GridItem variant="flex-row">
-                                    <Thumbnail>
-                                        {pet?.mainPhotoPath ?
-                                            <>
-                                                <img src={microServices.files + "/" + pet?.mainPhotoPath + "?bucketName=0"} />
-                                            </>
-                                            :
-                                            false
-                                        }
-                                    </Thumbnail>
-                                </GridItem>
-                                <GridItem>
-                                    <FileInput name="photo" label="Wybierz nowe zdjęcie" type="file" accept="image/*"></FileInput>
-                                    <Button type="submit" >Zapisz</Button>
-                                </GridItem>
-                            </GridContainer>
-                        </Form>
-                        :
-                        <CircularProgress></CircularProgress>
-                    :
-                    <CircularProgress></CircularProgress>
-
-                }
-            </Formik>
-
-            <hr />
+            <Hr variant="green" />
 
             {/* more photos */}
-            <Formik
-                enableReinitialize={true}
-                initialValues={{
-                    id: pet.id,
-                    photo: '',
-                }}
-                validationSchema={Yup.object({
-                    id: Yup.string().required("Wymagane"),
-                    photo: Yup.string().required("Wymagane")
-                })}
-                onSubmit={async (values) => {
-                    //send photos
-                    try {
-                        const res = await dispatch(addMultiplePhotos(values))
+            <EditPet_ManageMultiplePhotosComponent></EditPet_ManageMultiplePhotosComponent>
 
-                        if (`${res.payload}`.match(/^2..$/)) {
-                            dispatch(fetchPet(id))
 
-                            showSnackbar(enqueueSnackbar, null, "Dodano zdjęcia", "success")
-                        }
-                        else {
-                            showSnackbar(enqueueSnackbar, null, "Wystąpił błąd", "error")
-
-                        }
-                    }
-                    catch (e) {
-                        console.error(e)
-                    }
-                }}
-            >
-                {!id ?
-                    <CircularProgress></CircularProgress>
-                    :
-                    multiplePhotosStatus == "idle" ?
-                        <Form>
-                            <Title>
-                                Reszta zdjęć
-                            </Title>
-                            <GridContainer>
-                                <GridItem variant="flex-row">
-                                    {pet?.photoPaths?.length || 0 > 0 ?
-                                        pet.photoPaths.map(id =>
-                                            <Thumbnail key={id}>
-                                                <img src={microServices.files + "/" + id + "?bucketName=0"} />
-                                                <ConfirmDialog
-                                                    confirmationText="Usuąć zdjęcie?"
-                                                    onAccept={() => handlePhotoDelete(pet.id, id)}
-                                                    component={({ handleShowModal }: any) =>
-                                                        <figcaption onClick={handleShowModal}>X</figcaption>
-                                                    }
-                                                />
-                                            </Thumbnail>
-                                        )
-                                        :
-                                        <div>Brak zdjęć</div>
-                                    }
-                                </GridItem>
-                                <GridItem>
-                                    <FileInput name="photo" label="Wybierz zdjęcia" type="file" multiple accept="image/*"></FileInput>
-                                    <Button type="submit" >Dodaj zdjęcia</Button>
-                                </GridItem>
-
-                            </GridContainer>
-                        </Form>
-                        :
-                        <CircularProgress></CircularProgress>
-                }
-            </Formik>
-
-            <hr />
+            <Hr variant="green" />
 
             {/* Pet info */}
             <Formik
