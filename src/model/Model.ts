@@ -5,7 +5,7 @@ export interface Shelter {
     geoLocation: GeoLocation;
     phoneNumber: string;
     email: string;
-    photoId?: string;
+    photoPath?: string;
     bankNumber: string;
 }
 
@@ -20,8 +20,8 @@ export interface Pet {
     sex: number;
     species: number;
     race: string;
-    mainPhotoId: string;
-    photoIds: string[];
+    mainPhotoPath: string;
+    photoPaths: string[];
     birthDay: Date;
     color: string;
     weight: number;

@@ -93,11 +93,11 @@ export const login = createAsyncThunk(
             thunkAPI.dispatch(fetchUserInfo(id))
             thunkAPI.dispatch(fetchUserShelters())
 
-            return response.data;
+            return response.status;
         }
-        catch (e) {
-            console.log(e);
-            return thunkAPI.rejectWithValue({ error: e });
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        catch (e: any) {
+            return e.response.data
         }
     }
 )
@@ -204,8 +204,9 @@ export const authSlice = createSlice({
             .addCase(login.fulfilled, (state, action) => {
                 state.loginState = "idle"
                 state.auth = action.payload //get whole payload
-                const token = action.payload.accessToken
-                state.tokenInfo = JSON.parse(atob(token.split('.')[1]));    //parse info inside token
+                const token = action.payload.accessToken ?? null
+                if (token)
+                    state.tokenInfo = (JSON.parse(atob(token.split('.')[1]))) || null;    //parse info inside token
             })
 
             // ==================== REFRESH ==================== 

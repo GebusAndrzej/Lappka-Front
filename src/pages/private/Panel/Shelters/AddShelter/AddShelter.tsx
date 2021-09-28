@@ -103,7 +103,7 @@ function AddShelter(): JSX.Element {
                         </GridItem>
 
                         <GridItem>
-                            <FileInput name="Photo" label="Dodaj zdjęcie / galerię" type="file" multiple accept="image/*" />
+                            <FileInput name="Photo" label="Dodaj zdjęcie / galerię" type="file" accept="image/*" />
                         </GridItem>
 
                     </GridContainer>

@@ -35,7 +35,7 @@ function Dashboard(): JSX.Element {
         if (userShelter) {
             dispatch(fetchShelterPets(userShelter.id))
         }
-    }, [userShelter])
+    }, [userShelter, userShelter.id])
 
     return (
         <>
