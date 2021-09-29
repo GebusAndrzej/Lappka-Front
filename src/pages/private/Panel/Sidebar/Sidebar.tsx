@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { ButtonBox, Fixed, Hr, Logo, Nav, Close, LogoutButton } from './Sidebar.styled'
 import ButtonNavLink from './components/ButtonNavLink'
 
@@ -10,9 +10,11 @@ import { ReactComponent as SVG_Logout } from '../../../../assets/svg/logout.svg'
 import { ReactComponent as SVG_Close } from '../../../../assets/svg/close.svg';
 import { Avatar, Company, Name, UserBox } from '../TitleBar/TitleBar.styled';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
-import { getUserInfo, logout } from '../../../../features/auth/authSlice';
+import { getUserActiveShelter, getUserInfo, logout } from '../../../../features/auth/authSlice';
 import { useHistory } from 'react-router';
 import { Roles } from '../../../../model/Const';
+import { fetchShelterUnreadMessageCount } from '../../../../features/messages/messageAsync';
+import { getShelterUnreadMessageCount } from '../../../../features/messages/messageSlice';
 
 interface Props {
     state: string;
@@ -22,8 +24,17 @@ interface Props {
 
 function Sidebar(props: Props): JSX.Element {
     const userInfo = useAppSelector(getUserInfo)
+    const userShelter = useAppSelector(getUserActiveShelter)
+    const unreadMessages = useAppSelector(getShelterUnreadMessageCount)
+
     const dispatch = useAppDispatch()
     const history = useHistory()
+
+    useEffect(() => {
+        if (userShelter) {
+            dispatch(fetchShelterUnreadMessageCount(userShelter?.id + ""))
+        }
+    }, [userShelter])
 
     function handleLogout() {
         console.log("logout")
@@ -55,7 +66,7 @@ function Sidebar(props: Props): JSX.Element {
                         </div>
                     </UserBox>
                     <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard" role={Roles.user}></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user} badge={unreadMessages + ""}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt" role={Roles.user}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat" role={Roles.user}></ButtonNavLink>
 

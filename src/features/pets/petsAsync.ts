@@ -1,6 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AxiosAuthorized, microServices } from "../../app/axiosConfig";
-import { Pet } from "../../model/Model";
 
 export const deletePet = createAsyncThunk(
     "pets/deletePet",

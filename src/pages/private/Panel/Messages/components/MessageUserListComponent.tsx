@@ -1,8 +1,14 @@
+import { CircularProgress } from '@material-ui/core';
 import React from 'react'
 import { useHistory } from 'react-router';
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components'
-// import { defaultTheme } from '../../../../../static/cssStatic';
+import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
+import { getUserActiveShelter } from '../../../../../features/auth/authSlice';
+import { fetchShelterMessages, fetchShelterUnreadMessageCount } from '../../../../../features/messages/messageAsync';
+import { getShelterMessages } from '../../../../../features/messages/messageSlice';
+import { ReactComponent as SVG_Messages } from '../../../../../assets/svg/message.svg';
+
 
 const Wrapper = styled.div<{ status?: "mobile-hidden" | "normal" }>`
     display:flex;
@@ -152,35 +158,45 @@ interface RouteParams {
 }
 
 function MessageUserListComponent(props: Props & RouteParams): JSX.Element {
-    const history = useHistory()
     const { id } = useParams<RouteParams>();
+    const dispatch = useAppDispatch()
+    const history = useHistory()
 
+    const userShelter = useAppSelector(getUserActiveShelter)
+    const shelterMessages = useAppSelector(getShelterMessages)
 
     function handleClick(x: string) {
-        // props.changeUser(x)
-        // const width = defaultTheme.break.tablet
+        if (userShelter?.id != undefined) {
+            dispatch(fetchShelterUnreadMessageCount(userShelter?.id + ""))
+        }
+
         history.push(`/messages/${x}`)
+    }
+
+    if (!shelterMessages) {
+        return <CircularProgress></CircularProgress>
     }
 
 
     return (
         <Wrapper status={props.state}>
-            {[1, 2, 3, 0, 4, 5, 6, 7, 8].map(x => {
+            {shelterMessages.map(x => {
                 return (
-                    <ChatItem key={x} className={id == `${x}` ? "active" : ""} onClick={() => handleClick(`${x}`)}>
+                    <ChatItem key={x.id} className={id == `${x.id}` ? "active" : ""} onClick={() => handleClick(`${x.id}`)}>
                         <figure>
-                            <img src="/assets/Homepage/avatars/avatar1.webp" />
+                            <SVG_Messages />
                         </figure>
                         <Preview>
-                            <User>{"Janusz".substr(0, 20)}</User>
-                            <Message>{`Cześć ${x}`.substr(0, 32)}</Message>
+                            <User>{x.fullName.substr(0, 20)}</User>
+                            <Message>{`${x.description}`.substr(0, 32)}</Message>
                         </Preview>
                         <Meta>
-                            <Time>08:{x}0</Time>
-                            {x % 3 == 0 ?
-                                false
+                            <Time>{ }</Time>
+
+                            {x.isRead ?
+                                null
                                 :
-                                <Badge>{x}{x % 2 == 0 ? "+" : ""}</Badge>
+                                <Badge>!</Badge>
                             }
                         </Meta>
                     </ChatItem>)

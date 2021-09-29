@@ -46,3 +46,14 @@ export interface ShelterApplication {
     status: number;
     creationDate: Date;
 }
+
+export interface Message {
+    id: string;
+    userId: string;
+    shelterId: string;
+    description: string;
+    fullName: string;
+    phoneNumber: string;
+    createdAt: Date;
+    isRead: boolean
+}

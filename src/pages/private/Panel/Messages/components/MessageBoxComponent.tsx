@@ -1,10 +1,14 @@
-import { Form, Formik } from 'formik';
-import React from 'react'
+// import { Form, Formik } from 'formik';
+// import TextInput from '../../components/TextInput';
+// import { ReactComponent as SVG_Send } from '../../../../../assets/svg/send.svg';
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import styled, { css } from 'styled-components'
-import TextInput from '../../components/TextInput';
-import { ReactComponent as SVG_Send } from '../../../../../assets/svg/send.svg';
 import Message from './Message';
+import { useAppDispatch, useAppSelector } from '../../../../../app/hooks';
+import { fetchShelterMessage } from '../../../../../features/messages/messageAsync';
+import { getMessage } from '../../../../../features/messages/messageSlice';
+
 
 
 const Box = styled.div<{ variant: "normal" | "tablet-hidden" | "hidden" }>`
@@ -119,38 +123,41 @@ interface RouteParams {
 
 function MessageBoxComponent(props: Props & RouteParams): JSX.Element {
     const { id } = useParams<RouteParams>();
+    const message = useAppSelector(getMessage)
+
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        if (id) {
+            dispatch(fetchShelterMessage(id + ""))
+        }
+    }, [id])
+
+    if (!message) {
+        return <></>
+    }
 
     return (
         <Box variant={props.state}>
             <Header>
                 <Avatar>
-                    <img src="/assets/Homepage/avatars/avatar1.webp" />
+                    {/* <img src="/assets/Homepage/avatars/avatar1.webp" /> */}
                 </Avatar>
                 <UserName>
-                    {id}
+                    {message.fullName}
                 </UserName>
             </Header>
 
             <MessagesBox>
-                <Message type="self" message="Hej znalazłem psa"></Message>
-                <Message type="other" message="Żyje?"></Message>
-                <Message type="self" message="Nie"></Message>
+                <Message type="other" message={message.description} date={message.createdAt}></Message>
 
-                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
+                {/* <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
                 <Message type="other" message="Żyje?"></Message>
-                <Message type="self" message="Nie"></Message>
-
-                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
-                <Message type="other" message="Żyje?"></Message>
-                <Message type="self" message="Nie"></Message>
-
-                <Message type="self" prev="self" message="Hej znalazłem psa"></Message>
-                <Message type="other" message="Żyje?"></Message>
-                <Message type="self" message="Nie"></Message>
+                <Message type="self" message="Nie"></Message> */}
 
             </MessagesBox>
 
-            <Footer>
+            {/* <Footer>
                 <Formik
                     initialValues={{
                         message: ''
@@ -168,7 +175,7 @@ function MessageBoxComponent(props: Props & RouteParams): JSX.Element {
                     </Form>
 
                 </Formik>
-            </Footer>
+            </Footer> */}
 
         </Box >
     )

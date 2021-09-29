@@ -8,7 +8,7 @@ export const microServices = {
     identity: baseurl + ":5001/api/identity",
     pets: baseurl + ":5002/api/pets",
     files: baseurl + ":5003/api/files",
-    communication: baseurl + "5004/api/communication"
+    communication: baseurl + ":5004/api/communication"
 }
 
 export const endpoints = {
@@ -17,6 +17,7 @@ export const endpoints = {
     auth: microServices.identity + "/auth",
     applications: microServices.identity + "/application",
     pets: microServices.pets + "/shelter/pet",
+    messages: microServices.communication + "/message"
 }
 
 //-------------------------------------------------------------------------\\

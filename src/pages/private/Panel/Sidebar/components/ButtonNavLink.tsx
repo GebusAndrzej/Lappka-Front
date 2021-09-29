@@ -1,4 +1,5 @@
 import React, { FunctionComponent } from 'react'
+import styled from 'styled-components'
 import { useAppSelector } from '../../../../../app/hooks'
 import { getUserInfo } from '../../../../../features/auth/authSlice'
 import { Roles } from '../../../../../model/Const'
@@ -10,7 +11,20 @@ interface Props {
     svg?: FunctionComponent;
     exact?: boolean;
     role?: string;
+    badge?: string
 }
+
+const Badge = styled.div`
+    position: absolute;
+    top:0;
+    border-radius: 50%;
+    width:15px;
+    height:15px;
+    line-height: 15px;
+    font-size: 70%;
+    background-color: red;
+    color:white;
+`;
 
 export default function ButtonNavLink(props: Props): JSX.Element {
     const user = useAppSelector(getUserInfo)
@@ -29,7 +43,14 @@ export default function ButtonNavLink(props: Props): JSX.Element {
                     }
 
                 </figure>
+
                 {props.name}
+                {(props.badge && (+props.badge > 0)) ?
+                    <Badge>{props.badge}</Badge>
+                    :
+                    false
+                }
+
             </Button>
         )
     return <></>
