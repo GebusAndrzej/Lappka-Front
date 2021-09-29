@@ -70,6 +70,7 @@ export const ButtonBox = styled.div`
 `;
 
 export const Button = styled(NavLink)`
+    position: relative;
     display:block;
     width:214px;
     height:45px;

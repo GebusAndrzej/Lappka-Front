@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../../../app/hooks';
+import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUserActiveShelter } from '../../../../features/auth/authSlice';
+import { fetchShelterMessages } from '../../../../features/messages/messageAsync';
 import NoShelterComponent from '../components/NoShelterComponent';
 import MessageBoxComponent from './components/MessageBoxComponent'
 import MessageUserListComponent from './components/MessageUserListComponent'
@@ -16,15 +17,14 @@ function MessagesComponent(): JSX.Element {
     // const [activeUser, setActiveUser] = useState("");
     const { id } = useParams<RouteParams>();
     const userShelter = useAppSelector(getUserActiveShelter)
+    const dispatch = useAppDispatch()
 
-    // function updateUser(x: string) {
-    //     // setActiveUser(x)
-    // }
+    useEffect(() => {
+        if (userShelter) {
+            dispatch(fetchShelterMessages(userShelter?.id + ""))
+        }
+    }, [userShelter])
 
-    // const p = [
-    //     { name: "Jan" }
-    // ]
-    console.log(userShelter);
 
     if (!userShelter) {
         return <NoShelterComponent></NoShelterComponent>

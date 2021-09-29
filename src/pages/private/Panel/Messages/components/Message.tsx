@@ -1,5 +1,7 @@
 import React from 'react'
 import styled, { css } from 'styled-components'
+import { ReactComponent as SVG_Messages } from '../../../../../assets/svg/message.svg';
+
 
 const MsgWrapper = styled.div<{ type: "self" | "other" }>`
     width:100%;
@@ -36,11 +38,12 @@ const Avatar = styled.figure`
 `
 
 const Msg = styled.div<{ type: "self" | "other" }>`
+    position: relative;
     margin-top: 25px;
     min-width:20px;
     min-height:20px;
     padding:14px;
-    max-width: 60%;
+    max-width: 80%;
     font-style: normal;
     font-weight: 500;
     font-size: 14px;
@@ -59,23 +62,46 @@ const Msg = styled.div<{ type: "self" | "other" }>`
 
     `}
 `
+export const DateField = styled.div<{ type: "self" | "other" }>`
+    font-size: 70%;
+    position: absolute;
+    bottom:0px;
+    
+    ${(props) => props.type == "self" && css`
+    
+    `}
+    ${(props) => props.type == "other" && css`
+        right:10px;
+    `}
+`;
 
 interface Props {
     type: "self" | "other";
     message: string,
     prev?: "self" | "other";
+    date?: Date
 }
 
 function Message(props: Props): JSX.Element {
+
+    const date = props.date ? new Date(props.date) : null;
+
     return (
         <MsgWrapper type={props.type}>
             {!(props.prev != undefined) ?
                 <Avatar>
-                    <img src="/assets/Homepage/avatars/avatar1.webp" />
+                    <SVG_Messages />
                 </Avatar>
                 : <Avatar></Avatar>}
             <Msg type={props.type}>
                 {props.message}
+                <DateField type={props.type}>
+                    {date ?
+                        date.toLocaleString()
+                        :
+                        null
+                    }
+                </DateField>
             </Msg>
         </MsgWrapper>
     )

@@ -101,6 +101,7 @@ const LoginPanel = (props: TSProps): JSX.Element => {
                 }
                 catch (e) {
                     console.error(e)
+                    showSnackbar(enqueueSnackbar, null, "Wystąpił błąd. Spróbuj ponownie później", "error")
                 }
 
 
