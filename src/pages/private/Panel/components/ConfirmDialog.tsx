@@ -43,6 +43,15 @@ const ValidationText = styled.div`
     color:red;
 `
 
+const DeleteInput = styled.input`
+    color:red;
+    border-radius: 5px;
+    padding:10px;
+    border-color:red;
+    outline: red;
+    border-style: solid;
+`
+
 // interface Props {
 //     onAccept: () => void,
 //     component: ReactChild,
@@ -85,7 +94,7 @@ export const ConfirmDialog = ({ onAccept, component, confirmationText, validatio
                         <>
                             <ButtonBox>Aby usunąć przepisz: <ValidationText>{validationText}</ValidationText></ButtonBox>
                             <ButtonBox>
-                                <input
+                                <DeleteInput
                                     name="input"
                                     type="text"
                                     value={input}
