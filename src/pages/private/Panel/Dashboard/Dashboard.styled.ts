@@ -116,7 +116,8 @@ export const ItemWrapper = styled.div<{ variant?: "date" | "first-row" | "full-w
 
     ${(props) => props.variant == "first-row" && css`
         border-radius: 20px;
-        width:22.5%;
+        /* width:22.5%; */
+        width: 32%;
         height:97px;
         display:flex;
         flex-direction: row;
