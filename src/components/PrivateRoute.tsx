@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Route, RouteProps, useHistory } from 'react-router';
-import { useAppDispatch } from '../app/hooks';
-import { fetchUserInfo, refreshAuth, User } from '../features/auth/authSlice';
+import { useAppDispatch, useAppSelector } from '../app/hooks';
+import { fetchUserInfo, getUserInfo, refreshAuth, User } from '../features/auth/authSlice';
 import { readToken } from '../features/localStorageService';
 import { Roles } from '../model/Const';
 
@@ -10,7 +10,7 @@ export type ProtectedRouteProps = {
 } & RouteProps;
 
 export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.Element {
-    // const user = useAppSelector(getUserInfo)
+    const user = useAppSelector(getUserInfo)
     const history = useHistory()
     const [isLoading, setIsLoading] = useState(true)
     const dispatch = useAppDispatch()
@@ -24,17 +24,20 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
                 return;
             }
 
-            //login
-            dispatch(refreshAuth(token)).then((x) => {
+            if (!user) {
+                //login
+                dispatch(refreshAuth(token)).then((x) => {
 
-                const temp = (JSON.parse(atob(x.payload.accessToken.split('.')[1])));
+                    const temp = (JSON.parse(atob(x.payload.accessToken.split('.')[1])));
 
-                dispatch(fetchUserInfo(temp.sub)).then(() => {
-                    // console.log(y.payload)
-                    checkRole(x.payload)
+                    dispatch(fetchUserInfo(temp.sub)).then(() => {
+                        // console.log(y.payload)
+                        checkRole(x.payload)
+                    })
+
                 })
+            }
 
-            })
         }
         function checkRole(user: User | null) {
             // console.log("Checking role");
@@ -66,7 +69,7 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
         }
 
         checkUserStatus()
-    }, [])
+    }, [user])
 
 
     if (isLoading) {

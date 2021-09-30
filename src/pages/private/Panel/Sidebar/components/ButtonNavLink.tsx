@@ -11,7 +11,7 @@ interface Props {
     svg?: FunctionComponent;
     exact?: boolean;
     role?: string;
-    badge?: string
+    badge?: number
 }
 
 const Badge = styled.div`

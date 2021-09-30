@@ -110,7 +110,7 @@ function EditShelter(): JSX.Element {
                         <GridContainer>
                             <GridItem>
                                 <Thumbnail>
-                                    <img src={baseurl + ":5003/api/files/" + shelter.photoId + "?bucketName=2"} />
+
                                 </Thumbnail>
                             </GridItem>
                             <GridItem>

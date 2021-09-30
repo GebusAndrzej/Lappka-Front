@@ -1,3 +1,5 @@
+import { User } from "../features/auth/authSlice";
+
 export interface Shelter {
     id: string;
     name: string;
@@ -41,8 +43,8 @@ export interface GeoLocation {
 
 export interface ShelterApplication {
     id: string;
-    userId: string;
-    shelterId: string;
+    shelter: Shelter;
+    user: User;
     status: number;
     creationDate: Date;
 }

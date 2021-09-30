@@ -10,9 +10,10 @@ import { useSnackbar, OptionsObject } from 'notistack';
 import LoadingComponent from '../../components/LoadingComponent';
 import { PATCH_ShelterValidation } from '../SheltersValidation';
 import { PATCH_Shelter } from '../../../../../model/patch/PATCH_Models';
-import { fetchUserShelters } from '../../../../../features/auth/authSlice';
+import { fetchUserShelters, getUserInfo } from '../../../../../features/auth/authSlice';
 import { Hr } from '../../Sidebar/Sidebar.styled';
 import EditShelter_ChangeMainPhoto from './components/EditShelter_ChangeMainPhoto';
+import { Roles } from '../../../../../model/Const';
 
 
 
@@ -23,6 +24,7 @@ interface RouteParams {
 function EditShelter(): JSX.Element {
     const shelter = useAppSelector(getShelter)
     const history = useHistory()
+    const user = useAppSelector(getUserInfo)
 
     const updateStatus = useAppSelector(getUpdateShelterStatus)
     const dispatch = useAppDispatch()
@@ -43,7 +45,12 @@ function EditShelter(): JSX.Element {
                 vertical: 'bottom',
                 horizontal: 'center'
             },
-            action: (x) => (useEffect(() => (history.push("/shelters")), [x]))
+            action: (x) => (useEffect(() => {
+                if (user?.role == Roles.admin)
+                    history.push("/shelters")
+                else
+                    history.push("/dashboard")
+            }, [x]))
         }
         enqueueSnackbar('Pomyślnie zedytowano informacje', x);
     }

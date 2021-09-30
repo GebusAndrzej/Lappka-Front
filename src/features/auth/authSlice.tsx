@@ -170,7 +170,6 @@ export const authSlice = createSlice({
 
     reducers: {
         logout(state) {
-            console.log("clearing");
             state.auth = null
             state.tokenInfo = null
             state.user = null

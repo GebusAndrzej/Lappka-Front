@@ -15,6 +15,7 @@ import { useHistory } from 'react-router';
 import { Roles } from '../../../../model/Const';
 import { fetchShelterUnreadMessageCount } from '../../../../features/messages/messageAsync';
 import { getShelterUnreadMessageCount } from '../../../../features/messages/messageSlice';
+import { fetchAllShelterApplications, getAllShelterApplications } from '../../../../features/shelters/shelterSlice';
 
 interface Props {
     state: string;
@@ -26,11 +27,20 @@ function Sidebar(props: Props): JSX.Element {
     const userInfo = useAppSelector(getUserInfo)
     const userShelter = useAppSelector(getUserActiveShelter)
     const unreadMessages = useAppSelector(getShelterUnreadMessageCount)
+    const applications = useAppSelector(getAllShelterApplications)
 
     const dispatch = useAppDispatch()
     const history = useHistory()
 
     useEffect(() => {
+        //get appliactions only if admin
+        if (userInfo?.role == Roles.admin) {
+            dispatch(fetchAllShelterApplications())
+        }
+    }, [])
+
+    useEffect(() => {
+        //get unread messages
         if (userShelter) {
             dispatch(fetchShelterUnreadMessageCount(userShelter?.id + ""))
         }
@@ -66,11 +76,11 @@ function Sidebar(props: Props): JSX.Element {
                         </div>
                     </UserBox>
                     <ButtonNavLink svg={SVG_Dashboard} to="/dashboard" name="Dashboard" role={Roles.user}></ButtonNavLink>
-                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user} badge={unreadMessages + ""}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Messages} to="/messages" exact={false} name="Wiadomości" role={Roles.user} badge={unreadMessages}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Pets} to="/pets" exact={false} name="Karty zwiarząt" role={Roles.user}></ButtonNavLink>
                     <ButtonNavLink svg={SVG_Volounteering} to="/volounteering" name="Wolontariat" role={Roles.user}></ButtonNavLink>
 
-                    <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska" role={Roles.admin}></ButtonNavLink>
+                    <ButtonNavLink svg={SVG_Pets} to="/shelters" exact={false} name="Schroniska" role={Roles.admin} badge={applications?.length}></ButtonNavLink>
 
 
                     <LogoutButton onClick={() => handleLogout()}>
