@@ -1,6 +1,7 @@
 import { useSnackbar } from 'notistack';
 import React, { useEffect } from 'react'
 import { useParams } from 'react-router-dom';
+import styled, { css } from 'styled-components';
 import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { acceptShelterApplication, declineShelterApplication, fetchAllShelterApplications, fetchShelter, getAllShelterApplications, getShelter } from '../../../../features/shelters/shelterSlice';
 import { showSnackbar } from '../../../components/Snackbar';
@@ -8,6 +9,40 @@ import { showSnackbar } from '../../../components/Snackbar';
 interface RouteParams {
     id: string
 }
+
+const Item = styled.td`
+    padding:15px;
+`;
+const Table = styled.table`
+    border-collapse: collapse;
+    width:100%;
+
+    thead tr {
+        background-color: ${props => props.theme.colors.green};
+        td {
+            padding:5px;
+            color:white;
+            text-align:center;
+        }
+    }
+    tr{
+        td{
+            text-align:center;
+        }
+    }
+`
+const Button = styled.td<{ variant: "green" | "red" }>`
+    padding:15px;
+    border-radius: 5px;
+    color:white;
+
+    ${(props) => props.variant == "green" && css`
+        background-color: ${props => props.theme.colors.green};
+    `};
+    ${(props) => props.variant == "red" && css`
+        background-color: #9f0505;
+    `};
+`;
 
 function ReviewShelterApplicationcomponent(): JSX.Element {
     const dispatch = useAppDispatch()
@@ -56,23 +91,40 @@ function ReviewShelterApplicationcomponent(): JSX.Element {
 
     return (
         <div>
-            {shelter?.name}
+            {shelter?.name ? `Schronisko ${shelter.name}` : null}
 
-            <table>
-
+            <Table>
+                <thead>
+                    <tr>
+                        <td>Użytkownik</td>
+                        <td></td>
+                        <td>Schronisko</td>
+                        <td>Status</td>
+                        <td></td>
+                        <td></td>
+                    </tr>
+                </thead>
                 {id ?
                     // filtered by id
-                    applications.filter(x => { return x.shelterId == id }).map(a => {
+                    applications.filter(x => { return x.shelter.id == id }).map(a => {
                         return <tr key={a.id}>
+                            <Item>
+                                {a.user.firstName} {a.user.lastName}
+                            </Item>
                             <td>
-                                {a.userId} {'->'} {a.shelterId} {a.status}
-
+                                {'->'}
+                            </td>
+                            <Item>
+                                {a.shelter.name}
+                            </Item>
+                            <td>
+                                {a.status == 0 ? "Oczekujące" : (a.status == 1 ? "Zaakceptowane" : "Odrzucone")}
                             </td>
                             <td>
-                                <button onClick={() => accept(a.id)}>Zaakceptuj</button>
+                                <Button variant="green" onClick={() => accept(a.id)}>Zaakceptuj</Button>
                             </td>
                             <td>
-                                <button onClick={() => decline(a.id)}>Odrzuć</button>
+                                <Button variant="red" onClick={() => decline(a.id)}>Odrzuć</Button>
                             </td>
                         </tr>
                     })
@@ -81,8 +133,16 @@ function ReviewShelterApplicationcomponent(): JSX.Element {
                     applications.map(a => {
                         return <tr key={a.id}>
                             <td>
-                                {a.userId} {'->'} {a.shelterId} {a.status}
-
+                                {a.user.firstName}
+                            </td>
+                            <td>
+                                {'->'}
+                            </td>
+                            <td>
+                                {a.shelter.name}
+                            </td>
+                            <td>
+                                {a.status == 0 ? "Oczekujące" : (a.status == 1 ? "Zaakceptowane" : "Odrzucone")}
                             </td>
                             <td>
                                 <button onClick={() => accept(a.id)}>Zaakceptuj</button>
@@ -95,7 +155,7 @@ function ReviewShelterApplicationcomponent(): JSX.Element {
                 }
 
 
-            </table>
+            </Table>
         </div>
     )
 }

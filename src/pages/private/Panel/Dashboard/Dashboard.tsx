@@ -18,12 +18,14 @@ import { useAppDispatch, useAppSelector } from '../../../../app/hooks';
 import { getUserActiveShelter } from '../../../../features/auth/authSlice';
 import NoShelterComponent from '../components/NoShelterComponent';
 import { fetchShelterPets, getPets } from '../../../../features/pets/petsSlice';
+import { getShelterUnreadMessageCount } from '../../../../features/messages/messageSlice';
 
 
 function Dashboard(): JSX.Element {
     // const [startDate, setStartDate] = useState(new Date());
     const dispatch = useAppDispatch()
     const userShelter = useAppSelector(getUserActiveShelter)
+    const unreadMessages = useAppSelector(getShelterUnreadMessageCount)
 
     const pets = useAppSelector(getPets)
 
@@ -63,7 +65,7 @@ function Dashboard(): JSX.Element {
                 <Bar variant="first-row">
                     <FirstRowItem svg={SVG_Pets} title="Karty zwierząt" value={pets.length + ""} />
                     <FirstRowItem svg={SVG_Stats} title="Obejrzenia" value="12" />
-                    <FirstRowItem svg={SVG_Messages} title="Wiadomości" value="0" />
+                    <FirstRowItem svg={SVG_Messages} title="Nowe Wiadomości" value={unreadMessages + ""} />
                     {/* <FirstRowItem svg={SVG_Volounteering} title="Wolontariat" value="1359 zł" /> */}
                 </Bar>
 
