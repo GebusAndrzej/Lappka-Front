@@ -38,7 +38,6 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
                 })
             }
 
-
         }
         function checkRole(user: User | null) {
             // console.log("Checking role");
@@ -70,7 +69,7 @@ export default function ProtectedRoute({ ...props }: ProtectedRouteProps): JSX.E
         }
 
         checkUserStatus()
-    }, [])
+    }, [user])
 
 
     if (isLoading) {

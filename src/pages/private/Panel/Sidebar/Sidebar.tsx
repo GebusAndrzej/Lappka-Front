@@ -33,10 +33,14 @@ function Sidebar(props: Props): JSX.Element {
     const history = useHistory()
 
     useEffect(() => {
-        dispatch(fetchAllShelterApplications())
+        //get appliactions only if admin
+        if (userInfo?.role == Roles.admin) {
+            dispatch(fetchAllShelterApplications())
+        }
     }, [])
 
     useEffect(() => {
+        //get unread messages
         if (userShelter) {
             dispatch(fetchShelterUnreadMessageCount(userShelter?.id + ""))
         }
