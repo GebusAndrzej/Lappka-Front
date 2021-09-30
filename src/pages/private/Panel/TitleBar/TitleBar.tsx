@@ -1,4 +1,5 @@
 import React from 'react'
+import { useHistory } from 'react-router';
 import { microServices } from '../../../../app/axiosConfig';
 import { useAppSelector } from '../../../../app/hooks';
 
@@ -17,6 +18,7 @@ interface Props {
 export default function TitleBar(props: Props): JSX.Element {
     const userInfo = useAppSelector(getUserInfo)
     const userShelter = useAppSelector(getUserActiveShelter)
+    const history = useHistory()
 
     function MenuToggle() {
         props.toggle()
@@ -48,7 +50,7 @@ export default function TitleBar(props: Props): JSX.Element {
                 <div>
                     <Name>{userInfo?.firstName} {userInfo?.lastName.substr(0, 1)}.</Name>
                     {/* <Company>{JSON.stringify(userShelter)}</Company> */}
-                    <Company>{userShelter?.name ?? "Brak schroniska"}</Company>
+                    <Company onClick={() => userShelter ? history.push("/shelter/edit") : null}>{userShelter?.name ?? "Brak schroniska"}</Company>
                 </div>
             </UserBox>
 

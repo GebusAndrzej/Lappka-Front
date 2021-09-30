@@ -113,9 +113,14 @@ export const Company = styled.span`
     line-height: 14px;
     letter-spacing: 0.6px; 
     color: ${props => props.theme.colors.gray};
+    cursor: pointer;
 
     @media (max-width: ${props => props.theme.break.tablet}) {
         color:white;
+    }
+
+    :hover{
+        color:lightgray;
     }
 `;
 
